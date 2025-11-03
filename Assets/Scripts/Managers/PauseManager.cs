@@ -49,7 +49,7 @@ public class PauseManager : AbstractSingleton<PauseManager>
         }
     }
 
-    public void RegistedPausable(IPausable pausable)
+    public void RegisterPausable(IPausable pausable)
     {
         if (pausable == null)
         {
@@ -59,7 +59,7 @@ public class PauseManager : AbstractSingleton<PauseManager>
         if (!_pausableElements.Contains(pausable)) _pausableElements.Add(pausable);
     }
 
-    public void UnregistedPausable(IPausable pausable)
+    public void UnregisterPausable(IPausable pausable)
     {
         if(pausable == null)
         {
