@@ -12,6 +12,8 @@ public class MouseInputController : MonoBehaviour
     public bool IsTestingClickRay = false;
     [SerializeField] private LayerMask groundLayer;
 
+    public PathTesting PathTesting;
+
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -82,7 +84,9 @@ public class MouseInputController : MonoBehaviour
 
                 Node closestNode = AStarManager.Instance.FindNearestNode(clickPositon);
                 Debug.Log($"Closest node: {closestNode}");
+                if (PathTesting != null) PathTesting.GoToPosition(clickPositon);
             }
+
         }
     }
 }

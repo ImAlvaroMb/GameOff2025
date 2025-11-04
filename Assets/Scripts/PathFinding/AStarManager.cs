@@ -1,15 +1,20 @@
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using Utilities;
 
 public class AStarManager : AbstractSingleton<AStarManager>
 {
+    public float NodeConnectionDistance = 1.5f;
+
     private List<Node> _sceneNodeList = new List<Node>();
 
     protected override void Start()
     {
         base.Start();
         LoadSceneNodeList();
+        //ConnectAllNodes();
     }
 
     public void OnNewScene()
@@ -127,5 +132,38 @@ public class AStarManager : AbstractSingleton<AStarManager>
 
         return foundNode;
     }
+
+    [ContextMenu("Connect nodes")]
+    public void ConnectAllNodes()
+    {
+        LoadSceneNodeList();
+        foreach (Node node in _sceneNodeList)
+        {
+            node.Connections.Clear();
+        }
+
+        for (int i = 0; i < _sceneNodeList.Count; i++)
+        {
+            
+            for (int j = i + 1; j < _sceneNodeList.Count; j++)
+            {
+                if (Vector2.Distance(_sceneNodeList[i].transform.position, _sceneNodeList[j].transform.position) <= NodeConnectionDistance)
+                {
+                    _sceneNodeList[i].Connections.Add(_sceneNodeList[j]);
+                    _sceneNodeList[j].Connections.Add(_sceneNodeList[i]);
+                }
+            }
+        }
+
+#if UNITY_EDITOR
+        foreach (Node node in _sceneNodeList)
+        {
+            EditorUtility.SetDirty(node);
+        }
+        EditorSceneManager.MarkSceneDirty(gameObject.scene);
+#endif
+    }
+
+
 
 }
