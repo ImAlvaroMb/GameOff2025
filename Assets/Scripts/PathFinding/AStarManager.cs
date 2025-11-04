@@ -7,8 +7,8 @@ using Utilities;
 public class AStarManager : AbstractSingleton<AStarManager>
 {
     public float NodeConnectionDistance = 1.5f;
-
     private List<Node> _sceneNodeList = new List<Node>();
+
 
     protected override void Start()
     {
@@ -75,7 +75,7 @@ public class AStarManager : AbstractSingleton<AStarManager>
                 return path;
             }
 
-            foreach (Node connectedNode in currentNode.Connections)
+            foreach (Node connectedNode in currentNode.Connections) // we find the faster / most optimal path (less cost)
             {
                 float heldGScore = currentNode.gScore + Vector2.Distance(currentNode.transform.position, connectedNode.transform.position);
 
