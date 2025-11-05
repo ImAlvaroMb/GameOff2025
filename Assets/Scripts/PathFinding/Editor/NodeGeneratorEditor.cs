@@ -7,16 +7,68 @@ public class NodeGeneratorEditor : Editor
 {
     private NodeGenerator generator;
 
+    // Use a SerializedProperty to work with the AreaSize and NodeSpacing properties
+    private SerializedProperty areaSizeProp;
+    private SerializedProperty nodeSpacingProp;
+    private SerializedProperty nodePrefabProp;
+    private SerializedProperty obstacleCheckRadiusProp;
+    private SerializedProperty obstacleLayerProp;
+
     private void OnEnable()
     {
         generator = (NodeGenerator)target;
+        // Find the properties to work with the SerializedObject
+        areaSizeProp = serializedObject.FindProperty("AreaSize");
+        nodeSpacingProp = serializedObject.FindProperty("NodeSpacing");
+        nodePrefabProp = serializedObject.FindProperty("NodePrefab");
+        obstacleCheckRadiusProp = serializedObject.FindProperty("ObstacleCheckRadius");
+        obstacleLayerProp = serializedObject.FindProperty("ObstacleLayer");
     }
 
     public override void OnInspectorGUI()
     {
-        // draw the default inspector fields first
-        DrawDefaultInspector();
+        // Must call this at the start for properties to work correctly
+        serializedObject.Update();
 
+        // --- Generation Area Header & AreaSize ---
+        EditorGUILayout.LabelField("Generation Area", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(areaSizeProp);
+
+        EditorGUILayout.Space(5);
+
+        // --- Node Settings Header & NodeSpacing Slider ---
+        EditorGUILayout.LabelField("Node Settings", EditorStyles.boldLabel);
+
+        // 1. Create a Slider for NodeSpacing, clamping the minimum value to prevent freezing
+        // This ensures the spacing is never too small, which would cause an infinite loop in SceneView grid preview.
+        float currentSpacing = nodeSpacingProp.floatValue;
+        float newSpacing = EditorGUILayout.Slider(
+            new GUIContent(nodeSpacingProp.displayName, nodeSpacingProp.tooltip),
+            currentSpacing,
+            0.1f, // Minimum value for the slider to prevent tiny spacing and freezing
+            5.0f  // A reasonable maximum value (adjust as needed)
+        );
+
+        // Update the value and apply changes
+        if (newSpacing != currentSpacing)
+        {
+            nodeSpacingProp.floatValue = newSpacing;
+        }
+
+        EditorGUILayout.PropertyField(nodePrefabProp);
+
+        EditorGUILayout.Space(5);
+
+        // --- Obstacle Settings Header & Fields ---
+        EditorGUILayout.LabelField("Obstacle Settings", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(obstacleCheckRadiusProp);
+        EditorGUILayout.PropertyField(obstacleLayerProp);
+
+
+        // Apply changes to the actual target script
+        serializedObject.ApplyModifiedProperties();
+
+        // --- Buttons Section ---
         EditorGUILayout.Space(10);
 
         GUI.backgroundColor = Color.green;
