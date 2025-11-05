@@ -19,7 +19,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     }
     public void Interact()
     {
-
+        Debug.Log($"Clicked on: {gameObject.name} interactable object");
     }
     public void Highlight()
     {

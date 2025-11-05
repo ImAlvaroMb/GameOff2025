@@ -2,21 +2,28 @@ using UnityEngine;
 
 public class MouseInputController : MonoBehaviour
 {
-    [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private LayerMask layersToCheck;
     [SerializeField] private float maxRaycastDistance = 40f;
 
     private IInteractable currentHoveredObject = null;
 
     private Camera mainCamera;
 
+    public bool IsInAreaOfInfluence = false;
+
     public bool IsTestingClickRay = false;
     [SerializeField] private LayerMask groundLayer;
 
     public PathTesting PathTesting;
 
+    private int _interactableLayerID;
+    private int _influenceLayerID;
+
     private void Awake()
     {
         mainCamera = Camera.main;
+        _interactableLayerID = LayerMask.NameToLayer("Interactable");
+        _influenceLayerID = LayerMask.NameToLayer("Influence");
     }
 
     private void Update()
@@ -33,14 +40,21 @@ public class MouseInputController : MonoBehaviour
     {
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, interactableLayer);
+        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, layersToCheck);
+        HandleIInteractableHover(hit);
+        HandleAreaOfInfluenceHover(hit);
+    }
+
+    private void HandleIInteractableHover(RaycastHit2D hit)
+    {
         IInteractable newTarget = null;
-        if(hit.collider != null)
+        if (hit.collider != null && hit.collider.gameObject.layer == _interactableLayerID)
         {
             newTarget = hit.collider.GetComponent<IInteractable>();
-        } else
+        }
+        else
         {
-            if(currentHoveredObject != null)
+            if (currentHoveredObject != null)
             {
                 currentHoveredObject.Dehighlight();
                 currentHoveredObject = null;
@@ -49,7 +63,7 @@ public class MouseInputController : MonoBehaviour
 
         if (newTarget != currentHoveredObject)
         {
-           
+
             if (currentHoveredObject != null)
             {
                 currentHoveredObject.Dehighlight();
@@ -61,6 +75,19 @@ public class MouseInputController : MonoBehaviour
             }
 
             currentHoveredObject = newTarget;
+        }
+    }
+
+    private void HandleAreaOfInfluenceHover(RaycastHit2D hit)
+    {
+        RangeOfInfluenceObject influenceObject = null;
+        if(hit.collider != null && hit.collider.gameObject.layer == _influenceLayerID)
+        {
+            influenceObject = hit.collider.GetComponent<RangeOfInfluenceObject>();
+            IsInAreaOfInfluence = true;
+        } else
+        {
+            IsInAreaOfInfluence = false;
         }
     }
 
@@ -78,7 +105,7 @@ public class MouseInputController : MonoBehaviour
 
             RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
 
-            if(groundHit.collider != null)
+            if(groundHit.collider != null && IsInAreaOfInfluence)
             {
                 Vector3 clickPositon = groundHit.point;
 
