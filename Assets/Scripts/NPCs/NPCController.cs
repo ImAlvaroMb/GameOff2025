@@ -6,8 +6,15 @@ using Enums;
 public class NPCController : MonoBehaviour
 {
     [SerializeField] private List<AIAction> actionsProbabilities = new List<AIAction>();
+    public NPCActions CurrentAction => _currentAction;
     private NPCActions _currentAction;
     private float _currentTotalProbability;
+
+    [Header("Patrol")]
+    public Vector2 OriginalPosition => _originalPosition;
+    private Vector2 _originalPosition;
+    public float RangeToPatrol => rangeToPatrol;
+    [SerializeField] private float rangeToPatrol;
     private void OnValidate()
     {
         _currentTotalProbability = actionsProbabilities.Sum(item => item.Probability);
@@ -27,7 +34,7 @@ public class NPCController : MonoBehaviour
 
     private void Start()
     {
-        
+        _originalPosition = transform.position;
     }
 
     public void DecideNextAction()
@@ -54,5 +61,11 @@ public class NPCController : MonoBehaviour
                 _currentAction = action.Action;
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, rangeToPatrol);
     }
 }

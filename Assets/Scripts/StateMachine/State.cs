@@ -7,7 +7,7 @@ namespace StateMachine
         [SerializeField] private Transition[] possibleTransitions;
         public bool IsDone => _isDone;
 
-        private bool _isDone = false;
+        protected bool _isDone = false;
 
         public abstract void OnEnter();
         public abstract void FixedUpdateState();

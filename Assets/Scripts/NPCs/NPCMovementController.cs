@@ -1,3 +1,4 @@
+using StateMachine;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,18 +6,30 @@ public class NPCMovementController : MonoBehaviour
 {
     public float MoveSpeed = 5f;
     [Tooltip("Distance threshold to consider next node as goal")]
-    [SerializeField] private float nextNodeTolerance; 
+    [SerializeField] private float nextNodeTolerance;
 
+    private StateController _stateController;
     private List<Node> _currentPath = new List<Node>();
     private int _targetNodeIndex = 0;
 
 
+    private void Start()
+    {
+        _stateController = GetComponent<StateController>();
+    }
     private void Update()
     {
         if (_currentPath.Count > 0 && _targetNodeIndex < _currentPath.Count)
         {
             MoveAlongPath();
         }
+    }
+
+    public Vector2 GenerateNewPointInRange(Vector2 referencePoint, float range)
+    {
+        Vector2 randomOffset = Random.insideUnitCircle * range;
+
+        return referencePoint + randomOffset;
     }
 
     public void GoToPosition(Vector2 targetPosition)
@@ -63,6 +76,7 @@ public class NPCMovementController : MonoBehaviour
                 _currentPath.Clear();
                 transform.position = targetPos;
                 Debug.Log("Agent reached the destination!");
+                _stateController.CurrentState.FinishState();
             }
         }
         else

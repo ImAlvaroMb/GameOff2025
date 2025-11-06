@@ -6,12 +6,11 @@ public class NPCBaseState : State
     protected private NPCController _controller;
     protected private NPCMovementController _movementController;
 
-    protected private NPCActions _currentAction;
 
     public override void OnEnter()
     {
-        _controller = stateController.GetComponent<NPCController>();
-        _movementController = stateController.GetComponent<NPCMovementController>();
+        _controller = stateController.gameObject.GetComponent<NPCController>();
+        _movementController = stateController.gameObject.GetComponent<NPCMovementController>();
     }
     public override void OnExit()
     {
@@ -19,7 +18,7 @@ public class NPCBaseState : State
     }
     public override void FinishState()
     {
-        
+        _isDone = true;
     }
 
     public override void FixedUpdateState()
