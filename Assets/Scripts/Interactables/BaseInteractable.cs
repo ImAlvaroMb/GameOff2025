@@ -1,10 +1,14 @@
+using Enums;
+using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
 
 public class BaseInteractable : MonoBehaviour, IInteractable
 {
+    public List<InteractableType> InteractableType = new List<InteractableType>();
+
     private SpriteRenderer _sprite;
-    private bool canInteract = true;
+    private bool _canInteract = true;
 
     private Vector3 _originalScale;
     [SerializeField] private float highlightScaleFactor = 1.3f;
@@ -54,7 +58,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 
     public bool CanInteract()
     {
-        return canInteract;
+        return _canInteract;
     }
 
     private void OnDestroy()

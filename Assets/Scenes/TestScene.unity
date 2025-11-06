@@ -16366,6 +16366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8585503a6f7531649810c07a9ab73957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractableType: 
   highlightScaleFactor: 1.1
   animationDuration: 0.25
 --- !u!212 &962915307
@@ -19586,7 +19587,7 @@ GameObject:
   - component: {fileID: 1159321507}
   m_Layer: 6
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19640,6 +19641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8585503a6f7531649810c07a9ab73957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractableType: 
   highlightScaleFactor: 1.1
   animationDuration: 0.25
 --- !u!212 &1159321509
@@ -19706,7 +19708,7 @@ Transform:
   m_GameObject: {fileID: 1159321506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.05, y: 0.39, z: 0}
+  m_LocalPosition: {x: -6.87, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27506,7 +27508,7 @@ GameObject:
   - component: {fileID: 1617061173}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34583,6 +34585,8 @@ GameObject:
   - component: {fileID: 2066132038}
   - component: {fileID: 2066132037}
   - component: {fileID: 2066132036}
+  - component: {fileID: 2066132039}
+  - component: {fileID: 2066132040}
   m_Layer: 10
   m_Name: NPC_TESTING
   m_TagString: Untagged
@@ -34654,7 +34658,7 @@ Transform:
   m_GameObject: {fileID: 2066132032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.57, y: 2.01, z: 0}
+  m_LocalPosition: {x: -5.06, y: 1.71, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -34703,6 +34707,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstState: {fileID: 11400000, guid: 347b8fc2626f0e24e806129ac5c20b9e, type: 2}
+--- !u!114 &2066132039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066132032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2abfd136e602a45ba091e32d16e223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactTypesAvailable: 01000000
+--- !u!58 &2066132040
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066132032}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 5
 --- !u!1 &2067324523
 GameObject:
   m_ObjectHideFlags: 0

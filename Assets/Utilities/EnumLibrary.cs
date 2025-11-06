@@ -16,5 +16,12 @@ namespace Enums
         WAVE,
         DECIDE_NEXT_ACTION
     }
+
+    public enum InteractableType
+    {
+        ALL,
+        MUSIC,
+        B
+    }
     
 }
