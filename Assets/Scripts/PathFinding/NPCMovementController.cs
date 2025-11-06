@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathTesting : MonoBehaviour
+public class NPCMovementController : MonoBehaviour
 {
     public float MoveSpeed = 5f;
     [Tooltip("Distance threshold to consider next node as goal")]

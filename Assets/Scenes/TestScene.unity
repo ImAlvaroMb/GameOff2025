@@ -13810,7 +13810,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 4976056503015691076, guid: 54005279228dfbf40b5106d6abe51f1b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3537736, g: 0.6301209, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -34288,7 +34288,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  PathTesting: {fileID: 2066132033}
+  PathTesting: {fileID: 0}
 --- !u!4 &2045248340
 Transform:
   m_ObjectHideFlags: 0
@@ -34533,28 +34533,16 @@ GameObject:
   m_Component:
   - component: {fileID: 2066132035}
   - component: {fileID: 2066132034}
-  - component: {fileID: 2066132033}
+  - component: {fileID: 2066132038}
+  - component: {fileID: 2066132037}
+  - component: {fileID: 2066132036}
   m_Layer: 10
-  m_Name: PathFindingTest
+  m_Name: NPC_TESTING
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2066132033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2066132032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac8d8da065fdd6478eb603b0daa42c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 2.5
-  nextNodeTolerance: 0.2
 --- !u!212 &2066132034
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34619,12 +34607,56 @@ Transform:
   m_GameObject: {fileID: 2066132032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.49, y: -0.27, z: 0}
+  m_LocalPosition: {x: -5.39, y: 1.86, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2066132036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066132032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179b297d472f36d44beb49cbf79244fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 5
+  nextNodeTolerance: 0
+--- !u!114 &2066132037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066132032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32245ce8a6c5fd64895e0b09f134fe56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionsProbabilities:
+  - Action: 1
+    Probability: 35
+  - Action: 2
+    Probability: 65
+--- !u!114 &2066132038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066132032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afcf837faf473941b7aff1f3e3e5352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstState: {fileID: 0}
 --- !u!1 &2067324523
 GameObject:
   m_ObjectHideFlags: 0

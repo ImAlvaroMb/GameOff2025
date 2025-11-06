@@ -14,7 +14,7 @@ public class MouseInputController : MonoBehaviour
     public bool IsTestingClickRay = false;
     [SerializeField] private LayerMask groundLayer;
 
-    public PathTesting PathTesting;
+    public NPCMovementController PathTesting;
 
     private int _interactableLayerID;
     private int _influenceLayerID;
