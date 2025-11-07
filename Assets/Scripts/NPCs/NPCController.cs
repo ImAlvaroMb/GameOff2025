@@ -2,11 +2,13 @@
 using UnityEngine;
 using System.Linq;
 using Enums;
+using Utilities;
 
 public class NPCController : MonoBehaviour
 {
     [SerializeField] private List<AIAction> actionsProbabilities = new List<AIAction>();
     public NPCActions CurrentAction => _currentAction;
+    public bool DrawGizmos;
     private NPCActions _currentAction;
     private float _currentTotalProbability;
 
@@ -19,6 +21,14 @@ public class NPCController : MonoBehaviour
     [Header("Object Interaction")]
     public BaseInteractable CurrentInteractable => _currentInteractable;
     private BaseInteractable _currentInteractable = null;
+
+    [Header("Being Controller")]
+    public bool IsFullyControlled => _isFullyControlled;
+    private bool _isFullyControlled = false;
+    private ITimer _beingControlledTimer;
+
+    public bool IsBeingControlled => _isBeingControlled;
+    private bool _isBeingControlled = false;
     private void OnValidate()
     {
         _currentTotalProbability = actionsProbabilities.Sum(item => item.Probability);
@@ -40,6 +50,44 @@ public class NPCController : MonoBehaviour
     {
         _originalPosition = transform.position;
     }
+
+    #region Controlled
+
+    public void OnClicked()
+    {
+        Debug.Log($"ClickedOn {gameObject.name} NPC");
+    }
+
+    public void SetIsBeingControlled(bool value, float controlDuration)
+    {
+        _isBeingControlled = value;
+        if(value)
+        {
+            _beingControlledTimer = TimerSystem.Instance.CreateTimer(controlDuration, onTimerDecreaseComplete: () =>
+            {
+                SetIsFullyControlled(value);
+                _beingControlledTimer = null;
+            });
+        }
+    }
+
+    public void SetIsFullyControlled(bool value)
+    {
+        _isFullyControlled = value;
+    }
+
+    public void DisruptBeingControlled()
+    {
+        if (_beingControlledTimer != null)
+        {
+            _beingControlledTimer.StopTimer();
+            _beingControlledTimer = null;
+            _isBeingControlled = false;
+        }
+    }
+
+    #endregion
+
     #region Action choosing
     public void ResetAction()
     {
@@ -97,7 +145,11 @@ public class NPCController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, rangeToPatrol);
+        if(DrawGizmos)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, rangeToPatrol);
+        }
+        
     }
 }

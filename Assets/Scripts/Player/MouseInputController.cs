@@ -5,7 +5,8 @@ public class MouseInputController : MonoBehaviour
     [SerializeField] private LayerMask layersToCheck;
     [SerializeField] private float maxRaycastDistance = 40f;
 
-    private IInteractable currentHoveredObject = null;
+    private IInteractable _currentHoveredObject = null;
+    private NPCController _currentHoveredNPC = null;
 
     private Camera mainCamera;
 
@@ -18,12 +19,14 @@ public class MouseInputController : MonoBehaviour
 
     private int _interactableLayerID;
     private int _influenceLayerID;
+    private int _npcLayerID;
 
     private void Awake()
     {
         mainCamera = Camera.main;
         _interactableLayerID = LayerMask.NameToLayer("Interactable");
         _influenceLayerID = LayerMask.NameToLayer("Influence");
+        _npcLayerID = LayerMask.NameToLayer("NPC");
     }
 
     private void Update()
@@ -43,6 +46,7 @@ public class MouseInputController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, layersToCheck);
         HandleIInteractableHover(hit);
         HandleAreaOfInfluenceHover(hit);
+        HandleNPCHover(hit);
     }
 
     private void HandleIInteractableHover(RaycastHit2D hit)
@@ -54,19 +58,19 @@ public class MouseInputController : MonoBehaviour
         }
         else
         {
-            if (currentHoveredObject != null)
+            if (_currentHoveredObject != null)
             {
-                currentHoveredObject.Dehighlight();
-                currentHoveredObject = null;
+                _currentHoveredObject.Dehighlight();
+                _currentHoveredObject = null;
             }
         }
 
-        if (newTarget != currentHoveredObject)
+        if (newTarget != _currentHoveredObject)
         {
 
-            if (currentHoveredObject != null)
+            if (_currentHoveredObject != null)
             {
-                currentHoveredObject.Dehighlight();
+                _currentHoveredObject.Dehighlight();
             }
 
             if (newTarget != null)
@@ -74,7 +78,7 @@ public class MouseInputController : MonoBehaviour
                 newTarget.Highlight();
             }
 
-            currentHoveredObject = newTarget;
+            _currentHoveredObject = newTarget;
         }
     }
 
@@ -91,11 +95,51 @@ public class MouseInputController : MonoBehaviour
         }
     }
 
+    private void HandleNPCHover(RaycastHit2D hit)
+    {
+        NPCController newNPC = null;
+        if(hit.collider != null && hit.collider.gameObject.layer == _npcLayerID)
+        {
+            newNPC = hit.collider.GetComponentInParent<NPCController>();
+        }
+        else
+        {
+            if(_currentHoveredNPC != null)
+            {
+                _currentHoveredNPC = null;
+            }
+        }
+
+        if(newNPC != _currentHoveredNPC)
+        {
+            if(_currentHoveredNPC != null)
+            {
+               
+            }
+
+            if(newNPC != null)
+            {
+
+            }
+
+            _currentHoveredNPC = newNPC;
+        }
+    }
+
     private void HandleClick()
     {
-        if(currentHoveredObject != null && currentHoveredObject.CanInteract()) 
+        if(_currentHoveredObject != null && _currentHoveredObject.CanInteract()) 
         {
-            currentHoveredObject.Interact();
+            _currentHoveredObject.Interact();
+            return;
+        }
+
+        if(_currentHoveredNPC != null)
+        {
+            if(IsInAreaOfInfluence)
+            {
+                _currentHoveredNPC.OnClicked();
+            }
             return;
         }
 
