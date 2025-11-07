@@ -57,6 +57,13 @@ public class NPCController : MonoBehaviour
     public void OnClicked()
     {
         Debug.Log($"ClickedOn {gameObject.name} NPC");
+        if(!_isBeingControlled && _isInInfluenceArea)
+        {
+            _isBeingControlled = true;
+        } else if(_isBeingControlled && _isInInfluenceArea)
+        {
+            _isBeingControlled = false;
+        }
     }
 
     public void SetIsInAreaOfInfluence(bool value)

@@ -96,4 +96,9 @@ public class NPCMovementController : MonoBehaviour
             transform.position = (Vector2)transform.position + movement;
         }
     }
+
+    public void InterrumptPath()
+    {
+        _currentPath.Clear();
+    }
 }

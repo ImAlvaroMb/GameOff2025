@@ -16,4 +16,10 @@ public class NPCPatrolState : NPCBaseState
     {
         base.FixedUpdateState();
     }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        _movementController.InterrumptPath();
+    }
 }

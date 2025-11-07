@@ -16,3 +16,6 @@ MonoBehaviour:
   - deciosionToBeMade: {fileID: 11400000, guid: 708a4fa5cd9f3084dac7d78ddc6f523a, type: 2}
     onDecisionTrueExitState: {fileID: 11400000, guid: 347b8fc2626f0e24e806129ac5c20b9e, type: 2}
     onDecisionFalseExitState: {fileID: 0}
+  - deciosionToBeMade: {fileID: 11400000, guid: c8047ac03d280b84f9f116d8ad60a992, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: 6b07bd13e1777bf4d9ba1cda90d262ee, type: 2}
+    onDecisionFalseExitState: {fileID: 0}

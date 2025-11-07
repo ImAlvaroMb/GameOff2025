@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d39c18ad47680d144bf1fea8bc09a95d, type: 3}
-  m_Name: NPCWaitState
+  m_Script: {fileID: 11500000, guid: 864ad2da4c698ce4b843201215679a49, type: 3}
+  m_Name: NPCBeingControlledState
   m_EditorClassIdentifier: 
   possibleTransitions:
   - deciosionToBeMade: {fileID: 11400000, guid: 708a4fa5cd9f3084dac7d78ddc6f523a, type: 2}
-    onDecisionTrueExitState: {fileID: 11400000, guid: 59d6212add58f9d4c99d7532407063fe, type: 2}
+    onDecisionTrueExitState: {fileID: 0}
     onDecisionFalseExitState: {fileID: 0}
   - deciosionToBeMade: {fileID: 11400000, guid: c8047ac03d280b84f9f116d8ad60a992, type: 2}
-    onDecisionTrueExitState: {fileID: 11400000, guid: 6b07bd13e1777bf4d9ba1cda90d262ee, type: 2}
-    onDecisionFalseExitState: {fileID: 0}
-  MinWaitTime: 1.2
-  MaxWaitTime: 3
+    onDecisionTrueExitState: {fileID: 0}
+    onDecisionFalseExitState: {fileID: 11400000, guid: 347b8fc2626f0e24e806129ac5c20b9e, type: 2}
+  TakeControlDuration: 3

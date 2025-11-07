@@ -28,5 +28,12 @@ public class NPCDoObjectInteractionState : NPCBaseState
         });
     }
 
+    public override void OnExit()
+    {
+        base.OnExit();
+        _controller.RemoveCurrentInteractable();
+        _movementController.InterrumptPath();
+    }
+
 
 }

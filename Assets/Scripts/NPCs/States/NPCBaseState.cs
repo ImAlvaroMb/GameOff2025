@@ -6,12 +6,14 @@ public class NPCBaseState : State
     protected private NPCController _controller;
     protected private NPCMovementController _movementController;
     protected private NPCAwarness _awarnessController;
+    protected private NPCVisualController _visualController;
 
     public override void OnEnter()
     {
         _controller = stateController.gameObject.GetComponent<NPCController>();
         _movementController = stateController.gameObject.GetComponent<NPCMovementController>();
         _awarnessController = stateController.gameObject.GetComponent<NPCAwarness>();
+        _visualController = stateController.gameObject.GetComponent<NPCVisualController>();
     }
     public override void OnExit()
     {
