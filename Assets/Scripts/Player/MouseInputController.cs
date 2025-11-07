@@ -136,7 +136,7 @@ public class MouseInputController : MonoBehaviour
 
         if(_currentHoveredNPC != null)
         {
-            if(IsInAreaOfInfluence)
+            if(_currentHoveredNPC.IsInInfluenceArea)
             {
                 _currentHoveredNPC.OnClicked();
             }

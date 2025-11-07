@@ -26,7 +26,8 @@ public class NPCController : MonoBehaviour
     public bool IsFullyControlled => _isFullyControlled;
     private bool _isFullyControlled = false;
     private ITimer _beingControlledTimer;
-
+    public bool IsInInfluenceArea => _isInInfluenceArea;
+    private bool _isInInfluenceArea = false;
     public bool IsBeingControlled => _isBeingControlled;
     private bool _isBeingControlled = false;
     private void OnValidate()
@@ -56,6 +57,11 @@ public class NPCController : MonoBehaviour
     public void OnClicked()
     {
         Debug.Log($"ClickedOn {gameObject.name} NPC");
+    }
+
+    public void SetIsInAreaOfInfluence(bool value)
+    {
+        _isInInfluenceArea = value;
     }
 
     public void SetIsBeingControlled(bool value, float controlDuration)

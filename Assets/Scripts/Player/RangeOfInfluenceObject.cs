@@ -1,11 +1,14 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Utilities;
 
 public class RangeOfInfluenceObject : MonoBehaviour
 {
-    private float _influenceRange;
     public GameObject _areaSprite;
+    [SerializeField] private float influenceAreaRadius;
+
+    private int _npcLayerID;
 
     [Header("Visuals")]
     [SerializeField] private float pulseDuration;
@@ -17,6 +20,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
     private Vector3 _minScale;
     private Vector3 _maxScale;
     private bool _isPulsing = false;
+    private CircleCollider2D _collider;
 
     private void Start()
     {
@@ -25,7 +29,24 @@ public class RangeOfInfluenceObject : MonoBehaviour
         _minScale = _originalScale * minScaleFactor;
         _maxScale = _originalScale * maxScaleFactor;
 
+        _npcLayerID = LayerMask.NameToLayer("NPC");
+
+        _collider = GetComponent<CircleCollider2D>();
+        InitializeCollider();
         StartCoroutine(PulseScale());
+    }
+
+    private void InitializeCollider()
+    {
+        TimerSystem.Instance.CreateTimer(0.15f, onTimerDecreaseComplete: () =>
+        {
+            _collider.radius = influenceAreaRadius;
+        }, onTimerDecreaseUpdate: (progress) =>
+        {
+            float timeElapsed = 0.15f - progress;
+            float t = timeElapsed / 0.15f;
+            _collider.radius = Mathf.Lerp(0, influenceAreaRadius, t);
+        });
     }
 
     private void Update()
@@ -60,6 +81,22 @@ public class RangeOfInfluenceObject : MonoBehaviour
         }
 
         _areaSprite.transform.localScale = endScale;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == _npcLayerID)
+        {
+            collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == _npcLayerID)
+        {
+            collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(false);
+        }
     }
 
     #endregion
