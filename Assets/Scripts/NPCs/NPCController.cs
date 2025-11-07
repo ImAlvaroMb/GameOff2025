@@ -15,6 +15,10 @@ public class NPCController : MonoBehaviour
     private Vector2 _originalPosition;
     public float RangeToPatrol => rangeToPatrol;
     [SerializeField] private float rangeToPatrol;
+
+    [Header("Object Interaction")]
+    public BaseInteractable CurrentInteractable => _currentInteractable;
+    private BaseInteractable _currentInteractable = null;
     private void OnValidate()
     {
         _currentTotalProbability = actionsProbabilities.Sum(item => item.Probability);
@@ -36,6 +40,11 @@ public class NPCController : MonoBehaviour
     {
         _originalPosition = transform.position;
     }
+    #region Action choosing
+    public void ResetAction()
+    {
+        _currentAction = NPCActions.NONE;
+    }
 
     public void DecideNextAction()
     {
@@ -50,6 +59,7 @@ public class NPCController : MonoBehaviour
     private void ChooseAction()
     {
         float randomNumber = Random.Range(0f, _currentTotalProbability);
+        Debug.Log(randomNumber);
         float cumulativeWeight = 0f;
 
         foreach (var action in actionsProbabilities)
@@ -59,8 +69,30 @@ public class NPCController : MonoBehaviour
             if(randomNumber <= cumulativeWeight)
             {
                 _currentAction = action.Action;
+                Debug.Log(_currentAction);
+                break;
             }
         }
+    }
+    #endregion
+
+    #region Object Interaction
+
+    public void SetCurrentInteractable(BaseInteractable interactable)
+    {
+        _currentInteractable = interactable;
+    }
+
+    public void RemoveCurrentInteractable()
+    {
+        _currentInteractable = null;
+    }
+
+    #endregion
+
+    public Vector2 GetPosition()
+    {
+        return transform.position;
     }
 
     private void OnDrawGizmos()

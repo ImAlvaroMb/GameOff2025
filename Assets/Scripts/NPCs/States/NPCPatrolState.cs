@@ -9,7 +9,7 @@ public class NPCPatrolState : NPCBaseState
     {
         base.OnEnter();
         point = _movementController.GenerateNewPointInRange(_controller.OriginalPosition, _controller.RangeToPatrol);
-        _movementController.GoToPosition(point);
+        _movementController.GoToPosition(point, () => FinishState());
     }
 
     public override void FixedUpdateState()

@@ -1,4 +1,5 @@
 using StateMachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class NPCMovementController : MonoBehaviour
     private StateController _stateController;
     private List<Node> _currentPath = new List<Node>();
     private int _targetNodeIndex = 0;
+
+    private Action _onPathCompleteCallback;
 
 
     private void Start()
@@ -27,13 +30,15 @@ public class NPCMovementController : MonoBehaviour
 
     public Vector2 GenerateNewPointInRange(Vector2 referencePoint, float range)
     {
-        Vector2 randomOffset = Random.insideUnitCircle * range;
+        Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * range;
 
         return referencePoint + randomOffset;
     }
 
-    public void GoToPosition(Vector2 targetPosition)
+    public void GoToPosition(Vector2 targetPosition, Action onPathComplete)
     {
+        _onPathCompleteCallback = onPathComplete;
+
         Node startNode = AStarManager.Instance.FindNearestNode(transform.position);
 
         Node endNode = AStarManager.Instance.FindNearestNode(targetPosition);
@@ -41,6 +46,8 @@ public class NPCMovementController : MonoBehaviour
         if (startNode == null || endNode == null)
         {
             Debug.LogWarning("Could not find start or end node for pathfinding.");
+            _onPathCompleteCallback?.Invoke();
+            _onPathCompleteCallback = null;
             _currentPath.Clear();
             return;
         }
@@ -56,6 +63,9 @@ public class NPCMovementController : MonoBehaviour
         else
         {
             Debug.LogWarning("No path found between start and end.");
+            onPathComplete?.Invoke();
+            _onPathCompleteCallback?.Invoke();
+            _onPathCompleteCallback = null;
             _currentPath.Clear();
         }
     }
@@ -75,8 +85,9 @@ public class NPCMovementController : MonoBehaviour
             {
                 _currentPath.Clear();
                 transform.position = targetPos;
-                Debug.Log("Agent reached the destination!");
-                _stateController.CurrentState.FinishState();
+                _onPathCompleteCallback?.Invoke();
+                _onPathCompleteCallback = null;
+                //_stateController.CurrentState.FinishState();
             }
         }
         else

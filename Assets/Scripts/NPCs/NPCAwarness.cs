@@ -17,6 +17,12 @@ public class NPCAwarness : MonoBehaviour
         return false;
     }
 
+    public BaseInteractable GetObjToInteractWith(Vector2 position)
+    {
+        int index = Random.Range(0, interactTypesAvailable.Count - 1);
+        return nearbyInteractables[index];
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Interactable")) return;

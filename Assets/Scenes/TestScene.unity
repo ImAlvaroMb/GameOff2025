@@ -16366,7 +16366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8585503a6f7531649810c07a9ab73957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractableType: 
+  InteractableType: 02000000
   highlightScaleFactor: 1.1
   animationDuration: 0.25
 --- !u!212 &962915307
@@ -19641,7 +19641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8585503a6f7531649810c07a9ab73957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractableType: 
+  InteractableType: 01000000
   highlightScaleFactor: 1.1
   animationDuration: 0.25
 --- !u!212 &1159321509
@@ -19708,7 +19708,7 @@ Transform:
   m_GameObject: {fileID: 1159321506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.87, y: -0.06, z: 0}
+  m_LocalPosition: {x: -6.75, y: -2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34587,6 +34587,7 @@ GameObject:
   - component: {fileID: 2066132036}
   - component: {fileID: 2066132039}
   - component: {fileID: 2066132040}
+  - component: {fileID: 2066132041}
   m_Layer: 10
   m_Name: NPC_TESTING
   m_TagString: Untagged
@@ -34658,7 +34659,7 @@ Transform:
   m_GameObject: {fileID: 2066132032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.06, y: 1.71, z: 0}
+  m_LocalPosition: {x: -4.17, y: 2.28, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -34692,7 +34693,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionsProbabilities:
   - Action: 1
-    Probability: 100
+    Probability: 60
+  - Action: 2
+    Probability: 40
   rangeToPatrol: 2.5
 --- !u!114 &2066132038
 MonoBehaviour:
@@ -34755,7 +34758,34 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 5
+  m_Radius: 18
+--- !u!50 &2066132041
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066132032}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2067324523
 GameObject:
   m_ObjectHideFlags: 0

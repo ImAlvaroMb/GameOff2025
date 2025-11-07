@@ -111,7 +111,7 @@ public class MouseInputController : MonoBehaviour
 
                 Node closestNode = AStarManager.Instance.FindNearestNode(clickPositon);
                 Debug.Log($"Closest node: {closestNode}");
-                if (PathTesting != null) PathTesting.GoToPosition(clickPositon);
+                //if (PathTesting != null) PathTesting.GoToPosition(clickPositon);
             }
 
         }
