@@ -1,12 +1,15 @@
 using UnityEngine;
+using Enums;
 
 public class MouseInputController : MonoBehaviour
 {
     [SerializeField] private LayerMask layersToCheck;
     [SerializeField] private float maxRaycastDistance = 40f;
 
-    private IInteractable _currentHoveredObject = null;
+    private BaseInteractable _currentHoveredObject = null;
     private NPCController _currentHoveredNPC = null;
+
+    private NPCController _currentSelectedNPC = null;
 
     private Camera mainCamera;
 
@@ -51,10 +54,10 @@ public class MouseInputController : MonoBehaviour
 
     private void HandleIInteractableHover(RaycastHit2D hit)
     {
-        IInteractable newTarget = null;
+        BaseInteractable newTarget = null;
         if (hit.collider != null && hit.collider.gameObject.layer == _interactableLayerID)
         {
-            newTarget = hit.collider.GetComponent<IInteractable>();
+            newTarget = hit.collider.GetComponent<BaseInteractable>();
         }
         else
         {
@@ -128,7 +131,29 @@ public class MouseInputController : MonoBehaviour
 
     private void HandleClick()
     {
-        if(_currentHoveredObject != null && _currentHoveredObject.CanInteract()) 
+        if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)
+        {
+            if(_currentHoveredObject != null)
+            {
+                _currentSelectedNPC.SetCurrentInteractable(_currentHoveredObject);
+                _currentSelectedNPC.SetCurrentAction(NPCActions.DO_OBJECT_INTERACTION);
+                return;
+            }
+
+            Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
+
+            if(groundHit.collider != null)
+            {
+                Vector3 clickPosition = groundHit.point;
+                _currentSelectedNPC.gameObject.GetComponent<NPCMovementController>().SetTargetPoint(clickPosition);
+                _currentSelectedNPC.SetCurrentAction(NPCActions.PATROL);
+                return;
+            }
+        }
+
+        if (_currentHoveredObject != null && _currentHoveredObject.CanInteract()) 
         {
             _currentHoveredObject.Interact();
             return;
@@ -139,9 +164,12 @@ public class MouseInputController : MonoBehaviour
             if(_currentHoveredNPC.IsInInfluenceArea)
             {
                 _currentHoveredNPC.OnClicked();
+                _currentSelectedNPC = _currentHoveredNPC;
             }
             return;
         }
+
+       
 
         if(IsTestingClickRay)
         {

@@ -14,6 +14,8 @@ public class NPCMovementController : MonoBehaviour
     private int _targetNodeIndex = 0;
 
     private Action _onPathCompleteCallback;
+    public Vector2 TargetPoint => _targetPoint;
+    private Vector2 _targetPoint = Vector2.zero;
 
 
     private void Start()
@@ -26,6 +28,11 @@ public class NPCMovementController : MonoBehaviour
         {
             MoveAlongPath();
         }
+    }
+
+    public void SetTargetPoint(Vector2 point)
+    {
+        _targetPoint = point;
     }
 
     public Vector2 GenerateNewPointInRange(Vector2 referencePoint, float range)
@@ -100,5 +107,10 @@ public class NPCMovementController : MonoBehaviour
     public void InterrumptPath()
     {
         _currentPath.Clear();
+    }
+
+    public List<Node> GetCurrentPath()
+    {
+        return _currentPath;
     }
 }

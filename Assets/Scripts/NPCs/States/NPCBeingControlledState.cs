@@ -11,6 +11,8 @@ public class NPCBeingControlledState : NPCBaseState
         base.OnEnter();
         _currentTimer = TimerSystem.Instance.CreateTimer(TakeControlDuration, TimerDirection.INCREASE,onTimerIncreaseComplete: () =>
         {
+            _controller.SetIsFullyControlled(true);
+            _controller.SetIsBeingControlled(false);
             FinishState();
         }, onTimerIncreaseUpdate: (progress) =>
         {
@@ -28,7 +30,7 @@ public class NPCBeingControlledState : NPCBaseState
         base.OnExit();
         _currentTimer.StopTimer();
         _currentTimer = null;
-        _visualController.UpdateInfluenceMeterImage(0f);
+        //_visualController.UpdateInfluenceMeterImage(0f);
     }
 
 }

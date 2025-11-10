@@ -19,5 +19,8 @@ MonoBehaviour:
   - deciosionToBeMade: {fileID: 11400000, guid: c8047ac03d280b84f9f116d8ad60a992, type: 2}
     onDecisionTrueExitState: {fileID: 11400000, guid: 6b07bd13e1777bf4d9ba1cda90d262ee, type: 2}
     onDecisionFalseExitState: {fileID: 0}
+  - deciosionToBeMade: {fileID: 11400000, guid: 4c983030190add840aa3f384e6f1d2fa, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: bfeb25e7d085e344e8b7d1d03c0331ce, type: 2}
+    onDecisionFalseExitState: {fileID: 0}
   MinWaitTime: 1.2
   MaxWaitTime: 3

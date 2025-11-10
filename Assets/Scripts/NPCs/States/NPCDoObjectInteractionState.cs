@@ -8,7 +8,7 @@ public class NPCDoObjectInteractionState : NPCBaseState
 
         if(_controller.CurrentInteractable != null) //we already have a object to interact with (means npc is being controller or disrupted)
         {
-            _isDone = true;
+            GoToInteractable();
         } else
         {
             _controller.SetCurrentInteractable(_awarnessController.GetObjToInteractWith(_controller.GetPosition()));
@@ -22,8 +22,14 @@ public class NPCDoObjectInteractionState : NPCBaseState
     {
         _movementController.GoToPosition(_controller.CurrentInteractable.transform.position, () =>
         {
-            _controller.CurrentInteractable.Interact();
-            _controller.RemoveCurrentInteractable();
+            if(_awarnessController.CanInteract(_controller.CurrentInteractable))
+            {
+                _controller.CurrentInteractable.Interact();
+                _controller.RemoveCurrentInteractable();
+            } else
+            {
+                Debug.Log($"NPC cant interact with {_controller.CurrentInteractable.name}");
+            }
             FinishState();
         });
     }

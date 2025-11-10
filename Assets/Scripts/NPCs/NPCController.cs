@@ -71,17 +71,9 @@ public class NPCController : MonoBehaviour
         _isInInfluenceArea = value;
     }
 
-    public void SetIsBeingControlled(bool value, float controlDuration)
+    public void SetIsBeingControlled(bool value)
     {
         _isBeingControlled = value;
-        if(value)
-        {
-            _beingControlledTimer = TimerSystem.Instance.CreateTimer(controlDuration, onTimerDecreaseComplete: () =>
-            {
-                SetIsFullyControlled(value);
-                _beingControlledTimer = null;
-            });
-        }
     }
 
     public void SetIsFullyControlled(bool value)
@@ -134,6 +126,11 @@ public class NPCController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SetCurrentAction(NPCActions action)
+    {
+        _currentAction = action;
     }
     #endregion
 
