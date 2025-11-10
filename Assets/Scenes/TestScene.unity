@@ -35689,6 +35689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   influenceMeterImg: {fileID: 898117194}
+  animator: {fileID: 203476535}
 --- !u!1 &2067324523
 GameObject:
   m_ObjectHideFlags: 0

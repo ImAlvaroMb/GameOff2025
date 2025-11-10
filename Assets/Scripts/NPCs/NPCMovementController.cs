@@ -8,6 +8,7 @@ public class NPCMovementController : MonoBehaviour
     public float MoveSpeed = 5f;
     [Tooltip("Distance threshold to consider next node as goal")]
     [SerializeField] private float nextNodeTolerance;
+    private NPCVisualController _visualController;
 
     private StateController _stateController;
     private List<Node> _currentPath = new List<Node>();
@@ -21,12 +22,16 @@ public class NPCMovementController : MonoBehaviour
     private void Start()
     {
         _stateController = GetComponent<StateController>();
+        _visualController = GetComponent<NPCVisualController>();
     }
     private void Update()
     {
         if (_currentPath.Count > 0 && _targetNodeIndex < _currentPath.Count)
         {
             MoveAlongPath();
+        } else
+        {
+            _visualController.NoMovement();
         }
     }
 
@@ -82,6 +87,7 @@ public class NPCMovementController : MonoBehaviour
         Vector2 targetPos = _currentPath[_targetNodeIndex].transform.position;
 
         Vector2 direction = targetPos - (Vector2)transform.position;
+        _visualController.DetermineCardinalDirection(direction.normalized);
         float distance = direction.magnitude;
 
         if (distance <= nextNodeTolerance)
