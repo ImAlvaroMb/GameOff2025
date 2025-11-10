@@ -19,4 +19,7 @@ MonoBehaviour:
   - deciosionToBeMade: {fileID: 11400000, guid: c8047ac03d280b84f9f116d8ad60a992, type: 2}
     onDecisionTrueExitState: {fileID: 0}
     onDecisionFalseExitState: {fileID: 11400000, guid: 347b8fc2626f0e24e806129ac5c20b9e, type: 2}
+  - deciosionToBeMade: {fileID: 11400000, guid: 4c983030190add840aa3f384e6f1d2fa, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: bfeb25e7d085e344e8b7d1d03c0331ce, type: 2}
+    onDecisionFalseExitState: {fileID: 0}
   TakeControlDuration: 3

@@ -13,6 +13,7 @@ public class NPCBeingControlledState : NPCBaseState
         {
             _controller.SetIsFullyControlled(true);
             _controller.SetIsBeingControlled(false);
+            _controller.HasBeenFullyControlled();
             FinishState();
         }, onTimerIncreaseUpdate: (progress) =>
         {
