@@ -54,14 +54,14 @@ public class NPCVisualController : MonoBehaviour
                 animator.SetBool("WalkingUp", true);
                 animator.SetBool("WalkingDown", false);
                 animator.SetBool("WalkingRight", false);
-                animator.SetBool("WalkingFalse", false);
+                animator.SetBool("WalkingLeft", false);
 
             } else if(direction.y < -DIRECTION_THRESHOLD)
             {
                 animator.SetBool("WalkingDown", true);
                 animator.SetBool("WalkingUp", false);
                 animator.SetBool("WalkingRight", false);
-                animator.SetBool("WalkingFalse", false);
+                animator.SetBool("WalkingLeft", false);
             }
         }
     }

@@ -14,13 +14,30 @@ public class NPCPatrolState : NPCBaseState
             _movementController.GoToPosition(point, () => FinishState());
         } else
         {
+            point = _movementController.TargetPoint;
             _movementController.GoToPosition(_movementController.TargetPoint, () => FinishState());
         }
+    }
+
+    public override void UpdateState()
+    {
+        base.UpdateState();
+        CheckForPathChange();
     }
 
     public override void FixedUpdateState()
     {
         base.FixedUpdateState();
+    }
+
+    public void CheckForPathChange()
+    {
+        if (point != _movementController.TargetPoint)
+        {
+            _movementController.InterrumptPath();
+            _movementController.GoToPosition(_movementController.TargetPoint, () => FinishState());
+            point = _movementController.TargetPoint;
+        }
     }
 
     public override void OnExit()
