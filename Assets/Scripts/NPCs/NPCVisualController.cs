@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities;
 
 public class NPCVisualController : MonoBehaviour
 {
@@ -8,6 +10,11 @@ public class NPCVisualController : MonoBehaviour
 
     private const float DIRECTION_THRESHOLD = 0.02f;
 
+    [Header("SpeechBubble")]
+    [SerializeField] private string[] phrases;
+    [SerializeField] private GameObject speechBubble;
+    [SerializeField] private TextMeshProUGUI bubbleText;
+    [SerializeField] private float bubbleDuration;
     private void Start()
     {
         UpdateInfluenceMeterImage(0f);
@@ -64,6 +71,19 @@ public class NPCVisualController : MonoBehaviour
                 animator.SetBool("WalkingLeft", false);
             }
         }
+    }
+
+    public void ActivateSpeechBubble()
+    {
+        speechBubble.SetActive(true);
+        bubbleText.text = GetRandomPhrase();
+        TimerSystem.Instance.CreateTimer(bubbleDuration, onTimerDecreaseComplete: () => speechBubble.SetActive(false));
+    }
+
+    public string GetRandomPhrase()
+    {
+        int index = Random.Range(0, phrases.Length);
+        return phrases[index];
     }
 
 }
