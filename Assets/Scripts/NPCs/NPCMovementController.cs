@@ -54,10 +54,12 @@ public class NPCMovementController : MonoBehaviour
         Node startNode = AStarManager.Instance.FindNearestNode(transform.position);
 
         Node endNode = AStarManager.Instance.FindNearestNode(targetPosition);
+        Debug.Log(targetPosition);
+        Debug.Log(endNode.name);
 
         if (startNode == null || endNode == null)
         {
-            Debug.LogWarning("Could not find start or end node for pathfinding.");
+            //Debug.LogWarning("Could not find start or end node for pathfinding.");
             _onPathCompleteCallback?.Invoke();
             _onPathCompleteCallback = null;
             _currentPath.Clear();
@@ -70,7 +72,7 @@ public class NPCMovementController : MonoBehaviour
         {
             _currentPath = newPath;
             _targetNodeIndex = 0;
-            Debug.Log($"Path generated with {newPath.Count} steps.");
+            //Debug.Log($"Path generated with {newPath.Count} steps.");
         }
         else
         {

@@ -8,14 +8,15 @@ public class NPCPatrolState : NPCBaseState
     public override void OnEnter()
     {
         base.OnEnter();
-        if(_movementController.TargetPoint == Vector2.zero)
-        {
-            point = _movementController.GenerateNewPointInRange(_controller.OriginalPosition, _controller.RangeToPatrol);
-            _movementController.GoToPosition(point, () => FinishState());
-        } else
+        if(_movementController.TargetPoint != Vector2.zero)
         {
             point = _movementController.TargetPoint;
             _movementController.GoToPosition(_movementController.TargetPoint, () => FinishState());
+        } else
+        {
+            point = _movementController.GenerateNewPointInRange(_controller.OriginalPosition, _controller.RangeToPatrol);
+            _movementController.SetTargetPoint(point);
+            _movementController.GoToPosition(point, () => FinishState());
         }
     }
 
