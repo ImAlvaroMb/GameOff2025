@@ -25,6 +25,13 @@ public class NPCAwarness : MonoBehaviour
         return nearbyInteractables[index];
     }
 
+    public NPCController GetNPC()
+    {
+        if (nearbyNPC.Count == 0) return null;
+        int index = Random.Range(0, nearbyNPC.Count - 1); 
+        return nearbyNPC[index];
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interactable"))

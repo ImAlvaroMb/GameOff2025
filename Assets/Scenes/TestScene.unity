@@ -18569,7 +18569,7 @@ GameObject:
   - component: {fileID: 1034911041}
   m_Layer: 10
   m_Name: NPC_TESTING (1)
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36615,7 +36615,7 @@ GameObject:
   - component: {fileID: 2066132042}
   m_Layer: 10
   m_Name: NPC_TESTING
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36667,7 +36667,9 @@ MonoBehaviour:
   - Action: 1
     Probability: 60
   - Action: 2
-    Probability: 40
+    Probability: 35
+  - Action: 3
+    Probability: 5
   DrawGizmos: 0
   rangeToPatrol: 3.5
   decayDuration: 10

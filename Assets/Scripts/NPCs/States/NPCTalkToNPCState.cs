@@ -10,14 +10,20 @@ public class NPCTalkToNPCState : NPCBaseState
         if(_controller.TalkType == TalkType.LISTENER)
         {
 
-        } else if(_controller.TalkType == TalkType.TALKER)
+        } else if(_controller.TalkType == TalkType.TALKER || _controller.TalkType == TalkType.NONE)
         {
             if(_controller.OtherCurrentNPC != null) // user forced this state
             {
                 GoToNPC();
             } else
             {
-
+                _controller.SetOtherNPCReference(_awarnessController.GetNPC());
+                if(_controller.OtherCurrentNPC == null)
+                {
+                    FinishState();
+                }
+                _controller.OtherCurrentNPC.SetTalkType(TalkType.LISTENER);
+                GoToNPC();
             }
         }
     }

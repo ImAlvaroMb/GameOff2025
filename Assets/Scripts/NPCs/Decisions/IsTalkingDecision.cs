@@ -6,7 +6,7 @@ public class IsTalkingDecision : Decision
 {
     public override bool Decide(StateController stateController)
     {
-        if(stateController.GetComponent<NPCController>().TalkType != TalkType.NONE)
+        if(stateController.GetComponent<NPCController>().TalkType != TalkType.NONE || stateController.GetComponent<NPCController>().CurrentAction == NPCActions.TALK_TO_NPC)
         {
             return true;
         } else
