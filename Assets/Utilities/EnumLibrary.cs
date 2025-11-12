@@ -22,5 +22,12 @@ namespace Enums
         MUSIC,
         B
     }
+
+    public enum TalkType
+    {
+        TALKER,
+        LISTENER,
+        NONE
+    }
     
 }

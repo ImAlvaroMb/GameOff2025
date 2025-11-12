@@ -24,6 +24,12 @@ public class NPCController : MonoBehaviour
     public BaseInteractable CurrentInteractable => _currentInteractable;
     private BaseInteractable _currentInteractable = null;
 
+    [Header("Talking To NPC")]
+    public NPCController OtherCurrentNPC => _otherCurrentNPC;
+    private NPCController _otherCurrentNPC = null;
+    public TalkType TalkType => _talkType;
+    private TalkType _talkType = TalkType.NONE;
+
     [Header("Being Controller")]
     public bool IsFullyControlled => _isFullyControlled;
     private bool _isFullyControlled = false;
@@ -289,6 +295,23 @@ public class NPCController : MonoBehaviour
 
     #endregion
 
+    #region NPC Interactions
+    public void SetTalkType(TalkType talkType)
+    {
+        _talkType = talkType;
+    } 
+
+    public void SetOtherNPCReference(NPCController otherNPC)
+    {
+        _otherCurrentNPC = otherNPC;
+    }
+
+    public void RemoveCurrentOtherNPCReference()
+    {
+        _otherCurrentNPC = null;
+    }
+
+    #endregion
     public Vector2 GetPosition()
     {
         return transform.position;

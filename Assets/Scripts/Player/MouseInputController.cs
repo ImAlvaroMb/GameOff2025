@@ -145,13 +145,21 @@ public class MouseInputController : MonoBehaviour
 
             RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
 
-            if(groundHit.collider != null)
+            if (_currentHoveredNPC != _currentSelectedNPC && _currentHoveredNPC != null)
+            {
+                _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
+                _currentSelectedNPC.SetTalkType(TalkType.TALKER);
+                _currentHoveredNPC.SetTalkType(TalkType.LISTENER);
+                return;
+            }
+
+            if (groundHit.collider != null)
             {
                 Vector3 clickPosition = groundHit.point;
                 _currentSelectedNPC.gameObject.GetComponent<NPCMovementController>().SetTargetPoint(clickPosition);
                 _currentSelectedNPC.SetCurrentAction(NPCActions.PATROL);
                 return;
-            }
+            } 
         }
 
         if (_currentHoveredObject != null && _currentHoveredObject.CanInteract()) 
@@ -170,23 +178,5 @@ public class MouseInputController : MonoBehaviour
             return;
         }
 
-       
-
-        if(IsTestingClickRay)
-        {
-            Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
-
-            if(groundHit.collider != null && IsInAreaOfInfluence)
-            {
-                Vector3 clickPositon = groundHit.point;
-
-                Node closestNode = AStarManager.Instance.FindNearestNode(clickPositon);
-                Debug.Log($"Closest node: {closestNode}");
-                //if (PathTesting != null) PathTesting.GoToPosition(clickPositon);
-            }
-
-        }
     }
 }

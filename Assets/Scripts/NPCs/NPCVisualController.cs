@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -73,16 +74,20 @@ public class NPCVisualController : MonoBehaviour
         }
     }
 
-    public void ActivateSpeechBubble()
+    public void ActivateSpeechBubble(Action onSpeechBubbleFinish)
     {
         speechBubble.SetActive(true);
         bubbleText.text = GetRandomPhrase();
-        TimerSystem.Instance.CreateTimer(bubbleDuration, onTimerDecreaseComplete: () => speechBubble.SetActive(false));
+        TimerSystem.Instance.CreateTimer(bubbleDuration, onTimerDecreaseComplete: () => 
+        {
+            speechBubble.SetActive(false); 
+            onSpeechBubbleFinish?.Invoke();
+        });
     }
 
     public string GetRandomPhrase()
     {
-        int index = Random.Range(0, phrases.Length);
+        int index = UnityEngine.Random.Range(0, phrases.Length);
         return phrases[index];
     }
 

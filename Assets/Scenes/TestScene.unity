@@ -18588,10 +18588,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   influenceMeterImg: {fileID: 1466086209}
   animator: {fileID: 307442794}
-  phrases: []
+  phrases:
+  - "OOOOOOOOOleeeeee futbol bar\xE7aaaaaaa messi"
   speechBubble: {fileID: 1349158425}
   bubbleText: {fileID: 188379607}
-  bubbleDuration: 1
+  bubbleDuration: 3
 --- !u!50 &1034911042
 Rigidbody2D:
   serializedVersion: 5
@@ -18699,7 +18700,7 @@ MonoBehaviour:
     Probability: 70
   - Action: 2
     Probability: 30
-  DrawGizmos: 1
+  DrawGizmos: 0
   rangeToPatrol: 1
   decayDuration: 10
   recoveryDuration: 10
@@ -36774,10 +36775,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   influenceMeterImg: {fileID: 898117194}
   animator: {fileID: 203476535}
-  phrases: []
+  phrases:
+  - Hooo Heee Hiiii
+  - Una Unga this is awesome, we are in the water belowe heaven
   speechBubble: {fileID: 594152084}
   bubbleText: {fileID: 1735483847}
-  bubbleDuration: 1
+  bubbleDuration: 3
 --- !u!1 &2067324523
 GameObject:
   m_ObjectHideFlags: 0
