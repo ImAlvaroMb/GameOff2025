@@ -312,6 +312,16 @@ public class NPCController : MonoBehaviour
     }
 
     #endregion
+
+    public void OnHover()
+    {
+        _visualController.OnHovered();
+    }
+
+    public void OnStopHover()
+    {
+        _visualController.OnStopHovering();
+    }
     public Vector2 GetPosition()
     {
         return transform.position;

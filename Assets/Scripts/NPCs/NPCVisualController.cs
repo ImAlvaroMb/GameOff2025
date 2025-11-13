@@ -8,7 +8,7 @@ public class NPCVisualController : MonoBehaviour
 {
     [SerializeField] private Image influenceMeterImg;
     [SerializeField] private Animator animator;
-
+    [SerializeField] private GameObject hoverButtons;
     private const float DIRECTION_THRESHOLD = 0.02f;
 
     [Header("SpeechBubble")]
@@ -19,6 +19,17 @@ public class NPCVisualController : MonoBehaviour
     private void Start()
     {
         UpdateInfluenceMeterImage(0f);
+        hoverButtons.SetActive(false);
+    }
+
+    public void OnHovered()
+    {
+        hoverButtons.SetActive(true);
+    }
+
+    public void OnStopHovering()
+    {
+        hoverButtons.SetActive(false);
     }
 
     public void UpdateInfluenceMeterImage(float fillAmount)
@@ -33,8 +44,6 @@ public class NPCVisualController : MonoBehaviour
         animator.SetBool("WalkingUp", false);
         animator.SetBool("WalkingDown", false); 
     }
-
-    
 
     public void DetermineCardinalDirection(Vector2 direction)
     {

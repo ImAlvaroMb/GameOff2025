@@ -106,24 +106,17 @@ public class MouseInputController : MonoBehaviour
         {
             newNPC = hit.collider.GetComponentInParent<NPCController>();
         }
-        else
-        {
-            if(_currentHoveredNPC != null)
-            {
-                _currentHoveredNPC = null;
-            }
-        }
 
         if(newNPC != _currentHoveredNPC)
         {
             if(_currentHoveredNPC != null)
             {
-               
+                _currentHoveredNPC.OnStopHover();
             }
 
             if(newNPC != null)
             {
-
+                newNPC.OnHover();
             }
 
             _currentHoveredNPC = newNPC;
