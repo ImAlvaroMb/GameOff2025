@@ -123,6 +123,8 @@ public class MouseInputController : MonoBehaviour
         }
     }
 
+    //public 
+
     private void HandleClick()
     {
         if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)

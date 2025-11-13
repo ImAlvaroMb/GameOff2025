@@ -29,5 +29,13 @@ namespace Enums
         LISTENER,
         NONE
     }
+
+    public enum ChooseActionUIType
+    {
+        TALK_TO,
+        WAVE_TO,
+        CAMERA_FOLLOW,
+        SELECT
+    }
     
 }
