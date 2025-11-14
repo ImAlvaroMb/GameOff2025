@@ -7,7 +7,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
 {
     public GameObject[] _areaSprites;
     [SerializeField] private float influenceAreaRadius;
-
+    public bool autoInitialized = false;
     private int _npcLayerID;
 
     [Header("Visuals")]
@@ -24,7 +24,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
     private bool _isPulsing = false;
     private CircleCollider2D _collider;
 
-    private void Start()
+    private void OnEnable()
     {
         //_originalScale = _areaSprites.transform.localScale;
 
@@ -34,8 +34,11 @@ public class RangeOfInfluenceObject : MonoBehaviour
         _npcLayerID = LayerMask.NameToLayer("NPC");
 
         _collider = GetComponent<CircleCollider2D>();
-        InitializeCollider();
-        StartCoroutine(PulseAlpha());
+        if(autoInitialized)
+        {
+            InitializeCollider();
+            StartCoroutine(PulseAlpha());
+        }
     }
 
     private void InitializeCollider()

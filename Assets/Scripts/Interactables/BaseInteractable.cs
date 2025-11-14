@@ -1,11 +1,13 @@
 using Enums;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Utilities;
 
 public class BaseInteractable : MonoBehaviour, IInteractable
 {
     public List<InteractableType> InteractableType = new List<InteractableType>();
+    public UnityEvent OnInteracted;
 
     private SpriteRenderer _sprite;
     private bool _canInteract = false; // this can interact is for the user direct interaction (mouse, not from a controlled NPC)
@@ -21,11 +23,11 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         _sprite = GetComponent<SpriteRenderer>();
         _originalScale = transform.localScale;
     }
-    public void Interact()
+    public virtual void Interact()
     {
-        
+        OnInteracted?.Invoke();
     }
-    public void Highlight()
+    public virtual void Highlight()
     {
         _currentTimer?.StopTimer();
         Vector3 targetScale = _originalScale * highlightScaleFactor;
@@ -41,7 +43,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         });
     }
 
-    public void Dehighlight()
+    public virtual void Dehighlight()
     {
         _currentTimer?.StopTimer();
         _currentTimer = TimerSystem.Instance.CreateTimer(animationDuration, onTimerDecreaseComplete: () =>

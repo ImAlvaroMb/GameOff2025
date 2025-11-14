@@ -317,7 +317,7 @@ public class NPCController : MonoBehaviour
 
     #endregion
 
-    public void OnHover(bool isCurrentlyControlledNPC) // NEED TO ADD A BOOL TO KNOW IF THERE IS A CONTROLLED NPC AT ALL
+    public void OnHover(bool isCurrentlyControlledNPC) 
     {
         _visualController.OnHovered(isCurrentlyControlledNPC);
     }
