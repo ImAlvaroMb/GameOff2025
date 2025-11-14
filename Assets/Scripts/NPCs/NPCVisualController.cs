@@ -8,7 +8,7 @@ public class NPCVisualController : MonoBehaviour
 {
     [SerializeField] private Image influenceMeterImg;
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject hoverButtons;
+    [SerializeField] private ActionUIController hoverButtons;
     private const float DIRECTION_THRESHOLD = 0.02f;
 
     [Header("SpeechBubble")]
@@ -16,20 +16,24 @@ public class NPCVisualController : MonoBehaviour
     [SerializeField] private GameObject speechBubble;
     [SerializeField] private TextMeshProUGUI bubbleText;
     [SerializeField] private float bubbleDuration;
+
+    private NPCController _controller;
     private void Start()
     {
+        _controller = GetComponent<NPCController>();
         UpdateInfluenceMeterImage(0f);
-        hoverButtons.SetActive(false);
+        hoverButtons.gameObject.SetActive(false);
     }
 
-    public void OnHovered()
+    public void OnHovered(bool isCurrentlySelectedNPC)
     {
-        hoverButtons.SetActive(true);
+        hoverButtons.gameObject.SetActive(true);
+        hoverButtons.SetActionsButtonsVisibility(isCurrentlySelectedNPC, _controller);
     }
 
     public void OnStopHovering()
     {
-        hoverButtons.SetActive(false);
+        hoverButtons.gameObject.SetActive(false);
     }
 
     public void UpdateInfluenceMeterImage(float fillAmount)

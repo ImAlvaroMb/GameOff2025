@@ -1,8 +1,10 @@
 using UnityEngine;
 using Enums;
 using StateMachine;
+using Utilities;
+using UnityEngine.EventSystems;
 
-public class MouseInputController : MonoBehaviour
+public class MouseInputController : AbstractSingleton<MouseInputController>
 {
     [SerializeField] private LayerMask layersToCheck;
     [SerializeField] private float maxRaycastDistance = 40f;
@@ -25,20 +27,22 @@ public class MouseInputController : MonoBehaviour
     private int _influenceLayerID;
     private int _npcLayerID;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         mainCamera = Camera.main;
         _interactableLayerID = LayerMask.NameToLayer("Interactable");
         _influenceLayerID = LayerMask.NameToLayer("Influence");
         _npcLayerID = LayerMask.NameToLayer("NPC");
     }
-
+  
     private void Update()
     {
         CheckForHover();
 
         if(Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             HandleClick();
         }
     }
@@ -116,14 +120,56 @@ public class MouseInputController : MonoBehaviour
 
             if(newNPC != null)
             {
-                newNPC.OnHover();
+                bool isThereAControlledNPC = false;
+                if(_currentSelectedNPC)
+                if(newNPC == _currentSelectedNPC && _currentSelectedNPC != null)
+                {
+                    newNPC.OnHover(true);
+                } else
+                {
+                    newNPC.OnHover(false);
+                }
             }
 
             _currentHoveredNPC = newNPC;
         }
     }
 
-    //public 
+    public void HandleNPCActionUIClick(ChooseActionUIType actionType) 
+    {
+        switch (actionType)
+        {
+            case ChooseActionUIType.TALK_TO:
+                Debug.Log("TALK TOOOO");
+                _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
+                _currentSelectedNPC.SetTalkType(TalkType.TALKER);
+                _currentHoveredNPC.SetTalkType(TalkType.LISTENER);
+                break;
+
+            case ChooseActionUIType.CAMERA_FOLLOW:
+                Debug.Log("CAMERAAA");
+                if(!CameraController.Instance.IsFollowingTraget)
+                {
+                    CameraController.Instance.StarFollowingTarget(_currentHoveredNPC.transform);
+                    _currentHoveredNPC.StartCameraFollow();
+                } else
+                {
+                    CameraController.Instance.StopFollowingTarget();
+                    _currentHoveredNPC.StopCameraFollow();
+                }
+                break;
+
+            case ChooseActionUIType.WAVE_TO:
+                Debug.Log("WAVEEEEE");
+
+                break;
+
+            case ChooseActionUIType.SELECT:
+                Debug.Log("SELECTTTT");
+
+                break;
+        }
+    }
 
     private void HandleClick()
     {
@@ -140,13 +186,13 @@ public class MouseInputController : MonoBehaviour
 
             RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
 
-            if (_currentHoveredNPC != _currentSelectedNPC && _currentHoveredNPC != null)
+            /*if (_currentHoveredNPC != _currentSelectedNPC && _currentHoveredNPC != null)
             {
                 _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
                 _currentSelectedNPC.SetTalkType(TalkType.TALKER);
                 _currentHoveredNPC.SetTalkType(TalkType.LISTENER);
                 return;
-            }
+            }*/
 
             if (groundHit.collider != null)
             {

@@ -1,6 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
-public class CameraController : MonoBehaviour
+using Utilities;
+public class CameraController : AbstractSingleton<CameraController>
 {
     public GameObject AllLevelCamera;
     public float ScrollSpeed = 10f;
@@ -10,11 +11,13 @@ public class CameraController : MonoBehaviour
     private bool _isAllMapCameraActive = false;
     private Transform _followTarget;
     private CinemachineCamera _vcam;
+    public bool IsFollowingTraget => _isFollowingTarget;
     private bool _isFollowingTarget = false;
     private Vector3 lastScrollPosition;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _vcam = GetComponent<CinemachineCamera>();
         AllLevelCamera.SetActive(false);
 
@@ -26,15 +29,7 @@ public class CameraController : MonoBehaviour
     {
         if(!_isAllMapCameraActive)
         {
-            if (_isFollowingTarget)
-            {
-                if (_vcam.Follow == null && _followTarget != null)
-                {
-                    _vcam.Follow = _followTarget;
-                    _vcam.LookAt = _followTarget;
-                }
-            }
-            else
+            if(!_isFollowingTarget)
             {
                 HandleBorderScrolling();
             }
@@ -63,11 +58,16 @@ public class CameraController : MonoBehaviour
     {
         if (target == null) return;
 
-        lastScrollPosition = transform.position; 
-        _followTarget = target;
+        //lastScrollPosition = transform.position; 
+        if(_isAllMapCameraActive)
+        {
+            AllLevelCamera.SetActive(false);
+            _isAllMapCameraActive = false;
+        }
+        //_followTarget = target;
         _isFollowingTarget = true;
-        _vcam.Follow = _followTarget;
-        _vcam.LookAt = _followTarget;
+        //_vcam.Follow = _followTarget;
+        //_vcam.LookAt = _followTarget;
         Debug.Log($"Camera is now following target: {target.name}");
     }
 
@@ -77,7 +77,7 @@ public class CameraController : MonoBehaviour
         _followTarget = null;
         _vcam.Follow = null;
         _vcam.LookAt = null;
-        transform.position = lastScrollPosition;
+        //transform.position = lastScrollPosition;
         Debug.Log("Camera is now back in border scrolling mode.");
     }
 

@@ -2,6 +2,7 @@
 using StateMachine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using Utilities;
 
@@ -45,6 +46,9 @@ public class NPCController : MonoBehaviour
     private string _timerID;
     private bool _isInfluenceAtFull = false;
     private bool _canCheckInfluence = false;
+
+    [Header("CameraFollow")]
+    public GameObject CameraReferece;
     
     private void OnValidate()
     {
@@ -313,9 +317,9 @@ public class NPCController : MonoBehaviour
 
     #endregion
 
-    public void OnHover()
+    public void OnHover(bool isCurrentlyControlledNPC) // NEED TO ADD A BOOL TO KNOW IF THERE IS A CONTROLLED NPC AT ALL
     {
-        _visualController.OnHovered();
+        _visualController.OnHovered(isCurrentlyControlledNPC);
     }
 
     public void OnStopHover()
@@ -325,6 +329,16 @@ public class NPCController : MonoBehaviour
     public Vector2 GetPosition()
     {
         return transform.position;
+    }
+
+    public void StartCameraFollow()
+    {
+        CameraReferece.SetActive(true);
+    }
+
+    public void StopCameraFollow()
+    {
+        CameraReferece.SetActive(false);
     }
 
     private void OnDrawGizmos()

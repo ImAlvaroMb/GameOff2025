@@ -141,7 +141,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == _npcLayerID)
+        if(collision.gameObject.layer == _npcLayerID && collision.gameObject.CompareTag("NPC"))
         {
             collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(true);
         }
@@ -149,7 +149,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == _npcLayerID)
+        if (collision.gameObject.layer == _npcLayerID && collision.gameObject.CompareTag("NPC"))
         {
             collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(false);
         }
