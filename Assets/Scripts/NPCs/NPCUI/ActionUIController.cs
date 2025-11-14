@@ -28,7 +28,25 @@ public class ActionUIController : MonoBehaviour
                     action.gameObject.SetActive(true);
                 } else
                 {
-
+                    if(MouseInputController.Instance.CurrentlySelectedNPC == null)
+                    {
+                        if(action.ChooseActionUIType == ChooseActionUIType.CAMERA_FOLLOW)
+                        {
+                            action.gameObject.SetActive(true);
+                        } else
+                        {
+                            action.gameObject.SetActive(false);
+                        }
+                    } else
+                    {
+                        if(action.ChooseActionUIType == ChooseActionUIType.SELECT)
+                        {
+                            action.gameObject.SetActive(false);
+                        } else
+                        {
+                            action.gameObject.SetActive(true);
+                        }
+                    }
                 }
                 
             }

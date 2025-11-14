@@ -11,7 +11,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
 
     private BaseInteractable _currentHoveredObject = null;
     private NPCController _currentHoveredNPC = null;
-
+    public NPCController CurrentlySelectedNPC => _currentSelectedNPC; // this is deff not a good praxis but its jam
     private NPCController _currentSelectedNPC = null;
 
     private Camera mainCamera;
@@ -120,8 +120,6 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
 
             if(newNPC != null)
             {
-                bool isThereAControlledNPC = false;
-                if(_currentSelectedNPC)
                 if(newNPC == _currentSelectedNPC && _currentSelectedNPC != null)
                 {
                     newNPC.OnHover(true);
@@ -185,14 +183,6 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
             Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
             RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
-
-            /*if (_currentHoveredNPC != _currentSelectedNPC && _currentHoveredNPC != null)
-            {
-                _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
-                _currentSelectedNPC.SetTalkType(TalkType.TALKER);
-                _currentHoveredNPC.SetTalkType(TalkType.LISTENER);
-                return;
-            }*/
 
             if (groundHit.collider != null)
             {
