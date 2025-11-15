@@ -30,6 +30,13 @@ namespace Enums
         NONE
     }
 
+    public enum NPCWaveType
+    {
+        WAVER,
+        WAVE_RECEIVER,
+        NONE
+    }
+
     public enum ChooseActionUIType
     {
         TALK_TO,

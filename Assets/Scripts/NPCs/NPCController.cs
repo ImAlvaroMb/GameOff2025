@@ -24,12 +24,17 @@ public class NPCController : MonoBehaviour
     [Header("Object Interaction")]
     public BaseInteractable CurrentInteractable => _currentInteractable;
     private BaseInteractable _currentInteractable = null;
-
-    [Header("Talking To NPC")]
     public NPCController OtherCurrentNPC => _otherCurrentNPC;
     private NPCController _otherCurrentNPC = null;
+
+    [Header("Talking To NPC")]
     public TalkType TalkType => _talkType;
     private TalkType _talkType = TalkType.NONE;
+
+    [Header("Waving To NPC")]
+    public NPCWaveType WaveType => _waveType;
+    private NPCWaveType _waveType = NPCWaveType.NONE;
+    [SerializeField] private float waveDistance = 3f;
 
     [Header("Being Controller")]
     public bool IsFullyControlled => _isFullyControlled;
@@ -311,6 +316,16 @@ public class NPCController : MonoBehaviour
     public void RemoveCurrentOtherNPCReference()
     {
         _otherCurrentNPC = null;
+    }
+
+    public void SetWaveType(NPCWaveType waveType)
+    {
+        _waveType = waveType;
+    }
+
+    public float GetWaveDistance()
+    {
+        return waveDistance;
     }
 
     #endregion

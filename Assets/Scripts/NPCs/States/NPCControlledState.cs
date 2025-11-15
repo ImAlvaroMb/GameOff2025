@@ -6,6 +6,7 @@ public class NPCControlledState : NPCBaseState
     public override void OnEnter()
     {
         base.OnEnter();
+        _controller.SetIsBeingControlled(false);
     }
 
     public override void FixedUpdateState()

@@ -138,7 +138,6 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
         switch (actionType)
         {
             case ChooseActionUIType.TALK_TO:
-                Debug.Log("TALK TOOOO");
                 _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
                 _currentSelectedNPC.SetTalkType(TalkType.TALKER);
                 _currentHoveredNPC.SetTalkType(TalkType.LISTENER);
@@ -162,8 +161,8 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 break;
 
             case ChooseActionUIType.WAVE_TO:
-                Debug.Log("WAVEEEEE");
-
+                _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
+                _currentSelectedNPC.SetWaveType(NPCWaveType.WAVER);
                 break;
 
             case ChooseActionUIType.SELECT:

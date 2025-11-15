@@ -18682,6 +18682,7 @@ MonoBehaviour:
     Probability: 30
   DrawGizmos: 0
   rangeToPatrol: 1
+  waveDistance: 6
   decayDuration: 10
   recoveryDuration: 10
   CameraReferece: {fileID: 26564871}
@@ -38318,6 +38319,18 @@ PrefabInstance:
     - target: {fileID: 476960115440259180, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556885164315630919, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
+      propertyPath: DrawGizmos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556885164315630919, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
+      propertyPath: waveDistance
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556885164315630919, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
+      propertyPath: rangeToPatrol
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 2077135027570838801, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
       propertyPath: m_SizeDelta.x
