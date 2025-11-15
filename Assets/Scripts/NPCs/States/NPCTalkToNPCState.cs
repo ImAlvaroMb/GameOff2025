@@ -48,6 +48,7 @@ public class NPCTalkToNPCState : NPCBaseState
     public override void OnExit()
     {
         base.OnExit();
+        _controller.SetCurrentAction(NPCActions.NONE);
         _controller.RemoveCurrentOtherNPCReference();
         _controller.SetTalkType(TalkType.NONE);
     }

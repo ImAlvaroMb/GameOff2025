@@ -7,9 +7,9 @@ public class CameraController : AbstractSingleton<CameraController>
     public float ScrollSpeed = 10f;
     [Range(0.01f, 0.5f)]
     public float BorderThickness = 0.05f;
-
+    public NPCController CurrentCameraTarget => _currentCameraTarget;
+    private NPCController _currentCameraTarget = null;
     private bool _isAllMapCameraActive = false;
-    private Transform _followTarget;
     private CinemachineCamera _vcam;
     public bool IsFollowingTraget => _isFollowingTarget;
     private bool _isFollowingTarget = false;
@@ -54,31 +54,21 @@ public class CameraController : AbstractSingleton<CameraController>
         }
     }
 
-    public void StarFollowingTarget(Transform target)
+    public void StarFollowingTarget(NPCController target)
     {
-        if (target == null) return;
-
-        //lastScrollPosition = transform.position; 
         if(_isAllMapCameraActive)
         {
             AllLevelCamera.SetActive(false);
             _isAllMapCameraActive = false;
         }
-        //_followTarget = target;
+        _currentCameraTarget = target;
         _isFollowingTarget = true;
-        //_vcam.Follow = _followTarget;
-        //_vcam.LookAt = _followTarget;
-        Debug.Log($"Camera is now following target: {target.name}");
     }
 
     public void StopFollowingTarget()
     {
         _isFollowingTarget = false;
-        _followTarget = null;
-        _vcam.Follow = null;
-        _vcam.LookAt = null;
-        //transform.position = lastScrollPosition;
-        Debug.Log("Camera is now back in border scrolling mode.");
+        _currentCameraTarget = null;
     }
 
     private void HandleBorderScrolling()

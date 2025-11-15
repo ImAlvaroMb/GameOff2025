@@ -54,8 +54,8 @@ public class NPCMovementController : MonoBehaviour
         Node startNode = AStarManager.Instance.FindNearestNode(transform.position);
 
         Node endNode = AStarManager.Instance.FindNearestNode(targetPosition);
-        Debug.Log(targetPosition);
-        Debug.Log(endNode.name);
+        //Debug.Log(targetPosition);
+        //Debug.Log(endNode.name);
 
         if (startNode == null || endNode == null)
         {

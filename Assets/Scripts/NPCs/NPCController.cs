@@ -263,7 +263,6 @@ public class NPCController : MonoBehaviour
     private void ChooseAction()
     {
         float randomNumber = Random.Range(0f, _currentTotalProbability);
-        Debug.Log(randomNumber);
         float cumulativeWeight = 0f;
 
         foreach (var action in actionsProbabilities)
@@ -273,7 +272,6 @@ public class NPCController : MonoBehaviour
             if(randomNumber <= cumulativeWeight)
             {
                 _currentAction = action.Action;
-                Debug.Log(_currentAction);
                 break;
             }
         }
@@ -319,6 +317,7 @@ public class NPCController : MonoBehaviour
 
     public void OnHover(bool isCurrentlyControlledNPC) 
     {
+        Debug.Log($"Hover {gameObject.name}");
         _visualController.OnHovered(isCurrentlyControlledNPC);
     }
 

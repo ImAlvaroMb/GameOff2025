@@ -23,7 +23,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         _sprite = GetComponent<SpriteRenderer>();
         _originalScale = transform.localScale;
     }
-    public virtual void Interact()
+    public virtual void Interact(NPCController interactingNPC)
     {
         OnInteracted?.Invoke();
     }

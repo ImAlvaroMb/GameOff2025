@@ -145,15 +145,19 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 break;
 
             case ChooseActionUIType.CAMERA_FOLLOW:
-                Debug.Log("CAMERAAA");
-                if(!CameraController.Instance.IsFollowingTraget)
+                CameraController cameraController = CameraController.Instance;
+                if(cameraController.CurrentCameraTarget != _currentHoveredNPC.transform)
                 {
-                    CameraController.Instance.StarFollowingTarget(_currentHoveredNPC.transform);
+                    cameraController.CurrentCameraTarget?.StopCameraFollow();
+                    cameraController.StarFollowingTarget(_currentHoveredNPC);
                     _currentHoveredNPC.StartCameraFollow();
-                } else
+                    break;
+                }
+                
+                if(cameraController.CurrentCameraTarget == _currentHoveredNPC && cameraController.IsFollowingTraget)
                 {
-                    CameraController.Instance.StopFollowingTarget();
-                    _currentHoveredNPC.StopCameraFollow();
+                    cameraController.StopFollowingTarget();
+                    _currentHoveredNPC?.StopCameraFollow();
                 }
                 break;
 
@@ -163,14 +167,32 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 break;
 
             case ChooseActionUIType.SELECT:
-                Debug.Log("SELECTTTT");
-
+                if(_currentHoveredNPC != _currentSelectedNPC)
+                {
+                    _currentSelectedNPC = _currentHoveredNPC;
+                }
                 break;
         }
     }
 
     private void HandleClick()
     {
+        if (_currentHoveredNPC != null)
+        {
+            if (_currentHoveredNPC.IsInInfluenceArea)
+            {
+                _currentHoveredNPC.OnClicked();
+                _currentSelectedNPC = _currentHoveredNPC;
+            }
+            return;
+        }
+
+        if (_currentHoveredObject != null && _currentHoveredObject.CanInteract())
+        {
+            _currentHoveredObject.Interact(null);
+            return;
+        }
+
         if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)
         {
             if(_currentHoveredObject != null)
@@ -192,22 +214,5 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 return;
             } 
         }
-
-        if (_currentHoveredObject != null && _currentHoveredObject.CanInteract()) 
-        {
-            _currentHoveredObject.Interact();
-            return;
-        }
-
-        if(_currentHoveredNPC != null)
-        {
-            if(_currentHoveredNPC.IsInInfluenceArea)
-            {
-                _currentHoveredNPC.OnClicked();
-                _currentSelectedNPC = _currentHoveredNPC;
-            }
-            return;
-        }
-
     }
 }

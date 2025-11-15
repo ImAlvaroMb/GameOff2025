@@ -24,7 +24,7 @@ public class NPCDoObjectInteractionState : NPCBaseState
         {
             if(_awarnessController.CanInteract(_controller.CurrentInteractable))
             {
-                _controller.CurrentInteractable.Interact();
+                _controller.CurrentInteractable.Interact(_controller);
                 _controller.RemoveCurrentInteractable();
             } else
             {

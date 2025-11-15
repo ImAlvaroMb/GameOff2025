@@ -1,9 +1,7 @@
-using UnityEngine;
-
 public interface IInteractable 
 {
     void Highlight();
     void Dehighlight();
-    void Interact();
+    void Interact(NPCController interactingNPC);
     bool CanInteract();
 }

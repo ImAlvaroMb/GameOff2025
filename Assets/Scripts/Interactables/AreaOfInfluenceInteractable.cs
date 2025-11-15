@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class AreaOfInfluenceInteractable : BaseInteractable
 {
-    public override void Interact()
+    public override void Interact(NPCController interactingNPC)
     {
-        base.Interact();
+        base.Interact(interactingNPC);
     }
 
     public override void Highlight()
