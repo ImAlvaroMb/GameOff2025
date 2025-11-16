@@ -60,7 +60,18 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 
     public bool CanInteract()
     {
-        return _canInteract;
+        if(InteractableType.Contains(Enums.InteractableType.PLAYER) && _canInteract)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    public void SetCanInteract(bool value)
+    {
+        _canInteract = value;
     }
 
     private void OnDestroy()

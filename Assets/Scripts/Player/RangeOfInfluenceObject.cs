@@ -9,6 +9,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
     [SerializeField] private float influenceAreaRadius;
     public bool autoInitialized = false;
     private int _npcLayerID;
+    private int _interactableLayerID;
 
     [Header("Visuals")]
     [SerializeField] private float pulseDuration;
@@ -32,6 +33,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
         //_maxScale = _originalScale * maxScaleFactor;
 
         _npcLayerID = LayerMask.NameToLayer("NPC");
+        _interactableLayerID = LayerMask.NameToLayer("Interactable");
 
         _collider = GetComponent<CircleCollider2D>();
         if(autoInitialized)
@@ -148,6 +150,12 @@ public class RangeOfInfluenceObject : MonoBehaviour
         {
             collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(true);
         }
+
+        if (collision.gameObject.layer == _interactableLayerID)
+        {
+            collision.GetComponent<BaseInteractable>().SetCanInteract(true);
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -155,6 +163,11 @@ public class RangeOfInfluenceObject : MonoBehaviour
         if (collision.gameObject.layer == _npcLayerID && collision.gameObject.CompareTag("NPC"))
         {
             collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(false);
+        }
+
+        if(collision.gameObject.layer == _interactableLayerID)
+        {
+            collision.GetComponent<BaseInteractable>().SetCanInteract(false);
         }
     }
 

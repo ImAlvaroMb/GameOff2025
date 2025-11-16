@@ -332,7 +332,7 @@ public class NPCController : MonoBehaviour
 
     public void OnHover(bool isCurrentlyControlledNPC) 
     {
-        Debug.Log($"Hover {gameObject.name}");
+        //Debug.Log($"Hover {gameObject.name}");
         _visualController.OnHovered(isCurrentlyControlledNPC);
     }
 

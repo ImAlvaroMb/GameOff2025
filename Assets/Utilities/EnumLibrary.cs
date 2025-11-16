@@ -19,7 +19,9 @@ namespace Enums
     public enum InteractableType
     {
         ALL,
-        MUSIC,
+        PLAYER,
+        CONTROLLED,
+        A,
         B
     }
 
