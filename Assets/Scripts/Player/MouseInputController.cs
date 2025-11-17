@@ -8,6 +8,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
 {
     [SerializeField] private LayerMask layersToCheck;
     [SerializeField] private LayerMask npcLayerMask;
+    [SerializeField] private LayerMask interactableLayer;
 
     [SerializeField] private float maxRaycastDistance = 40f;
 
@@ -54,6 +55,8 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
 
         CheckForOtherHoves();
 
+        CheckForInteractableHover();
+
         if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -76,8 +79,15 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, layersToCheck);
 
-        HandleIInteractableHover(hit);
+        //HandleIInteractableHover(hit);
         HandleAreaOfInfluenceHover(hit);
+    }
+
+    private void CheckForInteractableHover()
+    {
+        Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, interactableLayer);
+        HandleIInteractableHover(hit);
     }
 
     private void HandleIInteractableHover(RaycastHit2D hit)
@@ -174,6 +184,9 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
         {
             _currentHoveredObject.Interact(null);
             return;
+        } else if(_currentHoveredNPC != null && !_currentHoveredObject.CanInteract())
+        {
+            AlertSystemController.Instance.SendAlert("CAN ONLY INTERACT WITH THIS OBJECT WHEN INSIDE ARE OF INFLUENCE", 2f);
         }
 
         if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)

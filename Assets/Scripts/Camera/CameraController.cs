@@ -67,6 +67,7 @@ public class CameraController : AbstractSingleton<CameraController>
 
     public void StopFollowingTarget()
     {
+        _currentCameraTarget.StopCameraFollow();
         _isFollowingTarget = false;
         _currentCameraTarget = null;
     }

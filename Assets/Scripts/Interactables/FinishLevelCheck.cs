@@ -7,9 +7,15 @@ public class FinishLevelCheck : MonoBehaviour
     public UnityEvent OnWin;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<NPCController>() == NPCToFinishLevel && collision.gameObject.GetComponent<NPCController>().GetIsCarryingFrog()) 
+        Debug.Log(collision.name);
+        NPCController controller =  collision.gameObject.GetComponentInParent<NPCController>();
+        if(controller != null)
         {
-            OnWin.Invoke();
+            if (controller == NPCToFinishLevel && controller.GetIsCarryingFrog())
+            {
+                OnWin.Invoke();
+            }
         }
+        
     }
 }

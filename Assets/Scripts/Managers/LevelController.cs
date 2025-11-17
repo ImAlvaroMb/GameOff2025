@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Utilities;
 
@@ -10,6 +11,8 @@ public class LevelController : AbstractSingleton<LevelController>
     public Image TimerImage;
     [SerializeField] private float timeToLose;
     private ITimer _currentTimer = null;
+
+    public UnityEvent OnLose;
 
     protected override void Start()
     {
@@ -26,7 +29,7 @@ public class LevelController : AbstractSingleton<LevelController>
         {
             TimerText.text = "0";
             TimerFillImage.fillAmount = 0f;
-            // call lose screen
+            OnLose.Invoke();
         }, onTimerDecreaseUpdate: (progress) =>
         {
             float value = progress / timeToLose;

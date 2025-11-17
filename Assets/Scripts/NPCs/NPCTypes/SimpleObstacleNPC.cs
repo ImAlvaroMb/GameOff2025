@@ -107,12 +107,12 @@ public class SimpleObstacleNPC : MonoBehaviour // this class shouldnt exist, i w
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Trigger {collision.gameObject.name}");
         if(collision.gameObject.layer == _NPCLayerID && collision.gameObject.CompareTag("NPC"))
         {
             collision.gameObject.GetComponentInParent<StateController>().CurrentState.FinishState();
             collision.gameObject.GetComponentInParent<NPCMovementController>().SetTargetPoint(kickNPCPos.transform.position);
             collision.gameObject.GetComponentInParent<NPCController>().SetCurrentAction(NPCActions.PATROL);
+            AlertSystemController.Instance.SendAlert("YOU CANT PASS, MOVE THIS NPC TO ADVANCE", 2f);
         }
     }
 }
