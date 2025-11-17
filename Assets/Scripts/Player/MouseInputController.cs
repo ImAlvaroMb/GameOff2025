@@ -7,15 +7,20 @@ using UnityEngine.EventSystems;
 public class MouseInputController : AbstractSingleton<MouseInputController>
 {
     [SerializeField] private LayerMask layersToCheck;
+    [SerializeField] private LayerMask npcLayerMask;
+
     [SerializeField] private float maxRaycastDistance = 40f;
 
     private BaseInteractable _currentHoveredObject = null;
     private NPCController _currentHoveredNPC = null;
-    public NPCController CurrentlySelectedNPC => _currentSelectedNPC; // this is deff not a good praxis but its jam
+
+    public NPCController CurrentlySelectedNPC => _currentSelectedNPC;
     private NPCController _currentSelectedNPC = null;
 
     private Camera mainCamera;
 
+    // This state variable should ideally be managed by the new influence system (AreaOfInfluence/NPCController), 
+    // but we keep it here as it was part of the original logic.
     public bool IsInAreaOfInfluence = false;
 
     public bool IsTestingClickRay = false;
@@ -31,30 +36,48 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
     {
         base.Awake();
         mainCamera = Camera.main;
+
+        // Cache layer IDs
         _interactableLayerID = LayerMask.NameToLayer("Interactable");
         _influenceLayerID = LayerMask.NameToLayer("Influence");
         _npcLayerID = LayerMask.NameToLayer("NPC");
-    }
-  
-    private void Update()
-    {
-        CheckForHover();
 
-        if(Input.GetMouseButtonDown(0))
+        if (npcLayerMask.value == 0)
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-            HandleClick();
+            npcLayerMask = 1 << _npcLayerID;
         }
     }
 
-    private void CheckForHover()
+    private void Update()
+    {
+        CheckForNPCHover();
+
+        CheckForOtherHoves();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
+            if (HandleNPCClick()) return;
+
+            HandleGeneralClick();
+        }
+    }
+
+    private void CheckForNPCHover()
     {
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, npcLayerMask);
+        HandleNPCHover(hit);
+    }
 
+    private void CheckForOtherHoves()
+    {
+        Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, layersToCheck);
+
         HandleIInteractableHover(hit);
         HandleAreaOfInfluenceHover(hit);
-        HandleNPCHover(hit);
     }
 
     private void HandleIInteractableHover(RaycastHit2D hit)
@@ -64,18 +87,9 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
         {
             newTarget = hit.collider.GetComponent<BaseInteractable>();
         }
-        else
-        {
-            if (_currentHoveredObject != null)
-            {
-                _currentHoveredObject.Dehighlight();
-                _currentHoveredObject = null;
-            }
-        }
 
         if (newTarget != _currentHoveredObject)
         {
-
             if (_currentHoveredObject != null)
             {
                 _currentHoveredObject.Dehighlight();
@@ -88,16 +102,21 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
 
             _currentHoveredObject = newTarget;
         }
+        else if (newTarget == null && _currentHoveredObject != null)
+        {
+            _currentHoveredObject.Dehighlight();
+            _currentHoveredObject = null;
+        }
     }
 
     private void HandleAreaOfInfluenceHover(RaycastHit2D hit)
     {
-        RangeOfInfluenceObject influenceObject = null;
-        if(hit.collider != null && hit.collider.gameObject.layer == _influenceLayerID)
+        if (hit.collider != null && hit.collider.gameObject.layer == _influenceLayerID)
         {
-            influenceObject = hit.collider.GetComponent<RangeOfInfluenceObject>();
+            // RangeOfInfluenceObject influenceObject = hit.collider.GetComponent<RangeOfInfluenceObject>(); // Not strictly needed for hover state
             IsInAreaOfInfluence = true;
-        } else
+        }
+        else
         {
             IsInAreaOfInfluence = false;
         }
@@ -106,24 +125,26 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
     private void HandleNPCHover(RaycastHit2D hit)
     {
         NPCController newNPC = null;
-        if(hit.collider != null && hit.collider.gameObject.layer == _npcLayerID)
+        if (hit.collider != null)
         {
+            // Note: Keep GetComponentInParent as it handles complex NPC prefab structures
             newNPC = hit.collider.GetComponentInParent<NPCController>();
         }
 
-        if(newNPC != _currentHoveredNPC)
+        if (newNPC != _currentHoveredNPC)
         {
-            if(_currentHoveredNPC != null)
+            if (_currentHoveredNPC != null)
             {
                 _currentHoveredNPC.OnStopHover();
             }
 
-            if(newNPC != null)
+            if (newNPC != null)
             {
-                if(newNPC == _currentSelectedNPC && _currentSelectedNPC != null)
+                if (newNPC == _currentSelectedNPC && _currentSelectedNPC != null)
                 {
                     newNPC.OnHover(true);
-                } else
+                }
+                else
                 {
                     newNPC.OnHover(false);
                 }
@@ -133,7 +154,52 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
         }
     }
 
-    public void HandleNPCActionUIClick(ChooseActionUIType actionType) 
+    private bool HandleNPCClick()
+    {
+        if (_currentHoveredNPC != null)
+        {
+            if (_currentHoveredNPC.IsInInfluenceArea)
+            {
+                _currentHoveredNPC.OnClicked();
+                _currentSelectedNPC = _currentHoveredNPC;
+            }
+            return true; 
+        }
+        return false; 
+    }
+
+    private void HandleGeneralClick()
+    {
+        if (_currentHoveredObject != null && _currentHoveredObject.CanInteract())
+        {
+            _currentHoveredObject.Interact(null);
+            return;
+        }
+
+        if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)
+        {
+            if (_currentHoveredObject != null)
+            {
+                _currentSelectedNPC.SetCurrentInteractable(_currentHoveredObject);
+                _currentSelectedNPC.SetCurrentAction(NPCActions.DO_OBJECT_INTERACTION);
+                return;
+            }
+
+            Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
+
+            if (groundHit.collider != null)
+            {
+                Vector3 clickPosition = groundHit.point;
+                _currentSelectedNPC.gameObject.GetComponent<NPCMovementController>().SetTargetPoint(clickPosition);
+                _currentSelectedNPC.SetCurrentAction(NPCActions.PATROL);
+                return;
+            }
+        }
+    }
+
+
+    public void HandleNPCActionUIClick(ChooseActionUIType actionType)
     {
         switch (actionType)
         {
@@ -145,15 +211,15 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
 
             case ChooseActionUIType.CAMERA_FOLLOW:
                 CameraController cameraController = CameraController.Instance;
-                if(cameraController.CurrentCameraTarget != _currentHoveredNPC.transform)
+                if (cameraController.CurrentCameraTarget != _currentHoveredNPC.transform)
                 {
                     cameraController.CurrentCameraTarget?.StopCameraFollow();
                     cameraController.StarFollowingTarget(_currentHoveredNPC);
                     _currentHoveredNPC.StartCameraFollow();
                     break;
                 }
-                
-                if(cameraController.CurrentCameraTarget == _currentHoveredNPC && cameraController.IsFollowingTraget)
+
+                if (cameraController.CurrentCameraTarget == _currentHoveredNPC && cameraController.IsFollowingTraget)
                 {
                     cameraController.StopFollowingTarget();
                     _currentHoveredNPC?.StopCameraFollow();
@@ -166,52 +232,11 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 break;
 
             case ChooseActionUIType.SELECT:
-                if(_currentHoveredNPC != _currentSelectedNPC)
+                if (_currentHoveredNPC != _currentSelectedNPC)
                 {
                     _currentSelectedNPC = _currentHoveredNPC;
                 }
                 break;
-        }
-    }
-
-    private void HandleClick()
-    {
-        if (_currentHoveredNPC != null)
-        {
-            if (_currentHoveredNPC.IsInInfluenceArea)
-            {
-                _currentHoveredNPC.OnClicked();
-                _currentSelectedNPC = _currentHoveredNPC;
-            }
-            return;
-        }
-
-        if (_currentHoveredObject != null && _currentHoveredObject.CanInteract())
-        {
-            _currentHoveredObject.Interact(null);
-            return;
-        }
-
-        if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)
-        {
-            if(_currentHoveredObject != null)
-            {
-                _currentSelectedNPC.SetCurrentInteractable(_currentHoveredObject);
-                _currentSelectedNPC.SetCurrentAction(NPCActions.DO_OBJECT_INTERACTION);
-                return;
-            }
-
-            Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit2D groundHit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, maxRaycastDistance, groundLayer);
-
-            if (groundHit.collider != null)
-            {
-                Vector3 clickPosition = groundHit.point;
-                _currentSelectedNPC.gameObject.GetComponent<NPCMovementController>().SetTargetPoint(clickPosition);
-                _currentSelectedNPC.SetCurrentAction(NPCActions.PATROL);
-                return;
-            } 
         }
     }
 }
