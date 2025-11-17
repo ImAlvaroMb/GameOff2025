@@ -42869,6 +42869,9 @@ MonoBehaviour:
   - {fileID: 759653652}
   - {fileID: 1407137506}
   influenceAreaRadius: 3.3
+  targetNPCs:
+  - {fileID: 1034911046}
+  - {fileID: 79988913371315349}
   autoInitialized: 0
   pulseDuration: 1.5
   minAlpha: 0.01
@@ -55926,6 +55929,9 @@ MonoBehaviour:
   - {fileID: 781557450}
   - {fileID: 1029978445}
   influenceAreaRadius: 3.3
+  targetNPCs:
+  - {fileID: 1034911046}
+  - {fileID: 79988913371315349}
   autoInitialized: 1
   pulseDuration: 1.5
   minAlpha: 0.01
@@ -101312,6 +101318,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
+--- !u!114 &79988913371315349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1556885164315630919, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
+  m_PrefabInstance: {fileID: 79988913371315348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32245ce8a6c5fd64895e0b09f134fe56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &363292490044857269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101601,6 +101618,9 @@ MonoBehaviour:
   - {fileID: 1231197634915450486}
   - {fileID: 6931758159112101608}
   influenceAreaRadius: 2.55
+  targetNPCs:
+  - {fileID: 1034911046}
+  - {fileID: 79988913371315349}
   autoInitialized: 0
   pulseDuration: 1.5
   minAlpha: 0.01

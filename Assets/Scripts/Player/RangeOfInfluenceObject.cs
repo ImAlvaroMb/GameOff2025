@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using Utilities;
@@ -7,8 +9,10 @@ public class RangeOfInfluenceObject : MonoBehaviour
 {
     public GameObject[] _areaSprites;
     [SerializeField] private float influenceAreaRadius;
+    private float _sqrInfluecenRadius;
+    [SerializeField] private List<NPCController> targetNPCs = new List<NPCController>();
+    private HashSet<NPCController> _npcInside = new HashSet<NPCController>();
     public bool autoInitialized = false;
-    private int _npcLayerID;
     private int _interactableLayerID;
 
     [Header("Visuals")]
@@ -27,12 +31,8 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     private void OnEnable()
     {
-        //_originalScale = _areaSprites.transform.localScale;
+        _sqrInfluecenRadius = influenceAreaRadius * influenceAreaRadius;
 
-        //_minScale = _originalScale * minScaleFactor;
-        //_maxScale = _originalScale * maxScaleFactor;
-
-        _npcLayerID = LayerMask.NameToLayer("NPC");
         _interactableLayerID = LayerMask.NameToLayer("Interactable");
 
         _collider = GetComponent<CircleCollider2D>();
@@ -41,6 +41,11 @@ public class RangeOfInfluenceObject : MonoBehaviour
             InitializeCollider();
             StartCoroutine(PulseAlpha());
         }
+    }
+    [ContextMenu("FindAllNpc")]
+    private void FindAllNPC()
+    {
+        targetNPCs = FindObjectsByType<NPCController>(FindObjectsSortMode.None).ToList();
     }
 
     private void InitializeCollider()
@@ -58,8 +63,34 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     private void Update()
     {
+        foreach (NPCController npcController in targetNPCs)
+        {
+            if (npcController == null) continue;
 
+            if (Vector2.Distance(transform.position, npcController.transform.position) < influenceAreaRadius)
+            {
+                if (_npcInside.Add(npcController))
+                {
+                    npcController.OnAreaEntered(this);
+                }
+            }
+            else
+            {
+                if (_npcInside.Remove(npcController))
+                {
+                    npcController.OnAreaExit(this);
+                }
+            }
+        }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, influenceAreaRadius);
+    }
+
+
 
     #region Area Visuals
 
@@ -146,11 +177,6 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == _npcLayerID && collision.gameObject.CompareTag("NPC"))
-        {
-            collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(true);
-        }
-
         if (collision.gameObject.layer == _interactableLayerID)
         {
             collision.GetComponent<BaseInteractable>().SetCanInteract(true);
@@ -160,11 +186,6 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == _npcLayerID && collision.gameObject.CompareTag("NPC"))
-        {
-            collision.GetComponentInParent<NPCController>().SetIsInAreaOfInfluence(false);
-        }
-
         if(collision.gameObject.layer == _interactableLayerID)
         {
             collision.GetComponent<BaseInteractable>().SetCanInteract(false);

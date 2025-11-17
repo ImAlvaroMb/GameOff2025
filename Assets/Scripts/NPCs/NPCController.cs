@@ -14,6 +14,8 @@ public class NPCController : MonoBehaviour
     private NPCActions _currentAction;
     private float _currentTotalProbability;
     private NPCVisualController _visualController;
+    [Header("Area of Influence")]
+    private HashSet<RangeOfInfluenceObject> _activeAreas = new HashSet<RangeOfInfluenceObject>();
 
     [Header("Patrol")]
     public Vector2 OriginalPosition => _originalPosition;
@@ -101,6 +103,27 @@ public class NPCController : MonoBehaviour
             _visualController.UpdateInfluenceMeterImage(_currentProportionalInfluence);
         }
     }
+    #region Range Of Influence
+
+    public void OnAreaEntered(RangeOfInfluenceObject area)
+    {
+        bool isNew = _activeAreas.Add(area);
+        if(isNew && _activeAreas.Count == 1)
+        {
+            _isInInfluenceArea = true;
+        }
+    }
+
+    public void OnAreaExit(RangeOfInfluenceObject area)
+    {
+        bool wasRemoved = _activeAreas.Remove(area);    
+        if(wasRemoved && _activeAreas.Count == 0)
+        {
+            _isInInfluenceArea = false;
+        }
+    }
+
+    #endregion
 
     #region Controlled
 
