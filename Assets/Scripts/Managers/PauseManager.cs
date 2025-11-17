@@ -1,17 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Utilities;
 
 public class PauseManager : AbstractSingleton<PauseManager>
 {
     private List<IPausable> _pausableElements = new List<IPausable>();
 
-    public GameObject pauseTestingScreem;
+    public GameObject pauseTestingScreen;
 
     private bool _isGamePaused = false;
 
-    public void HandlePausePressed(InputAction.CallbackContext ctx)
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            HandlePausePressed();
+        }
+    }
+
+    public void HandlePausePressed()
     {
         if (_isGamePaused)
         {
@@ -28,7 +37,7 @@ public class PauseManager : AbstractSingleton<PauseManager>
         if (_isGamePaused) return;
 
         _isGamePaused = true;
-        pauseTestingScreem.SetActive(true);
+        pauseTestingScreen.SetActive(true);
 
         foreach (IPausable element in _pausableElements)
         {
@@ -41,7 +50,7 @@ public class PauseManager : AbstractSingleton<PauseManager>
         if (!_isGamePaused) return;
 
         _isGamePaused = false;
-        pauseTestingScreem.SetActive(false);
+        pauseTestingScreen.SetActive(false);
 
         foreach (IPausable element in _pausableElements)
         {

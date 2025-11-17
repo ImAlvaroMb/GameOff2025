@@ -239,4 +239,17 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 break;
         }
     }
+
+    #region Utilities
+
+    public void UnselectCurrentSelectedNPC()
+    {
+        if(_currentSelectedNPC != null)
+        {
+            _currentSelectedNPC = null;
+            AlertSystemController.Instance.SendAlert($"Currently no NPC is selected", 2f);
+        }
+    }
+
+    #endregion
 }
