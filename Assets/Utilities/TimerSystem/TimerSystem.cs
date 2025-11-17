@@ -21,10 +21,12 @@ namespace Utilities
             base.Awake();
         }
 
-        private void Start()
+        protected override void Start()
         {
-            //PauseManager.Instance.RegisterPausable(this);
+            base.Start();
+            PauseManager.Instance.RegisterPausable(this);
         }
+
 
         private void Update()
         {
@@ -34,7 +36,7 @@ namespace Utilities
         private void OnDestroy()
         {
             _timers.Clear();
-            //PauseManager.Instance?.UnregisterPausable(this);
+            PauseManager.Instance?.UnregisterPausable(this);
         }
         #endregion
 

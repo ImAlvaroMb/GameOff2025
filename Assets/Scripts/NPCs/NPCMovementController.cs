@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCMovementController : MonoBehaviour
+public class NPCMovementController : MonoBehaviour, IPausable
 {
     public float MoveSpeed = 5f;
     [Tooltip("Distance threshold to consider next node as goal")]
@@ -17,6 +17,7 @@ public class NPCMovementController : MonoBehaviour
     private Action _onPathCompleteCallback;
     public Vector2 TargetPoint => _targetPoint;
     private Vector2 _targetPoint = Vector2.zero;
+    private bool _isPaused = false;
 
 
     private void Start()
@@ -26,6 +27,7 @@ public class NPCMovementController : MonoBehaviour
     }
     private void Update()
     {
+        if(_isPaused) return;
         if (_currentPath.Count > 0 && _targetNodeIndex < _currentPath.Count)
         {
             MoveAlongPath();
@@ -120,5 +122,15 @@ public class NPCMovementController : MonoBehaviour
     public List<Node> GetCurrentPath()
     {
         return _currentPath;
+    }
+
+    public void OnPause()
+    {
+        _isPaused = true;
+    }
+
+    public void OnResume()
+    {
+        _isPaused = false;
     }
 }

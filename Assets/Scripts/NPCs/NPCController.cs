@@ -56,6 +56,10 @@ public class NPCController : MonoBehaviour
 
     [Header("CameraFollow")]
     public GameObject CameraReferece;
+
+    [Header("Frog Interactions")]
+    public Transform FrogCarryPos;
+    private bool _isCarryingFrog = false;
     
     private void OnValidate()
     {
@@ -353,6 +357,19 @@ public class NPCController : MonoBehaviour
 
     #endregion
 
+    #region Frog Interactions
+
+    public bool GetIsCarryingFrog()
+    {
+        return _isCarryingFrog;
+    }
+
+    public void SetIsCarryingFrog(bool value)
+    {
+        _isCarryingFrog = value;
+    }
+
+    #endregion
     public void OnHover(bool isCurrentlyControlledNPC) 
     {
         //Debug.Log($"Hover {gameObject.name}");
