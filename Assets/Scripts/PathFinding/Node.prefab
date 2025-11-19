@@ -48,4 +48,4 @@ MonoBehaviour:
   Connections: []
   gScore: 0
   hScore: 0
-  DrawGizmos: 0
+  DrawGizmos: 1

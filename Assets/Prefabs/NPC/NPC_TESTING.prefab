@@ -320,8 +320,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   influenceMeterImg: {fileID: 666113303245321858}
-  animator: {fileID: 1516958064224172143}
   hoverButtons: {fileID: 2090598145822199489}
+  spriteRenderer: {fileID: 476960115440259180}
+  animations:
+  - animationType: 0
+    sprites:
+    - {fileID: 6937395037878171964, guid: 70706c5b1e52ca14c98c48da8eb77023, type: 3}
+    framesPerSecond: 8
+  - animationType: 1
+    sprites:
+    - {fileID: -4799916377493330524, guid: ea33a892aede8984a826b3e3395ee5fe, type: 3}
+    - {fileID: -1548692690094498532, guid: e176441ade0f71646ab1b3776ffb5fab, type: 3}
+    framesPerSecond: 8
+  - animationType: 2
+    sprites:
+    - {fileID: 2284604436704475390, guid: c9e40242dd46afc42a90ddf3bf954561, type: 3}
+    framesPerSecond: 8
+  - animationType: 3
+    sprites:
+    - {fileID: -7801214308513566756, guid: 75a6b4352aa7a9448a2ba79b919f0198, type: 3}
+    - {fileID: -3354475446924521504, guid: 0774b8186cf114342a7915322c7ba4ed, type: 3}
+    framesPerSecond: 8
+  - animationType: 4
+    sprites:
+    - {fileID: 5863308808512056457, guid: eca906941cc0e864f88841a9d6f0b7b9, type: 3}
+    framesPerSecond: 8
+  - animationType: 5
+    sprites:
+    - {fileID: -7021147762465688834, guid: 50417569961e47b42bb261bfd1510725, type: 3}
+    - {fileID: 1377422635631230044, guid: d3f83a8e9e07198488515b8fc669cd24, type: 3}
+    framesPerSecond: 8
+  - animationType: 6
+    sprites:
+    - {fileID: -6811160072591774091, guid: 8937269eded5b30418a3609b55d9e432, type: 3}
+    framesPerSecond: 8
+  - animationType: 7
+    sprites:
+    - {fileID: 8742365150505181611, guid: f6f64579bc3bf4e4e925f840b91c2a73, type: 3}
+    - {fileID: 329642544575762348, guid: 479593b8787116542bae3384c8b707fb, type: 3}
+    framesPerSecond: 8
   phrases:
   - Hooo Heee Hiiii
   - Una Unga this is awesome, we are in the water belowe heaven
@@ -1019,7 +1056,6 @@ GameObject:
   - component: {fileID: 5131415150632101281}
   - component: {fileID: 476960115440259180}
   - component: {fileID: 6344857473322898956}
-  - component: {fileID: 1516958064224172143}
   m_Layer: 11
   m_Name: Visual
   m_TagString: NPC
@@ -1127,34 +1163,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.19
---- !u!95 &1516958064224172143
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6976316024502051937}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6bbed2435fc08e74d9b880340a47aef5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8093409241777324180
 GameObject:
   m_ObjectHideFlags: 0

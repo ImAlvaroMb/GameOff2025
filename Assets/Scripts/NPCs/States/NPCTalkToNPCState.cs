@@ -21,8 +21,9 @@ public class NPCTalkToNPCState : NPCBaseState
                 if(_controller.OtherCurrentNPC == null)
                 {
                     FinishState();
+                    
                 }
-                _controller.OtherCurrentNPC.SetTalkType(TalkType.LISTENER);
+                _controller.OtherCurrentNPC?.SetTalkType(TalkType.LISTENER);
                 GoToNPC();
             }
         }
