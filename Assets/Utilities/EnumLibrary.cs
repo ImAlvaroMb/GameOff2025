@@ -46,5 +46,25 @@ namespace Enums
         CAMERA_FOLLOW,
         SELECT
     }
+
+    public enum WalkDirection
+    {
+        DOWN,
+        UP,
+        LEFT,
+        RIGHT
+    }
+
+    public enum NPCAnimation
+    {
+        DOWN_IDLE,
+        DOWN_WALK,
+        LEFT_IDLE,
+        LEFT_WALK,
+        RIGHT_IDLE,
+        RIGHT_WALK,
+        UP_IDLE,
+        UP_WALK,
+    }
     
 }
