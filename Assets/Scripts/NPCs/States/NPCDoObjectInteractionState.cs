@@ -1,11 +1,12 @@
 using UnityEngine;
+using Enums;
 [CreateAssetMenu(menuName ="State/InteractWithObjState")]
 public class NPCDoObjectInteractionState : NPCBaseState
 {
     public override void OnEnter()
     {
         base.OnEnter();
-
+        _visualController.OnAction(NPCActions.DO_OBJECT_INTERACTION);
         if(_controller.CurrentInteractable != null) //we already have a object to interact with (means npc is being controller or disrupted)
         {
             GoToInteractable();

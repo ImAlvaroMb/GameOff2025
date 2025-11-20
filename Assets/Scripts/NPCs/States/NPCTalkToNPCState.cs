@@ -7,6 +7,7 @@ public class NPCTalkToNPCState : NPCBaseState
     public override void OnEnter()
     {
         base.OnEnter();
+        _visualController.OnAction(NPCActions.TALK_TO_NPC);
         if(_controller.TalkType == TalkType.LISTENER)
         {
 

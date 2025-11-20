@@ -305,7 +305,7 @@ public class NPCController : MonoBehaviour
 
             if(randomNumber <= cumulativeWeight)
             {
-                _currentAction = action.Action;
+                SetCurrentAction(action.Action);
                 break;
             }
         }

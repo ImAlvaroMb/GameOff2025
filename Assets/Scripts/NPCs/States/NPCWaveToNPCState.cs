@@ -7,6 +7,7 @@ public class NPCWaveToNPCState : NPCBaseState
     public override void OnEnter()
     {
         base.OnEnter();
+        _visualController.OnAction(NPCActions.WAVE);
         if(_controller.WaveType == NPCWaveType.WAVER)
         {
             // wave animation
