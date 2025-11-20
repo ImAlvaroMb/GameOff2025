@@ -31,14 +31,17 @@ public class NPCTalkToNPCState : NPCBaseState
 
     private void GoToNPC()
     {
-        _movementController.GoToPosition(_controller.OtherCurrentNPC.transform.position, () =>
+        if(_controller.OtherCurrentNPC != null)
         {
-            _visualController.ActivateSpeechBubble(() =>
+            _movementController.GoToPosition(_controller.OtherCurrentNPC.transform.position, () =>
             {
-                _controller.OtherCurrentNPC.GetComponent<StateController>().CurrentState.FinishState();
-                _isDone = true;
+                _visualController.ActivateSpeechBubble(() =>
+                {
+                    _controller.OtherCurrentNPC.GetComponent<StateController>().CurrentState.FinishState();
+                    _isDone = true;
+                });
             });
-        });
+        }
     }
 
     public override void UpdateState()

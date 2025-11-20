@@ -182,7 +182,8 @@ public class NPCController : MonoBehaviour
 
         _influenceTimer = TimerSystem.Instance.CreateTimer(decayDuration, TimerDirection.DECREASE, onTimerDecreaseComplete: () =>
         {
-            _isFullyControlled = false;
+            //_isFullyControlled = false;
+            SetIsFullyControlled(false);
             _canCheckInfluence = false;
             StopActiveTimerAndZero();
         }, onTimerDecreaseUpdate: (progress) =>
@@ -262,6 +263,7 @@ public class NPCController : MonoBehaviour
     public void SetIsFullyControlled(bool value)
     {
         _isFullyControlled = value;
+        _visualController.OnControlledChanged(value);
     }
 
     public void DisruptBeingControlled()
@@ -312,6 +314,7 @@ public class NPCController : MonoBehaviour
     public void SetCurrentAction(NPCActions action)
     {
         _currentAction = action;
+        _visualController.OnAction(action);
     }
     #endregion
 

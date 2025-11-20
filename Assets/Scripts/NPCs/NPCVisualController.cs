@@ -10,6 +10,7 @@ public class NPCVisualController : MonoBehaviour
 {
     [SerializeField] private Image influenceMeterImg;
     [SerializeField] private ActionUIController hoverButtons;
+    [SerializeField] private NPCStateUIController npcStateUIController;
     private const float DIRECTION_THRESHOLD = 0.02f;
 
     [Header("Sprite Animation")]
@@ -150,6 +151,16 @@ public class NPCVisualController : MonoBehaviour
     public void OnStopHovering()
     {
         hoverButtons.gameObject.SetActive(false);
+    }
+
+    public void OnAction(NPCActions action)
+    {
+        npcStateUIController.ChangeCurrentActionBeingDone(action);
+    }
+
+    public void OnControlledChanged(bool value)
+    {
+        npcStateUIController.ChangeBeingControlled(value);
     }
 
     public void UpdateInfluenceMeterImage(float fillAmount)
