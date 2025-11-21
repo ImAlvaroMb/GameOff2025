@@ -57,7 +57,10 @@ public class NPCWaveToNPCState : NPCBaseState
         Vector2 position = _controller.OtherCurrentNPC.GetRandomValidInteractionPoint();
         _movementController.GoToPosition(position, () =>
         {
-            //wave anim
+            Vector2 direction = stateController.gameObject.transform.position - _controller.OtherCurrentNPC.transform.position;
+            Vector2 direction2 = _controller.OtherCurrentNPC.transform.position - stateController.gameObject.transform.position; 
+            _controller.OtherCurrentNPC.gameObject.GetComponent<NPCVisualController>().DetermineCardinalDirection(direction);
+            _visualController.DetermineCardinalDirection(direction2);
             _controller.OtherCurrentNPC.GetComponent<StateController>().CurrentState.FinishState();
             _isDone = true;
         });

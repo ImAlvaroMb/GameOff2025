@@ -37,9 +37,13 @@ public class NPCTalkToNPCState : NPCBaseState
             Vector2 position = _controller.OtherCurrentNPC.GetRandomValidInteractionPoint();
             _movementController.GoToPosition(position, () =>
             {
+                Vector2 direction = stateController.gameObject.transform.position - _controller.OtherCurrentNPC.transform.position;
+                _controller.OtherCurrentNPC.gameObject.GetComponent<NPCVisualController>().DetermineCardinalDirection(direction);
                 _visualController.ActivateSpeechBubble(() =>
                 {
                     _controller.OtherCurrentNPC.GetComponent<StateController>().CurrentState.FinishState();
+                    Vector2 direction = _controller.OtherCurrentNPC.transform.position - stateController.gameObject.transform.position;
+                    _visualController.DetermineCardinalDirection(direction);
                     _isDone = true;
                 });
             });

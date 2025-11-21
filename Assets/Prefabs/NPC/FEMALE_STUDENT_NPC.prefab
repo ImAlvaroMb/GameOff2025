@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.946, y: -0.4583999}
-  m_SizeDelta: {x: 0, y: 0.5}
+  m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710156864625700372
 MonoBehaviour:
@@ -182,6 +182,8 @@ MonoBehaviour:
   ActionImageContainer: {fileID: 164709693824325393}
   ControlledImageContainer: {fileID: 552841528033296677}
   ControlledImage: {fileID: 2377741350494733665}
+  animationAmplitude: 0.1
+  animationFrequency: 6
 --- !u!1 &374657612644092298
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +432,13 @@ MonoBehaviour:
   - Action: 3
     Probability: 5
   DrawGizmos: 0
+  InteractionPoints:
+  - {fileID: 4413685578942499522}
+  - {fileID: 3955994673035882486}
+  overlapCheckRadius: 0.1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
   rangeToPatrol: 3.5
   waveDistance: 9
   decayDuration: 10
@@ -610,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 2384709574086232023}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: 0}
+  m_LocalPosition: {x: -1.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -757,7 +766,7 @@ Transform:
   m_GameObject: {fileID: 3789170787587045290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalPosition: {x: 1.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1823,7 +1832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1.7200003
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_SizeDelta.y
