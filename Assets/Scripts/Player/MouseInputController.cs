@@ -247,7 +247,9 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
             case ChooseActionUIType.SELECT:
                 if (_currentHoveredNPC != _currentSelectedNPC)
                 {
+                    _currentSelectedNPC?.gameObject.GetComponent<NPCVisualController>().OnControlledChanged(false);
                     _currentSelectedNPC = _currentHoveredNPC;
+                    _currentSelectedNPC.gameObject.GetComponent<NPCVisualController>()?.OnControlledChanged(true);
                 }
                 break;
         }
@@ -259,6 +261,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
     {
         if(_currentSelectedNPC != null)
         {
+            _currentSelectedNPC.gameObject.GetComponent<NPCVisualController>().OnControlledChanged(false);
             _currentSelectedNPC = null;
             AlertSystemController.Instance.SendAlert($"Currently no NPC is selected", 2f);
         }

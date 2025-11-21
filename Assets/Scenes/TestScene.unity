@@ -27952,6 +27952,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5078027557431135423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1983353562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7877409006793139322, guid: c28f7178a3f01d443b5ed4c9e8427dd1, type: 3}
+  m_PrefabInstance: {fileID: 7411931987628688808}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1986210304
 GameObject:
   m_ObjectHideFlags: 0
@@ -30522,7 +30533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9008568937169383774, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9008568937169383774, guid: 2fee29e36913dec458a54c827b509f9e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -36436,6 +36447,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5175227264193833586, guid: c28f7178a3f01d443b5ed4c9e8427dd1, type: 3}
+      propertyPath: ActionImage
+      value: 
+      objectReference: {fileID: 1983353562}
+    - target: {fileID: 5175227264193833586, guid: c28f7178a3f01d443b5ed4c9e8427dd1, type: 3}
       propertyPath: ActionImages.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -36493,7 +36508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7736867137459997518, guid: c28f7178a3f01d443b5ed4c9e8427dd1, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1.7200003
       objectReference: {fileID: 0}
     - target: {fileID: 7736867137459997518, guid: c28f7178a3f01d443b5ed4c9e8427dd1, type: 3}
       propertyPath: m_AnchoredPosition.x
