@@ -21,7 +21,8 @@ public class NPCDoObjectInteractionState : NPCBaseState
 
     private void GoToInteractable()
     {
-        _movementController.GoToPosition(_controller.CurrentInteractable.transform.position, () =>
+        Vector2 position = _controller.CurrentInteractable.GetRandomValidInteractionPoint();
+        _movementController.GoToPosition(position, () =>
         {
             if(_awarnessController.CanInteract(_controller.CurrentInteractable))
             {

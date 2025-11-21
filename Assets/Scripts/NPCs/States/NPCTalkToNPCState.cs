@@ -34,7 +34,8 @@ public class NPCTalkToNPCState : NPCBaseState
     {
         if(_controller.OtherCurrentNPC != null)
         {
-            _movementController.GoToPosition(_controller.OtherCurrentNPC.transform.position, () =>
+            Vector2 position = _controller.OtherCurrentNPC.GetRandomValidInteractionPoint();
+            _movementController.GoToPosition(position, () =>
             {
                 _visualController.ActivateSpeechBubble(() =>
                 {

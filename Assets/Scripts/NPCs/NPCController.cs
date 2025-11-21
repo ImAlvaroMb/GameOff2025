@@ -17,11 +17,16 @@ public class NPCController : MonoBehaviour
     [Header("Area of Influence")]
     private HashSet<RangeOfInfluenceObject> _activeAreas = new HashSet<RangeOfInfluenceObject>();
 
+    [Header("Interaction Positions")]
+    public List<Transform> InteractionPoints = new List<Transform>();
+    [SerializeField] private float overlapCheckRadius = 0.1f;
+    [SerializeField] private LayerMask obstacleLayer;
+
     [Header("Patrol")]
+    [SerializeField] private float rangeToPatrol;
     public Vector2 OriginalPosition => _originalPosition;
     private Vector2 _originalPosition;
     public float RangeToPatrol => rangeToPatrol;
-    [SerializeField] private float rangeToPatrol;
 
     [Header("Object Interaction")]
     public BaseInteractable CurrentInteractable => _currentInteractable;
@@ -34,11 +39,13 @@ public class NPCController : MonoBehaviour
     private TalkType _talkType = TalkType.NONE;
 
     [Header("Waving To NPC")]
+    [SerializeField] private float waveDistance = 3f;
     public NPCWaveType WaveType => _waveType;
     private NPCWaveType _waveType = NPCWaveType.NONE;
-    [SerializeField] private float waveDistance = 3f;
 
     [Header("Being Controller")]
+    [SerializeField] private float decayDuration = 10f; //time in seconds to go from fully controlled to loosing control of the NPC
+    [SerializeField] private float recoveryDuration = 10f; //time in seconds to go from fully controlled to loosing control of the NPC
     public bool IsFullyControlled => _isFullyControlled;
     private bool _isFullyControlled = false;
     private ITimer _beingControlledTimer;
@@ -47,8 +54,6 @@ public class NPCController : MonoBehaviour
     public bool IsBeingControlled => _isBeingControlled;
     private bool _isBeingControlled = false;
     private float _currentProportionalInfluence;
-    [SerializeField] private float decayDuration = 10f; //time in seconds to go from fully controlled to loosing control of the NPC
-    [SerializeField] private float recoveryDuration = 10f; //time in seconds to go from fully controlled to loosing control of the NPC
     private ITimer _influenceTimer = null;
     private string _timerID;
     private bool _isInfluenceAtFull = false;
@@ -240,13 +245,12 @@ public class NPCController : MonoBehaviour
 
     public void OnClicked()
     {
-        Debug.Log($"ClickedOn {gameObject.name} NPC");
         if(!_isBeingControlled && _isInInfluenceArea)
         {
             _isBeingControlled = true;
         } else if(_isBeingControlled && _isInInfluenceArea)
         {
-            _isBeingControlled = false;
+            //_isBeingControlled = false;
         }
     }
 
@@ -396,6 +400,30 @@ public class NPCController : MonoBehaviour
     public void StopCameraFollow()
     {
         CameraReferece.SetActive(false);
+    }
+
+    public Vector2 GetRandomValidInteractionPoint()
+    {
+        if (InteractionPoints.Count == 0)
+        {
+            Debug.LogWarning($"No interaction Points added on the object {gameObject.name}");
+            return transform.position;
+        }
+
+        bool found = false;
+        bool isOverlapping = true;
+        int randomIndex = 0;
+        while (!found)
+        {
+            randomIndex = Random.Range(0, InteractionPoints.Count);
+            isOverlapping = Physics2D.OverlapCircle(InteractionPoints[randomIndex].position, overlapCheckRadius, obstacleLayer);
+            if (!isOverlapping)
+            {
+                found = true;
+            }
+        }
+        Debug.Log(randomIndex);
+        return InteractionPoints[randomIndex].position;
     }
 
     private void OnDrawGizmos()

@@ -14,6 +14,11 @@ public class NPCStateUIController : MonoBehaviour
     [Header("Controlled UI")]
     public GameObject ControlledImageContainer;
     public Image ControlledImage;
+    [SerializeField] private float animationAmplitude = 0.1f;
+    [SerializeField] private float animationFrequency = 6f;
+
+    private bool _isControlled = false;
+    private Vector2 _originalControlledImagePosition;
 
     private void Awake()
     {
@@ -30,6 +35,19 @@ public class NPCStateUIController : MonoBehaviour
     {
         ChangeCurrentActionBeingDone(NPCActions.NONE);
         ChangeBeingControlled(false);
+    }
+
+    private void Update()
+    {
+        if(_isControlled)
+        {
+            float yOffset = Mathf.Sin(Time.time * animationFrequency) * animationAmplitude;
+
+            ControlledImage.transform.position = new Vector2(
+                ControlledImageContainer.transform.position.x,
+                ControlledImageContainer.transform.position.y + yOffset
+                );
+        }
     }
 
     public void ChangeCurrentActionBeingDone(NPCActions action)
@@ -51,12 +69,10 @@ public class NPCStateUIController : MonoBehaviour
     public void ChangeBeingControlled(bool value)
     {
         ControlledImageContainer.SetActive(value);
+        _isControlled = value;
         if(value)
         {
-            // start animating effect
-        } else
-        {
-            // stop animating effect
+            _originalControlledImagePosition = ControlledImage.transform.position;
         }
     }
 }

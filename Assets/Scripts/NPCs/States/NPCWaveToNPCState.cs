@@ -54,7 +54,8 @@ public class NPCWaveToNPCState : NPCBaseState
 
     private void GoToNPC()
     {
-        _movementController.GoToPosition(_controller.OtherCurrentNPC.transform.position, () =>
+        Vector2 position = _controller.OtherCurrentNPC.GetRandomValidInteractionPoint();
+        _movementController.GoToPosition(position, () =>
         {
             //wave anim
             _controller.OtherCurrentNPC.GetComponent<StateController>().CurrentState.FinishState();

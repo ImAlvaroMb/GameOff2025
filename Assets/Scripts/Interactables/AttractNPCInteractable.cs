@@ -28,7 +28,7 @@ public class AttractNPCInteractable : BaseInteractable
 
             foreach (SimpleObstacleNPC npc in ObstacleNPC)
             {
-                npc.GoToPosition(transform.position, () =>
+                npc.GoToPosition(GetRandomValidInteractionPoint(), () =>
                 {
                     StopVisualEffect();
                     foreach (NPCController controller in AttractedNPC)

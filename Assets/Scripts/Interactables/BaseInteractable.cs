@@ -8,7 +8,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 {
     public List<InteractableType> InteractableType = new List<InteractableType>();
     public UnityEvent OnInteracted;
-
+    
     private SpriteRenderer _sprite;
     private bool _canInteract = false; // this can interact is for the user direct interaction (mouse, not from a controlled NPC)
 
@@ -17,6 +17,11 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     [SerializeField] private float animationDuration = 0.1f;
 
     private ITimer _currentTimer;
+
+    [Header("Interaction Points")]
+    public List<Transform> InteractionPoints = new List<Transform>();
+    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private float overlapCheckRadius = 0.1f;
 
     protected virtual void Awake()
     {
@@ -72,6 +77,45 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     public void SetCanInteract(bool value)
     {
         _canInteract = value;
+    }
+
+    public Vector2 GetRandomValidInteractionPoint()
+    {
+        if(InteractionPoints.Count == 0)
+        {
+            Debug.LogWarning($"No interaction Points added on the object {gameObject.name}");
+            return transform.position;
+        }
+
+        /*List<Transform> shuffledPostitions = new List<Transform>(InteractionPoints);
+        shuffledPostitions.Shuffle();
+
+        foreach (Transform pos in shuffledPostitions)
+        {
+            bool isOverlapping = Physics2D.OverlapCircle(pos.position, overlapCheckRadius, obstacleLayer);
+
+            if(!isOverlapping)
+            {
+                return pos.position;
+            }
+        }
+        
+        // found no available postiions
+        return transform.position;*/
+        bool found = false;
+        bool isOverlapping = true;
+        int randomIndex = 0;
+        while (!found)
+        {
+            randomIndex = Random.Range(0, InteractionPoints.Count);
+            isOverlapping = Physics2D.OverlapCircle(InteractionPoints[randomIndex].position, overlapCheckRadius, obstacleLayer);
+            if(!isOverlapping)
+            {
+                found = true;
+            }
+        }
+        Debug.Log(randomIndex);
+        return InteractionPoints[randomIndex].position;
     }
 
     private void OnDestroy()

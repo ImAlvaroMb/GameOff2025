@@ -168,10 +168,19 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
     {
         if (_currentHoveredNPC != null)
         {
+            CameraController cameraController = CameraController.Instance;
+            if (cameraController.CurrentCameraTarget != _currentHoveredNPC.transform)
+            {
+                cameraController.CurrentCameraTarget?.StopCameraFollow();
+                cameraController.StarFollowingTarget(_currentHoveredNPC);
+                _currentHoveredNPC.StartCameraFollow();
+            }
             if (_currentHoveredNPC.IsInInfluenceArea)
             {
+                _currentSelectedNPC?.gameObject.GetComponent<NPCVisualController>().OnControlledChanged(false);
                 _currentHoveredNPC.OnClicked();
                 _currentSelectedNPC = _currentHoveredNPC;
+                _currentSelectedNPC.gameObject.GetComponent<NPCVisualController>()?.OnControlledChanged(true);
             }
             return true; 
         }
