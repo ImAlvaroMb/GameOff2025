@@ -11,7 +11,8 @@ public class SimpleObstacleNPC : MonoBehaviour // this class shouldnt exist, i w
 
     private List<Node> _currentPath = new List<Node>();
     private int _targetNodeIndex = 0;
-    [SerializeField] private GameObject kickNPCPos; 
+    [SerializeField] private GameObject kickNPCPos;
+    [SerializeField] private NPCVisualController _visualController;
     private int _NPCLayerID;
     private Action _onPathCompleteCallback;
 
@@ -77,6 +78,7 @@ public class SimpleObstacleNPC : MonoBehaviour // this class shouldnt exist, i w
         Vector2 targetPos = _currentPath[_targetNodeIndex].transform.position;
 
         Vector2 direction = targetPos - (Vector2)transform.position;
+        _visualController.DetermineCardinalDirection(direction);
         float distance = direction.magnitude;
 
         if (distance <= nextNodeTolerance)

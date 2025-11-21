@@ -45,7 +45,7 @@ public class NPCVisualController : MonoBehaviour
     {
         _controller = GetComponent<NPCController>();
         UpdateInfluenceMeterImage(0f);
-        hoverButtons.gameObject.SetActive(false);
+        hoverButtons?.gameObject.SetActive(false);
         PlayAnimation(NPCAnimation.DOWN_IDLE);
     }
 
@@ -165,7 +165,8 @@ public class NPCVisualController : MonoBehaviour
 
     public void UpdateInfluenceMeterImage(float fillAmount)
     {
-        influenceMeterImg.fillAmount = fillAmount;
+        if(influenceMeterImg != null)
+            influenceMeterImg.fillAmount = fillAmount;
     }
 
     public void ActivateSpeechBubble(Action onSpeechBubbleFinish)
