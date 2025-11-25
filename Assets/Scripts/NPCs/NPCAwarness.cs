@@ -32,6 +32,17 @@ public class NPCAwarness : MonoBehaviour
         return nearbyNPC[index];
     }
 
+    public void OnControlled()
+    {
+        interactTypesAvailable.Add(InteractableType.CONTROLLED);
+    }
+
+    public void OnStopControlled()
+    {
+        if(interactTypesAvailable.Contains(InteractableType.CONTROLLED))
+            interactTypesAvailable.Remove(InteractableType.CONTROLLED);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interactable"))

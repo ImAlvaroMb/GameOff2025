@@ -14,6 +14,7 @@ public class NPCController : MonoBehaviour
     private NPCActions _currentAction;
     private float _currentTotalProbability;
     private NPCVisualController _visualController;
+    private NPCAwarness _npcAwarness;
     [Header("Area of Influence")]
     private HashSet<RangeOfInfluenceObject> _activeAreas = new HashSet<RangeOfInfluenceObject>();
 
@@ -87,6 +88,7 @@ public class NPCController : MonoBehaviour
     {
         _originalPosition = transform.position;
         _visualController = GetComponent<NPCVisualController>();
+        _npcAwarness = GetComponent<NPCAwarness>();
     }
 
     private void OnDestroy()
@@ -268,6 +270,13 @@ public class NPCController : MonoBehaviour
     {
         _isFullyControlled = value;
         _visualController.OnControlledChanged(value);
+        if(value)
+        {
+            _npcAwarness.OnControlled();
+        } else
+        {
+            _npcAwarness.OnStopControlled();
+        }
     }
 
     public void DisruptBeingControlled()
