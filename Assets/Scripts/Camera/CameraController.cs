@@ -3,7 +3,8 @@ using UnityEngine;
 using Utilities;
 public class CameraController : AbstractSingleton<CameraController>
 {
-    public GameObject AllLevelCamera;
+    public GameObject[] AllLevelCamera;
+    private int _currentAllLevelCameraIndex = 0;
     public float ScrollSpeed = 10f;
     [Range(0.01f, 0.5f)]
     public float BorderThickness = 0.05f;
@@ -19,7 +20,7 @@ public class CameraController : AbstractSingleton<CameraController>
     {
         base.Awake();
         _vcam = GetComponent<CinemachineCamera>();
-        AllLevelCamera.SetActive(false);
+        AllLevelCamera[_currentAllLevelCameraIndex].SetActive(false);
 
         _vcam.Follow = null;
         _vcam.LookAt = null;
@@ -27,14 +28,19 @@ public class CameraController : AbstractSingleton<CameraController>
 
     private void Update()
     {
-        if(!_isAllMapCameraActive)
+        /*if(!_isAllMapCameraActive)
         {
             if(!_isFollowingTarget)
             {
-                HandleBorderScrolling();
+                HandleWASDScrolling();
             }
+        }*/
+
+        if (!_isFollowingTarget)
+        {
+            HandleWASDScrolling();
         }
-        
+
         CheckSpaceBarInput();
     }
 
@@ -44,11 +50,11 @@ public class CameraController : AbstractSingleton<CameraController>
         {
             if(_isAllMapCameraActive)
             {
-                AllLevelCamera.SetActive(false);
+                AllLevelCamera[_currentAllLevelCameraIndex].SetActive(false);
                 _isAllMapCameraActive = false;
             } else
             {
-                AllLevelCamera.SetActive(true);
+                AllLevelCamera[_currentAllLevelCameraIndex].SetActive(true);
                 _isAllMapCameraActive = true;
             }
         }
@@ -58,7 +64,7 @@ public class CameraController : AbstractSingleton<CameraController>
     {
         if(_isAllMapCameraActive)
         {
-            AllLevelCamera.SetActive(false);
+            AllLevelCamera[_currentAllLevelCameraIndex].SetActive(false);
             _isAllMapCameraActive = false;
         }
         _currentCameraTarget = target;
@@ -115,6 +121,65 @@ public class CameraController : AbstractSingleton<CameraController>
             transform.position = pos;
             lastScrollPosition = pos; 
         }
+    }
+
+    private void HandleWASDScrolling()
+    {
+        Vector3 pos = transform.position;
+        bool shouldMove = false;
+        float scrollAmount = ScrollSpeed * Time.deltaTime;
+
+        Vector3 mousePos = Input.mousePosition;
+
+        // Right border
+        if (Input.GetKey(KeyCode.D))
+        {
+            pos.x += ScrollSpeed * Time.deltaTime;
+            shouldMove = true;
+        }
+        // Left border
+        else if (Input.GetKey(KeyCode.A))
+        {
+            pos.x -= ScrollSpeed * Time.deltaTime;
+            shouldMove = true;
+        }
+
+        // Top border
+        if (Input.GetKey(KeyCode.W))
+        {
+            pos.y += ScrollSpeed * Time.deltaTime;
+            shouldMove = true;
+        }
+        // Bottom border
+        else if (Input.GetKey(KeyCode.S))
+        {
+            pos.y -= ScrollSpeed * Time.deltaTime;
+            shouldMove = true;
+        }
+
+        if (shouldMove)
+        {
+            transform.position = pos;
+            lastScrollPosition = pos;
+        }
+    }
+
+    public void ChangeAllCameraZone(int index)
+    {
+        if(index != _currentAllLevelCameraIndex)
+        {
+            if(CheckForAllLevelCameraTransition())
+            {
+                AllLevelCamera[_currentAllLevelCameraIndex].SetActive(false);
+                AllLevelCamera[index].SetActive(true);
+            }
+            _currentAllLevelCameraIndex = index;
+        }
+    }
+
+    private bool CheckForAllLevelCameraTransition()
+    {
+        return AllLevelCamera[_currentAllLevelCameraIndex].activeInHierarchy;
     }
          
 }
