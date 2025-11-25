@@ -18,7 +18,7 @@ public class LevelController : AbstractSingleton<LevelController>
     {
         base.Start();
 
-        AlertSystemController.Instance.SendAlert("CARRY THE FROG TO THE EXIT WITH A WORTHY NPC", 2.5f);
+        //AlertSystemController.Instance.SendAlert("CARRY THE FROG TO THE EXIT WITH A WORTHY NPC", 2.5f);
     }
 
     public void FrogIsMovgin()

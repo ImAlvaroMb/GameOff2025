@@ -12,12 +12,17 @@ public class PauseManager : AbstractSingleton<PauseManager>
 
     private bool _isGamePaused = false;
 
+    private bool _isShowingTutorialScreen = false;
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(!_isShowingTutorialScreen)
         {
-            HandlePausePressed();
-        }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                HandlePausePressed();
+            }
+        } 
     }
 
     public void HandlePausePressed()
@@ -42,6 +47,28 @@ public class PauseManager : AbstractSingleton<PauseManager>
         foreach (IPausable element in _pausableElements)
         {
             element?.OnPause();
+        }
+    }
+
+    public void ForcePauseGame()
+    {
+        if (_isGamePaused) return;
+
+        _isGamePaused = true;
+        foreach (IPausable element in _pausableElements)
+        {
+            element?.OnPause();
+        }
+    }
+
+    public void ForceUnpauseGame()
+    {
+        if (!_isGamePaused) return;
+
+        _isGamePaused = false;
+        foreach (IPausable element in _pausableElements)
+        {
+            element?.OnResume();
         }
     }
 
@@ -77,5 +104,10 @@ public class PauseManager : AbstractSingleton<PauseManager>
         }
 
         _pausableElements.Remove(pausable);
+    }
+
+    public void SetIsShowingTutorialScreen(bool value)
+    {
+        _isShowingTutorialScreen = value;
     }
 }
