@@ -8,17 +8,25 @@ public class NPCWaveToNPCState : NPCBaseState
     public override void OnEnter()
     {
         base.OnEnter();
-        if(_controller.WaveTargets.Length > 0) // has specific targets
+        
+
+        /*if(_controller.WaveTargets.Length > 0) 
         {
             if(IsTargetCorrect())
             {
                 HandleGoingToTarget();
+            } else
+            {
+                FinishState();
             }
         } else
         {
             HandleGoingToTarget();
-        }
+        }*/
+
+        HandleGoingToTarget();
     }
+
 
     private void HandleGoingToTarget()
     {
@@ -61,7 +69,21 @@ public class NPCWaveToNPCState : NPCBaseState
         {
             if (_controller.OtherCurrentNPC != null)
             {
-                GoToNPC();
+                if(_controller.WaveTargets.Length > 0)
+                {
+                    if (IsTargetCorrect())
+                    {
+                        GoToNPC();
+                    }
+                    else
+                    {
+                        FinishState();
+                    }
+                } else
+                {
+                    GoToNPC();
+                }
+                
             }
             else
             {
@@ -112,6 +134,7 @@ public class NPCWaveToNPCState : NPCBaseState
     public override void OnExit()
     {
         base.OnExit();
+        _visualController.OnAction(NPCActions.NONE);
         _controller.SetOtherNPCReference(null);
         _controller.SetWaveType(NPCWaveType.NONE);
     }

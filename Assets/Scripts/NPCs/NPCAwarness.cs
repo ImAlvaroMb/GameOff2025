@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class NPCAwarness : MonoBehaviour
 {
     private List<BaseInteractable> nearbyInteractables = new List<BaseInteractable>();
+    public List<NPCController> NearbyNPC => nearbyNPC;
     private List<NPCController> nearbyNPC = new List<NPCController>();
 
     [SerializeField] private List<InteractableType> interactTypesAvailable;

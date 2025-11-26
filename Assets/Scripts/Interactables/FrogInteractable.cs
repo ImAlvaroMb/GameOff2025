@@ -27,12 +27,12 @@ public class FrogInteractable : BaseInteractable
             _isFrogInPlance = false;
             FrogObject.transform.parent = interactingNPC.transform;
             FrogObject.transform.position = interactingNPC.FrogCarryPos.position;
-            LevelController.Instance.FrogIsMovgin();
+            LevelController.Instance.FrogIsMovgin(interactingNPC);
             interactingNPC.SetIsCarryingFrog(true);
         } else if(!_isFrogInPlance && CheckIfCanCarryFrog(interactingNPC)) 
         {
             _isFrogInPlance = true;
-            LevelController.Instance.FrogIsBackToPlace();
+            LevelController.Instance.FrogIsBackToPlace(interactingNPC);
             interactingNPC.SetIsCarryingFrog(false);
             FrogObject.transform.parent = gameObject.transform;
             FrogObject.transform.position = gameObject.transform.position;
