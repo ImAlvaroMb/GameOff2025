@@ -8,6 +8,7 @@ public class NPCAwarness : MonoBehaviour
 
     [SerializeField] private List<InteractableType> interactTypesAvailable;
 
+
     public bool CanInteract(BaseInteractable targetObject)
     {
         foreach (InteractableType type in targetObject.InteractableType)

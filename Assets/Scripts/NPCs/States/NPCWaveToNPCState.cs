@@ -4,52 +4,70 @@ using StateMachine;
 [CreateAssetMenu(menuName ="State/WaveToNPC")]
 public class NPCWaveToNPCState : NPCBaseState
 {
+
     public override void OnEnter()
     {
         base.OnEnter();
+        if(_controller.WaveTargets.Length > 0) // has specific targets
+        {
+            if(IsTargetCorrect())
+            {
+                HandleGoingToTarget();
+            }
+        } else
+        {
+            HandleGoingToTarget();
+        }
+    }
+
+    private void HandleGoingToTarget()
+    {
         _visualController.OnAction(NPCActions.WAVE);
-        if(_controller.WaveType == NPCWaveType.WAVER)
+        if (_controller.WaveType == NPCWaveType.WAVER)
         {
             // wave animation
-            if(_controller.OtherCurrentNPC != null) //user fprced this state
+            if (_controller.OtherCurrentNPC != null) //user fprced this state
             {
-                if(IsOnDistanceToTarget())
+                if (IsOnDistanceToTarget())
                 {
                     _controller.OtherCurrentNPC.SetOtherNPCReference(_controller);
                     _controller.OtherCurrentNPC.SetWaveType(NPCWaveType.WAVE_RECEIVER);
                     // just wait
-                } else //notify other npc to finish state and finish own state
+                }
+                else //notify other npc to finish state and finish own state
                 {
                     _controller.OtherCurrentNPC.gameObject.GetComponent<StateController>().CurrentState.FinishState();
                     FinishState();
                 }
-            } else
+            }
+            else
             {
                 _controller.SetOtherNPCReference(_awarnessController.GetNPC());
-                if(_controller.OtherCurrentNPC == null)
+                if (_controller.OtherCurrentNPC == null)
                 {
                     FinishState();
                 }
                 else
                 {
-                   if(IsOnDistanceToTarget())
+                    if (IsOnDistanceToTarget())
                     {
                         _controller.OtherCurrentNPC.SetOtherNPCReference(_controller);
                         _controller.OtherCurrentNPC.SetWaveType(NPCWaveType.WAVE_RECEIVER);
                     }
                 }
-            } 
-        } else
+            }
+        }
+        else
         {
-            if(_controller.OtherCurrentNPC != null)
+            if (_controller.OtherCurrentNPC != null)
             {
                 GoToNPC();
-            } else
+            }
+            else
             {
                 FinishState();
             }
         }
-        
     }
 
     private void GoToNPC()
@@ -66,6 +84,16 @@ public class NPCWaveToNPCState : NPCBaseState
         });
     }
 
+    private bool IsTargetCorrect()
+    {
+        foreach(NPCController npc in _controller.WaveTargets)
+        {
+            if(npc == _controller.OtherCurrentNPC) { return true; }
+        }
+
+        return false;
+    }
+
     private bool IsOnDistanceToTarget()
     {
         if(Vector2.Distance(_controller.gameObject.transform.position, _controller.OtherCurrentNPC.transform.position) > _controller.GetWaveDistance())
@@ -76,9 +104,6 @@ public class NPCWaveToNPCState : NPCBaseState
             return true;
         }
     }
-
-
-
     public override void UpdateState()
     {
         base.UpdateState();

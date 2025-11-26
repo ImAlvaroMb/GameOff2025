@@ -1,29 +1,52 @@
-using UnityEngine;
-using Utilities;
 using Enums;
+using StateMachine;
+using UnityEngine;
+using UnityEngine.Events;
+using Utilities;
 public class DoorObject : MonoBehaviour
 {
     [SerializeField] private float animDuration;
     [SerializeField] private float targetYRotation = 75f;
     [SerializeField] private bool checksForNpc = false;
+    [SerializeField] private Transform kickPos;
 
+    public UnityEvent OnOpen;
+    private int _NPCLayerID;
     private ITimer _timer;
+
+    private void Start()
+    {
+        _NPCLayerID = LayerMask.NameToLayer("NPC");
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!checksForNpc) return;
-        if(collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        if (checksForNpc)
         {
-            OpenDoor();
+            if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+            {
+                OpenDoor();
+            }
+        } else
+        {
+            if (collision.gameObject.layer == _NPCLayerID && collision.gameObject.CompareTag("NPC"))
+            {
+                collision.gameObject.GetComponentInParent<StateController>().CurrentState.FinishState();
+                collision.gameObject.GetComponentInParent<NPCMovementController>().SetTargetPoint(kickPos.position);
+                collision.gameObject.GetComponentInParent<NPCController>().SetCurrentAction(NPCActions.PATROL);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(!checksForNpc) return;
-        if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        if(checksForNpc)
         {
-            CloseDoor();
+            if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+            {
+                CloseDoor();
+            }
         }
+        
     }
 
     public void OpenDoor()
@@ -40,11 +63,13 @@ public class DoorObject : MonoBehaviour
             {
                 transform.rotation = targetRotation;
                 _timer = null;
+                OnOpen?.Invoke();
             }, onTimerIncreaseUpdate: (progress) =>
             {
                 transform.rotation = Quaternion.Slerp(startRotation, targetRotation, progress);
             });
         }
+
     }
 
     public void CloseDoor()

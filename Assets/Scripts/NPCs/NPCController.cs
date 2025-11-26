@@ -41,6 +41,8 @@ public class NPCController : MonoBehaviour
 
     [Header("Waving To NPC")]
     [SerializeField] private float waveDistance = 3f;
+    public NPCController[] WaveTargets => waveTargets;
+    [SerializeField] private NPCController[] waveTargets;
     public NPCWaveType WaveType => _waveType;
     private NPCWaveType _waveType = NPCWaveType.NONE;
 
@@ -50,6 +52,7 @@ public class NPCController : MonoBehaviour
     public bool IsFullyControlled => _isFullyControlled;
     private bool _isFullyControlled = false;
     private ITimer _beingControlledTimer;
+    [SerializeField] private bool canBeControlled = true;
     public bool IsInInfluenceArea => _isInInfluenceArea;
     private bool _isInInfluenceArea = false;
     public bool IsBeingControlled => _isBeingControlled;
@@ -247,12 +250,16 @@ public class NPCController : MonoBehaviour
 
     public void OnClicked()
     {
-        if(!_isBeingControlled && _isInInfluenceArea)
+        if(canBeControlled)
         {
-            _isBeingControlled = true;
-        } else if(_isBeingControlled && _isInInfluenceArea)
-        {
-            //_isBeingControlled = false;
+            if (!_isBeingControlled && _isInInfluenceArea)
+            {
+                _isBeingControlled = true;
+            }
+            else if (_isBeingControlled && _isInInfluenceArea)
+            {
+                //_isBeingControlled = false;
+            }
         }
     }
 
@@ -441,6 +448,9 @@ public class NPCController : MonoBehaviour
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(transform.position, rangeToPatrol);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, waveDistance);
         }
         
     }

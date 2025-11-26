@@ -3,7 +3,7 @@ using UnityEngine;
 public class FrogInteractable : BaseInteractable
 {
     public GameObject FrogObject;
-    public NPCController CarrierTargetNPC;
+    public NPCController[] CarrierTargetNPC;
     private bool _isFrogInPlance = true;
 
     protected override void Awake()
@@ -17,19 +17,19 @@ public class FrogInteractable : BaseInteractable
     {
         base.Interact(interactingNPC);
 
-        if (interactingNPC != CarrierTargetNPC)
+        if (!CheckIfCanCarryFrog(interactingNPC))
         {
             AlertSystemController.Instance.SendAlert("THIS NPC IS NOT WORTHY OF CARRYING THE FROG", 2.5f);
         }
 
-        if (_isFrogInPlance && interactingNPC == CarrierTargetNPC && interactingNPC.IsFullyControlled)
+        if (_isFrogInPlance && CheckIfCanCarryFrog(interactingNPC) && interactingNPC.IsFullyControlled)
         {
             _isFrogInPlance = false;
             FrogObject.transform.parent = interactingNPC.transform;
             FrogObject.transform.position = interactingNPC.FrogCarryPos.position;
             LevelController.Instance.FrogIsMovgin();
             interactingNPC.SetIsCarryingFrog(true);
-        } else if(!_isFrogInPlance && interactingNPC == CarrierTargetNPC) 
+        } else if(!_isFrogInPlance && CheckIfCanCarryFrog(interactingNPC)) 
         {
             _isFrogInPlance = true;
             LevelController.Instance.FrogIsBackToPlace();
@@ -37,6 +37,16 @@ public class FrogInteractable : BaseInteractable
             FrogObject.transform.parent = gameObject.transform;
             FrogObject.transform.position = gameObject.transform.position;
         }
+    }
+
+    private bool CheckIfCanCarryFrog(NPCController interactingNPC)
+    {
+        foreach (NPCController controller in CarrierTargetNPC)
+        {
+            if(controller == interactingNPC) { return true; }
+        }
+
+        return false;
     }
 
 }

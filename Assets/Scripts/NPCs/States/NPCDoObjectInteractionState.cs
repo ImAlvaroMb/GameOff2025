@@ -14,7 +14,14 @@ public class NPCDoObjectInteractionState : NPCBaseState
         {
             _controller.SetCurrentInteractable(_awarnessController.GetObjToInteractWith(_controller.GetPosition()));
 
-            if (_controller.CurrentInteractable != null) GoToInteractable();
+            if (_controller.CurrentInteractable != null)
+            {
+                GoToInteractable();
+            } else
+            {
+                FinishState();
+            }
+
         }
     }
 
