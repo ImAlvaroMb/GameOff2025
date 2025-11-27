@@ -1,9 +1,12 @@
 using UnityEngine;
 using Enums;
 using StateMachine;
+using Unity.VisualScripting;
 [CreateAssetMenu(menuName ="State/TalkState")]
 public class NPCTalkToNPCState : NPCBaseState
 {
+    private bool _canCheckForStateFinish = false;
+
     public override void OnEnter()
     {
         base.OnEnter();
@@ -28,6 +31,8 @@ public class NPCTalkToNPCState : NPCBaseState
                 GoToNPC();
             }
         }
+
+        _canCheckForStateFinish = true;
     }
 
     private void GoToNPC()
@@ -41,22 +46,18 @@ public class NPCTalkToNPCState : NPCBaseState
                 _controller.OtherCurrentNPC.gameObject.GetComponent<NPCVisualController>().DetermineCardinalDirection(direction);
                 _visualController.ActivateSpeechBubble(() =>
                 {
-                    _controller.OtherCurrentNPC.GetComponent<StateController>().CurrentState.FinishState();
                     Vector2 direction = _controller.OtherCurrentNPC.transform.position - stateController.gameObject.transform.position;
                     _visualController.DetermineCardinalDirection(direction);
                     _isDone = true;
+                    _controller.OtherCurrentNPC?.GetComponent<StateController>().CurrentState.FinishState();
                 });
             });
         }
     }
 
-    public override void UpdateState()
-    {
-        base.UpdateState();
-    }
-
     public override void OnExit()
     {
+        _movementController.InterrumptPath();
         base.OnExit();
         _controller.SetCurrentAction(NPCActions.NONE);
         _controller.RemoveCurrentOtherNPCReference();

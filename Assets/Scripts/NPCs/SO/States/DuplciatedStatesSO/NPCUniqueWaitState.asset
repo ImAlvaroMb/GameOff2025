@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec41430d88143245a56c3b00f1bddcf, type: 3}
-  m_Name: NPCOnlyPatrolState
+  m_Script: {fileID: 11500000, guid: d39c18ad47680d144bf1fea8bc09a95d, type: 3}
+  m_Name: NPCUniqueWaitState
   m_EditorClassIdentifier: 
   possibleTransitions:
-  - deciosionToBeMade: {fileID: 11400000, guid: 83c1d384ebdf64c44b4429ef2a284dce, type: 2}
-    onDecisionTrueExitState: {fileID: 11400000, guid: 85d0f9b3411f491419635754dd6c62c1, type: 2}
+  - deciosionToBeMade: {fileID: 11400000, guid: 708a4fa5cd9f3084dac7d78ddc6f523a, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: 1565bebc1f79bd74ba5117ee16b3fa4b, type: 2}
     onDecisionFalseExitState: {fileID: 0}
+  MinWaitTime: 0
+  MaxWaitTime: 0

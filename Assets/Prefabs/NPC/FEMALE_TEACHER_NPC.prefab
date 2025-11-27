@@ -1273,7 +1273,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.946, y: -0.4583999}
-  m_SizeDelta: {x: 1, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1392052473016655270
 MonoBehaviour:
@@ -1406,7 +1406,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &2889997795624626855
 MonoBehaviour:
@@ -1608,8 +1608,10 @@ MonoBehaviour:
     m_Bits: 0
   rangeToPatrol: 3.5
   waveDistance: 9
+  waveTargets: []
   decayDuration: 10
   recoveryDuration: 10
+  canBeControlled: 1
   CameraReferece: {fileID: 7890054251697213059}
   FrogCarryPos: {fileID: 2924292093283818551}
 --- !u!114 &7137707583706665060

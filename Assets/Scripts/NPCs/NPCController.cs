@@ -2,7 +2,6 @@
 using StateMachine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 using Utilities;
 
@@ -70,6 +69,7 @@ public class NPCController : MonoBehaviour
     public Transform FrogCarryPos;
     private bool _isCarryingFrog = false;
     
+
     private void OnValidate()
     {
         _currentTotalProbability = actionsProbabilities.Sum(item => item.Probability);
@@ -425,21 +425,22 @@ public class NPCController : MonoBehaviour
             Debug.LogWarning($"No interaction Points added on the object {gameObject.name}");
             return transform.position;
         }
-
-        bool found = false;
+        const int MAX_ATTEMPTS = 20;
+        int attemps = 0;
         bool isOverlapping = true;
         int randomIndex = 0;
-        while (!found)
+        while (attemps < MAX_ATTEMPTS)
         {
             randomIndex = Random.Range(0, InteractionPoints.Count);
             isOverlapping = Physics2D.OverlapCircle(InteractionPoints[randomIndex].position, overlapCheckRadius, obstacleLayer);
             if (!isOverlapping)
             {
-                found = true;
+                return InteractionPoints[randomIndex].position;
             }
+            attemps++;
         }
         Debug.Log(randomIndex);
-        return InteractionPoints[randomIndex].position;
+        return transform.position;
     }
 
     private void OnDrawGizmos()

@@ -30,9 +30,9 @@ public class DoorObject : MonoBehaviour
         {
             if (collision.gameObject.layer == _NPCLayerID && collision.gameObject.CompareTag("NPC"))
             {
+                collision.gameObject.GetComponentInParent<NPCController>().OtherCurrentNPC?.GetComponent<StateController>().CurrentState.FinishState();
                 collision.gameObject.GetComponentInParent<StateController>().CurrentState.FinishState();
-                collision.gameObject.GetComponentInParent<NPCMovementController>().SetTargetPoint(kickPos.position);
-                collision.gameObject.GetComponentInParent<NPCController>().SetCurrentAction(NPCActions.PATROL);
+                
             }
         }
     }

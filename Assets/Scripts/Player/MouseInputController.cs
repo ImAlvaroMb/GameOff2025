@@ -249,8 +249,13 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 break;
 
             case ChooseActionUIType.WAVE_TO:
-                _currentSelectedNPC.SetOtherNPCReference(_currentHoveredNPC);
-                _currentSelectedNPC.SetWaveType(NPCWaveType.WAVER);
+                if(Vector2.Distance(_currentSelectedNPC.gameObject.transform.position, _currentHoveredNPC.gameObject.transform.position) < _currentHoveredNPC.GetWaveDistance())
+                {
+                    _currentSelectedNPC.SetWaveType(NPCWaveType.WAVER);
+                    _currentHoveredNPC.SetOtherNPCReference(_currentHoveredNPC);
+                    _currentHoveredNPC.SetOtherNPCReference(_currentSelectedNPC);
+                    _currentHoveredNPC.SetWaveType(NPCWaveType.WAVE_RECEIVER);
+                }
                 break;
 
             case ChooseActionUIType.SELECT:

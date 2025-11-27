@@ -21,8 +21,8 @@ namespace Enums
         ALL,
         PLAYER,
         CONTROLLED,
-        A,
-        B
+        STUDENT,
+        TEACHER
     }
 
     public enum TalkType
