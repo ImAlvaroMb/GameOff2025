@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6239517599943765465
+--- !u!1 &1606649889827799981
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8636182578127418932}
-  - component: {fileID: 1119783016515091573}
-  - component: {fileID: 4906383892596516487}
-  - component: {fileID: 7213599500266165348}
+  - component: {fileID: 7179951477731229318}
+  - component: {fileID: 1047322078844086174}
   m_Layer: 6
-  m_Name: FROG_INTERACTABLE
-  m_TagString: Interactable
+  m_Name: Visual
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8636182578127418932
+--- !u!4 &7179951477731229318
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6239517599943765465}
+  m_GameObject: {fileID: 1606649889827799981}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.45, y: 3.86, z: 6.07}
-  m_LocalScale: {x: 0.8131236, y: 0.3189, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 2.575, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6054844168426898529}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 8636182578127418932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1119783016515091573
+--- !u!212 &1047322078844086174
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6239517599943765465}
+  m_GameObject: {fileID: 1606649889827799981}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -78,18 +75,53 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.41568628, g: 0.44778487, b: 0.85882354, a: 1}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -4956342167157108870, guid: bed1776f73e18c44b94d5350de3cca64, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.54901963}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.90625, y: 0.84375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6239517599943765465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8636182578127418932}
+  - component: {fileID: 4906383892596516487}
+  - component: {fileID: 7213599500266165348}
+  m_Layer: 6
+  m_Name: FROG_INTERACTABLE
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8636182578127418932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6239517599943765465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.45, y: 3.86, z: 6.07}
+  m_LocalScale: {x: 0.8131236, y: 0.3189, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6054844168426898529}
+  - {fileID: 7179951477731229318}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4906383892596516487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb96bc2a99a064458824eb4f6c6e6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractableType: 03000000
+  InteractableType: 02000000
   OnInteracted:
     m_PersistentCalls:
       m_Calls: []
@@ -112,10 +144,12 @@ MonoBehaviour:
   - {fileID: 6054844168426898529}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   overlapCheckRadius: 0.1
   FrogObject: {fileID: 0}
-  CarrierTargetNPC: {fileID: 0}
+  CarrierTargetNPC:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!58 &7213599500266165348
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -177,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 6258270115291910594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.32, z: 0}
+  m_LocalPosition: {x: 0, y: -3.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

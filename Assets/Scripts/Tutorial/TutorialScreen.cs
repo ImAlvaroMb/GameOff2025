@@ -6,7 +6,7 @@ public class TutorialScreen : MonoBehaviour
 {
     public UnityEvent OnActivate;
     public UnityEvent OnDeactivate;
-    //public GameObject[] Screens;
+    public GameObject TutCamera;
     public CanvasGroup Canvas;
 
     public float scaleUpDuration = 0.15f;    
@@ -17,6 +17,7 @@ public class TutorialScreen : MonoBehaviour
     {
         transform.localScale = Vector3.zero;
         StartCoroutine(PopInEffect());
+        if(TutCamera != null) TutCamera.SetActive(true);
         OnActivate.Invoke();
         PauseManager.Instance.SetIsShowingTutorialScreen(true);
     }
@@ -24,6 +25,7 @@ public class TutorialScreen : MonoBehaviour
     private void OnDisable()
     {
         PauseManager.Instance.SetIsShowingTutorialScreen(false);
+        if(TutCamera != null) TutCamera.SetActive(false);
         OnDeactivate.Invoke();
     }
 

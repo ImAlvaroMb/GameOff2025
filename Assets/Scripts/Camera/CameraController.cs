@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Utilities;
 public class CameraController : AbstractSingleton<CameraController>
 {
@@ -125,7 +126,14 @@ public class CameraController : AbstractSingleton<CameraController>
 
     private void HandleWASDScrolling()
     {
-        Vector3 pos = transform.position;
+        Vector3 pos = Vector3.zero;
+        if(_isAllMapCameraActive)
+        {
+            pos = AllLevelCamera[_currentAllLevelCameraIndex].transform.position;
+        } else
+        {
+            pos = transform.position;
+        }
         bool shouldMove = false;
         float scrollAmount = ScrollSpeed * Time.deltaTime;
 
@@ -159,8 +167,15 @@ public class CameraController : AbstractSingleton<CameraController>
 
         if (shouldMove)
         {
-            transform.position = pos;
-            lastScrollPosition = pos;
+            if(_isAllMapCameraActive)
+            {
+                AllLevelCamera[_currentAllLevelCameraIndex].transform.position = pos;
+            }
+            else
+            {
+                transform.position = pos;
+                lastScrollPosition = pos; 
+            }
         }
     }
 

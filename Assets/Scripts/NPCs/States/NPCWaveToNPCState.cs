@@ -42,7 +42,20 @@ public class NPCWaveToNPCState : NPCBaseState
         {
             if (_controller.OtherCurrentNPC != null)
             {
-                GoToNPC();
+                if(_controller.WaveTargets.Length > 0)
+                {
+                    if(IsTargetCorrect())
+                    {
+                        GoToNPC();
+                    } else
+                    {
+                        _controller.OtherCurrentNPC.gameObject.GetComponent<StateController>().CurrentState.FinishState();
+                        FinishState();
+                    }
+                } else
+                {
+                    GoToNPC();
+                }
             }
             else
             {
