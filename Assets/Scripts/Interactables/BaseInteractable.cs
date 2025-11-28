@@ -114,7 +114,6 @@ public class BaseInteractable : MonoBehaviour, IInteractable
                 found = true;
             }
         }
-        Debug.Log(randomIndex);
         return InteractionPoints[randomIndex].position;
     }
 

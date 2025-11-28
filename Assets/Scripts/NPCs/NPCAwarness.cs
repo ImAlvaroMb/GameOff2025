@@ -20,6 +20,19 @@ public class NPCAwarness : MonoBehaviour
         return false;
     }
 
+    public bool IsTeacher()
+    {
+        foreach(InteractableType type in interactTypesAvailable)
+        {
+            if(type == InteractableType.TEACHER)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public BaseInteractable GetObjToInteractWith(Vector2 position)
     {
         if (nearbyInteractables.Count == 0) return null;

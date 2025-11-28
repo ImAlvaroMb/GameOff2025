@@ -9,7 +9,6 @@ public class SimpleObstacleNPC : MonoBehaviour // this class shouldnt exist, i w
     public float MoveSpeed = 5f;
     [SerializeField] private float nextNodeTolerance;
 
-    public NPCController canPassThorugh;
     private List<Node> _currentPath = new List<Node>();
     private int _targetNodeIndex = 0;
     [SerializeField] private GameObject kickNPCPos;
@@ -110,15 +109,16 @@ public class SimpleObstacleNPC : MonoBehaviour // this class shouldnt exist, i w
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<NPCController>() == canPassThorugh) return;
-
         if(collision.gameObject.layer == _NPCLayerID && collision.gameObject.CompareTag("NPC"))
         {
-            collision.gameObject.GetComponentInParent<StateController>().CurrentState.FinishState();
-            collision.gameObject.GetComponentInParent<NPCMovementController>().SetTargetPoint(kickNPCPos.transform.position);
-            collision.gameObject.GetComponentInParent<NPCController>().SetCurrentAction(NPCActions.PATROL);
-            _visualController.ActivateSpeechBubble(() => { });
-            //AlertSystemController.Instance.SendAlert("YOU CANT PASS, MOVE THIS NPC TO ADVANCE", 2f);
+            if(!collision.gameObject.GetComponentInParent<NPCAwarness>().IsTeacher())
+            {
+                collision.gameObject.GetComponentInParent<StateController>().CurrentState.FinishState();
+                collision.gameObject.GetComponentInParent<NPCMovementController>().SetTargetPoint(kickNPCPos.transform.position);
+                collision.gameObject.GetComponentInParent<NPCController>().SetCurrentAction(NPCActions.PATROL);
+                _visualController.ActivateSpeechBubble(() => { });
+                //AlertSystemController.Instance.SendAlert("YOU CANT PASS, MOVE THIS NPC TO ADVANCE", 2f);
+            }
         }
     }
 }

@@ -37,7 +37,6 @@ public class NPCDoObjectInteractionState : NPCBaseState
                 _controller.RemoveCurrentInteractable();
             } else
             {
-                Debug.Log($"NPC cant interact with {_controller.CurrentInteractable.name}");
                 AlertSystemController.Instance.SendAlert($"NPC {_controller.gameObject.name} cant interact with this interactablew", 2f);
             }
             FinishState();

@@ -37,7 +37,7 @@ public class CameraController : AbstractSingleton<CameraController>
             }
         }*/
 
-        if (!_isFollowingTarget)
+        if (!_isFollowingTarget || _isAllMapCameraActive)
         {
             HandleWASDScrolling();
         }

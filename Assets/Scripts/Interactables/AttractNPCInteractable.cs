@@ -9,6 +9,8 @@ public class AttractNPCInteractable : BaseInteractable
 
     public List<SimpleObstacleNPC> ObstacleNPC = new List<SimpleObstacleNPC>();
 
+    [SerializeField] private bool frogHasToInteract = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,7 +19,7 @@ public class AttractNPCInteractable : BaseInteractable
     public override void Interact(NPCController interactingNPC)
     {
         base.Interact(interactingNPC);
-        if(interactingNPC == null)
+        if((interactingNPC == null && frogHasToInteract) ||(!frogHasToInteract && interactingNPC != null))
         {
             StartVisualEffect();
             foreach (NPCController controller in AttractedNPC)
@@ -42,7 +44,7 @@ public class AttractNPCInteractable : BaseInteractable
                     npc.GoToPosition(npc.GetInitialPos(), () => { });
                 });
             }
-        } else
+        } else if(frogHasToInteract)
         {
             StopVisualEffect(); 
             foreach(NPCController controller in AttractedNPC)

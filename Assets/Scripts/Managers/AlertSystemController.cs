@@ -4,13 +4,22 @@ using Utilities;
 public class AlertSystemController : AbstractSingleton<AlertSystemController>
 {
     public TextMeshProUGUI TextToUpdate;
+    public GameObject NotificationBox;
     [SerializeField] private float fadeInDuration;
     [SerializeField] private float fadeOutDuration;
 
     private ITimer _currentTimer = null;
 
+
+    protected override void Start()
+    {
+        base.Start();
+        NotificationBox.SetActive(false);
+    }
+
     public void SendAlert(string text, float duration)
     {
+        NotificationBox.SetActive(true);
         TextToUpdate.alpha = 0f;
         _currentTimer?.StopTimer();
         StartTimer(text, duration);
@@ -39,6 +48,7 @@ public class AlertSystemController : AbstractSingleton<AlertSystemController>
             {
                 TextToUpdate.alpha = 0f;
                 _currentTimer = null;
+                NotificationBox.SetActive(false);
             }, onTimerDecreaseUpdate: (progress) =>
             {
                 float value = progress / fadeOutDuration;

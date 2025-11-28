@@ -15,6 +15,7 @@ public class LevelController : AbstractSingleton<LevelController>
     private ITimer _currentTimer = null;
     private List<SuspiciousNPC> _suspiciousNPCs = new List<SuspiciousNPC>();
     public UnityEvent OnLose;
+    private bool _isFrogInPlance = true;
 
     protected override void Start()
     {
@@ -35,6 +36,7 @@ public class LevelController : AbstractSingleton<LevelController>
         NotifyAllSuspiciousNPCOfNewTarget(controller);
         TimerFillImage.gameObject.SetActive(true);
         TimerImage.gameObject.SetActive(true);
+        _isFrogInPlance = false;
         _currentTimer = TimerSystem.Instance.CreateTimer(timeToLose, onTimerDecreaseComplete: () =>
         {
             TimerText.text = "0";
@@ -51,9 +53,11 @@ public class LevelController : AbstractSingleton<LevelController>
     public void FrogIsBackToPlace(NPCController controller)
     {
         NotifyAllSuspiciousNPCOfNewTarget(null);
+        _isFrogInPlance = true;
         if(_currentTimer != null)
         {
             _currentTimer.StopTimer();
+            _currentTimer = null;
             TimerText.text = string.Empty;
             TimerFillImage.fillAmount = 0;
             TimerFillImage.gameObject.SetActive(false);
@@ -67,6 +71,11 @@ public class LevelController : AbstractSingleton<LevelController>
         {
             npc.SetCurrentTargetToCheck(controller);
         }
+    }
+
+    public bool GetIsFrogInPlace()
+    {
+        return _isFrogInPlance;
     }
 
 }

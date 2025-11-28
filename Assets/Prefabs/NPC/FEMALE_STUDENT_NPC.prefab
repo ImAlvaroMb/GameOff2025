@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.946, y: -0.4583999}
-  m_SizeDelta: {x: 0, y: 0.5}
+  m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710156864625700372
 MonoBehaviour:
@@ -1340,7 +1340,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hey, did you know trump is fatter than a regular pig
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6248550369327259955
@@ -1834,7 +1834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1.7200003
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_SizeDelta.y
