@@ -23,6 +23,8 @@ public class NPCController : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayer;
 
     [Header("Patrol")]
+    public bool FollowsPath => followsPath;
+    [SerializeField] private bool followsPath = false;
     [SerializeField] private float rangeToPatrol;
     public Vector2 OriginalPosition => _originalPosition;
     private Vector2 _originalPosition;
@@ -81,11 +83,11 @@ public class NPCController : MonoBehaviour
 
         if (Mathf.Abs(_currentTotalProbability - target) > tolerance)
         {
-            Debug.LogError($"Validation Error on {gameObject.name}: Action Probabilities must sum to 100. Current sum is {_currentTotalProbability:F2}%.");
+            //Debug.LogError($"Validation Error on {gameObject.name}: Action Probabilities must sum to 100. Current sum is {_currentTotalProbability:F2}%.");
         }
         else
         {
-            Debug.Log($"Validation Success on {gameObject.name}: Total probability is exactly 100%.");
+            //Debug.Log($"Validation Success on {gameObject.name}: Total probability is exactly 100%.");
         }
     }
 

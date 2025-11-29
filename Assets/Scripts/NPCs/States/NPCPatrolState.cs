@@ -4,10 +4,15 @@ using UnityEngine;
 public class NPCPatrolState : NPCBaseState
 {
     private Vector2 point;
-
     public override void OnEnter()
     {
         base.OnEnter();
+        if(_controller.FollowsPath)
+        {
+            _movementController.StartPatrol();
+            return;
+        }
+
         if(_movementController.TargetPoint != Vector2.zero)
         {
             point = _movementController.TargetPoint;
@@ -44,6 +49,10 @@ public class NPCPatrolState : NPCBaseState
     public override void OnExit()
     {
         base.OnExit();
+        if(_controller.FollowsPath)
+        {
+            _movementController.StopPatrol();
+        }
         _movementController.InterrumptPath();
         _movementController.SetTargetPoint(Vector2.zero);
     }

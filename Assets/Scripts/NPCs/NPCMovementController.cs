@@ -9,8 +9,7 @@ public class NPCMovementController : MonoBehaviour, IPausable
     [Tooltip("Distance threshold to consider next node as goal")]
     [SerializeField] private float nextNodeTolerance;
     private NPCVisualController _visualController;
-
-    private StateController _stateController;
+    [SerializeField] private Transform[] path; 
     private List<Node> _currentPath = new List<Node>();
     private int _targetNodeIndex = 0;
 
@@ -18,16 +17,24 @@ public class NPCMovementController : MonoBehaviour, IPausable
     public Vector2 TargetPoint => _targetPoint;
     private Vector2 _targetPoint = Vector2.zero;
     private bool _isPaused = false;
-
+    private bool _followsDefinedPath = false;
+    private bool _isMovingForward = true;
+    private int _definedIndex = 0;
+    private bool _isMoving = false;
 
     private void Start()
     {
-        _stateController = GetComponent<StateController>();
         _visualController = GetComponent<NPCVisualController>();
     }
     private void Update()
     {
         if(_isPaused) return;
+
+        if(_followsDefinedPath && !_isMoving)
+        {
+            GoToNextPatrolNode();
+        }
+
         if (_currentPath.Count > 0 && _targetNodeIndex < _currentPath.Count)
         {
             MoveAlongPath();
@@ -35,6 +42,61 @@ public class NPCMovementController : MonoBehaviour, IPausable
         {
             _visualController.NoMovement();
         }
+    }
+
+    public void StartPatrol()
+    {
+        if (path == null || path.Length < 2)
+        {
+            Debug.LogWarning("Cannot start patrol. Path is null or has fewer than 2 nodes.");
+            return;
+        }
+
+        _followsDefinedPath = true;
+        _definedIndex = 0;
+        _isMovingForward = true;
+
+        GoToNextPatrolNode();
+    }
+
+    public void StopPatrol()
+    {
+        _followsDefinedPath = false;
+    }
+
+    private void GoToNextPatrolNode()
+    {
+        if (!_followsDefinedPath || path == null || path.Length == 0)
+        {
+            _visualController.NoMovement();
+            return;
+        }
+
+        if (_isMovingForward)
+        {
+            _definedIndex++;
+            if (_definedIndex >= path.Length)
+            {
+                _isMovingForward = false;
+                _definedIndex = path.Length - 2;
+                if (_definedIndex < 0) _definedIndex = 0; 
+            }
+        }
+        else 
+        {
+            _definedIndex--;
+            if (_definedIndex < 0)
+            {
+                _isMovingForward = true;
+                _definedIndex = 1;
+                if (_definedIndex >= path.Length) _definedIndex = path.Length - 1; 
+            }
+        }
+
+        Vector2 targetPos = path[_definedIndex].position;
+        GoToPosition(targetPos, () => {
+            _isMoving = false;
+        });
     }
 
     public void SetTargetPoint(Vector2 point)
@@ -56,12 +118,9 @@ public class NPCMovementController : MonoBehaviour, IPausable
         Node startNode = AStarManager.Instance.FindNearestNode(transform.position);
 
         Node endNode = AStarManager.Instance.FindNearestNode(targetPosition);
-        //Debug.Log(targetPosition);
-        //Debug.Log(endNode.name);
 
         if (startNode == null || endNode == null)
         {
-            //Debug.LogWarning("Could not find start or end node for pathfinding.");
             _onPathCompleteCallback?.Invoke();
             _onPathCompleteCallback = null;
             _currentPath.Clear();
@@ -74,6 +133,7 @@ public class NPCMovementController : MonoBehaviour, IPausable
         {
             _currentPath = newPath;
             _targetNodeIndex = 0;
+            _isMoving = true;
             //Debug.Log($"Path generated with {newPath.Count} steps.");
         }
         else
@@ -104,7 +164,6 @@ public class NPCMovementController : MonoBehaviour, IPausable
                 transform.position = targetPos;
                 _onPathCompleteCallback?.Invoke();
                 _onPathCompleteCallback = null;
-                //_stateController.CurrentState.FinishState();
             }
         }
         else
@@ -117,6 +176,7 @@ public class NPCMovementController : MonoBehaviour, IPausable
     public void InterrumptPath()
     {
         _currentPath.Clear();
+        _onPathCompleteCallback = null;
     }
 
     public List<Node> GetCurrentPath()
