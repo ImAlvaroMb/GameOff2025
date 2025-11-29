@@ -28,6 +28,10 @@ public class NPCVisualController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bubbleText;
     [SerializeField] private float bubbleDuration;
 
+    [Header("Inmunne")]
+    [SerializeField] private GameObject hatObj;
+    [SerializeField] private GameObject inmunneAreaObj;
+
     private NPCController _controller;
 
     private void Awake()
@@ -47,6 +51,14 @@ public class NPCVisualController : MonoBehaviour
         UpdateInfluenceMeterImage(0f);
         hoverButtons?.gameObject.SetActive(false);
         PlayAnimation(NPCAnimation.DOWN_IDLE);
+
+        if(_controller != null && _controller.IsInmunne)
+        {
+            hatObj.SetActive(true);
+        } else
+        {
+            hatObj.SetActive(false);
+        }
     }
 
     private void Update()

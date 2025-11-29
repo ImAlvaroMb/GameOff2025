@@ -52,6 +52,8 @@ public class NPCController : MonoBehaviour
     private bool _isFullyControlled = false;
     private ITimer _beingControlledTimer;
     [SerializeField] private bool canBeControlled = true;
+    public bool IsInmunne => isInmunne;
+    [SerializeField] private bool isInmunne = false;
     public bool IsInInfluenceArea => _isInInfluenceArea;
     private bool _isInInfluenceArea = false;
     public bool IsBeingControlled => _isBeingControlled;
