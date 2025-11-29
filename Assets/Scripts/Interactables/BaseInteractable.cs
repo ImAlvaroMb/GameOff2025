@@ -70,6 +70,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
             return true;
         } else
         {
+            AudioManager.Instance.PlayOneShot(SoundName.NPCCANT);
             return false;
         }
     }

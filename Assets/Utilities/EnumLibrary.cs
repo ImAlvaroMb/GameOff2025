@@ -66,5 +66,23 @@ namespace Enums
         UP_IDLE,
         UP_WALK,
     }
+
+    public enum SoundName
+    {
+        CONTROLON,
+        CONTROLOFF,
+        NPCDOOR,
+        NPCFROG,
+        NPCCANT,
+        NPCRADIO,
+        NPCSELECT,
+        NPCTALK,
+        NPCWALK,
+        NPCWAVE,
+        UICLICK,
+        UIHOVER,
+        LORENEXT,
+        LORESCROLL
+    }
     
 }

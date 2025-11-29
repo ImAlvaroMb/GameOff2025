@@ -65,7 +65,7 @@ public class AttractNPCInteractable : BaseInteractable
 
     private void StartVisualEffect()
     {
-
+        AudioManager.Instance.PlayOneShot(SoundName.NPCRADIO);
     }
 
 

@@ -38,6 +38,7 @@ public class NPCDoObjectInteractionState : NPCBaseState
             } else
             {
                 AlertSystemController.Instance.SendAlert($"NPC {_controller.gameObject.name} cant interact with this interactablew", 2f);
+                AudioManager.Instance.PlayOneShot(SoundName.NPCCANT);
             }
             FinishState();
         });

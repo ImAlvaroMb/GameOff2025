@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Enums;
 public class FrogInteractable : BaseInteractable
 {
     public GameObject FrogObject;
@@ -20,6 +20,8 @@ public class FrogInteractable : BaseInteractable
         if (!CheckIfCanCarryFrog(interactingNPC))
         {
             AlertSystemController.Instance.SendAlert("THIS NPC IS NOT WORTHY OF CARRYING THE FROG", 2.5f);
+            AudioManager.Instance.PlayOneShot(SoundName.NPCCANT);
+            return;
         }
 
         if (LevelController.Instance.GetIsFrogInPlace() && CheckIfCanCarryFrog(interactingNPC) && interactingNPC.IsFullyControlled)
@@ -35,6 +37,8 @@ public class FrogInteractable : BaseInteractable
             FrogObject.transform.parent = gameObject.transform;
             FrogObject.transform.position = gameObject.transform.position;
         }
+
+        AudioManager.Instance.PlayOneShot(SoundName.NPCFROG);
     }
 
     private bool CheckIfCanCarryFrog(NPCController interactingNPC)

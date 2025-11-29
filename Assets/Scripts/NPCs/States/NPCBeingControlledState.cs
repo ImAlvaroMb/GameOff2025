@@ -9,6 +9,7 @@ public class NPCBeingControlledState : NPCBaseState
     public override void OnEnter()
     {
         base.OnEnter();
+        AudioManager.Instance.PlayOneShot(SoundName.CONTROLON);
         _currentTimer = TimerSystem.Instance.CreateTimer(TakeControlDuration, TimerDirection.INCREASE,onTimerIncreaseComplete: () =>
         {
             _controller.SetIsFullyControlled(true);

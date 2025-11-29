@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-
+using Enums;
 public class TransitionsScreen : MonoBehaviour
 {
     public TextMeshProUGUI LoreTextRef;
@@ -34,6 +34,7 @@ public class TransitionsScreen : MonoBehaviour
             {
                 if(_currentTextIndex < LoreText.Length - 1)
                 {
+                    AudioManager.Instance.PlayOneShot(SoundName.LORENEXT);
                     StopBlinking();
                     _currentTextIndex++;
                     StartTyping();
@@ -54,10 +55,10 @@ public class TransitionsScreen : MonoBehaviour
 
     private IEnumerator TypeMessage()
     {
+        AudioManager.Instance.PlayWithIdentifier(SoundName.LORESCROLL, Vector3.zero, "Scroll");
         ContinueText.alpha = 0f;
         _isTyping = true;
         LoreTextRef.text = "";
-
         for (int i = 0; i < LoreText[_currentTextIndex].Length; i++)
         {
             LoreTextRef.text += LoreText[_currentTextIndex][i];
@@ -70,6 +71,7 @@ public class TransitionsScreen : MonoBehaviour
 
     private void StartBlinking()
     {
+        AudioManager.Instance.StopSoundByIdentifier("Scroll");
         ContinueText.gameObject.SetActive(true);
         _isBlinking = true;
         StartCoroutine(BlinkCoroutine());

@@ -283,6 +283,7 @@ public class NPCController : MonoBehaviour
         } else
         {
             _npcAwarness.OnStopControlled();
+            AudioManager.Instance.PlayOneShot(SoundName.CONTROLOFF);
         }
     }
 

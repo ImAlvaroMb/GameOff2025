@@ -1,4 +1,5 @@
 using UnityEngine;
+using Enums;
 
 [CreateAssetMenu(menuName ="State/Controlled")]
 public class NPCControlledState : NPCBaseState
@@ -9,9 +10,8 @@ public class NPCControlledState : NPCBaseState
         _controller.SetIsBeingControlled(false);
     }
 
-    public override void FixedUpdateState()
+    public override void OnExit()
     {
-        base.FixedUpdateState();
-        // han dle influence meter
+        base.OnExit();
     }
 }

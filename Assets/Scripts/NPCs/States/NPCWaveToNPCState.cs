@@ -15,7 +15,7 @@ public class NPCWaveToNPCState : NPCBaseState
             // wave animation
             if (_controller.OtherCurrentNPC != null) //user fprced this state
             {
-
+                
             }
             else
             {
@@ -67,6 +67,7 @@ public class NPCWaveToNPCState : NPCBaseState
 
     private void GoToNPC()
     {
+        AudioManager.Instance.PlayOneShot(SoundName.NPCWAVE);
         if (_controller.OtherCurrentNPC != null)
         {
             Vector2 position = _controller.OtherCurrentNPC.GetRandomValidInteractionPoint();

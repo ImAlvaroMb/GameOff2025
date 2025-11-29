@@ -2,10 +2,12 @@ using UnityEngine;
 using Utilities;
 using Enums;
 using UnityEngine.UI;
+using StateMachine;
 
 public class SuspiciousNPC : MonoBehaviour
 {
     [SerializeField] private Image alertIndicator;
+    [SerializeField] public FrogInteractable frogInteractable;
     [SerializeField] private float timeToAlert = 5f;
     [SerializeField] private float alertRadius = 3f;
     private ITimer _timer;
@@ -27,7 +29,10 @@ public class SuspiciousNPC : MonoBehaviour
                     _timer = TimerSystem.Instance.CreateTimer(timeToAlert, TimerDirection.INCREASE, onTimerIncreaseComplete: () =>
                     {
                         _timer = null;
-                        LevelController.Instance.OnLose.Invoke();
+                        //LevelController.Instance.OnLose.Invoke();
+                        _targetToCheck.gameObject.GetComponent<StateController>().CurrentState.FinishState();
+                        _targetToCheck.SetCurrentInteractable(frogInteractable);
+                        _targetToCheck.SetCurrentAction(NPCActions.DO_OBJECT_INTERACTION);
                     }, onTimerIncreaseUpdate: (progress) =>
                     {
                         float t = progress / timeToAlert;

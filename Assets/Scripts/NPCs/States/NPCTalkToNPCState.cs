@@ -44,6 +44,7 @@ public class NPCTalkToNPCState : NPCBaseState
             {
                 Vector2 direction = stateController.gameObject.transform.position - _controller.OtherCurrentNPC.transform.position;
                 _controller.OtherCurrentNPC.gameObject.GetComponent<NPCVisualController>().DetermineCardinalDirection(direction);
+                AudioManager.Instance.PlayOneShot(SoundName.NPCTALK);
                 _visualController.ActivateSpeechBubble(() =>
                 {
                     Vector2 direction = _controller.OtherCurrentNPC.transform.position - stateController.gameObject.transform.position;

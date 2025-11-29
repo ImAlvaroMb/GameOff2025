@@ -108,6 +108,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
             if (newTarget != null)
             {
                 newTarget.Highlight();
+                AudioManager.Instance.PlayOneShot(SoundName.UIHOVER);
             }
 
             _currentHoveredObject = newTarget;
@@ -168,6 +169,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
     {
         if (_currentHoveredNPC != null)
         {
+            AudioManager.Instance.PlayOneShot(SoundName.NPCSELECT);
             CameraController cameraController = CameraController.Instance;
             if (cameraController.CurrentCameraTarget != _currentHoveredNPC.transform)
             {
@@ -215,6 +217,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
                 Vector3 clickPosition = groundHit.point;
                 _currentSelectedNPC.gameObject.GetComponent<NPCMovementController>().SetTargetPoint(clickPosition);
                 _currentSelectedNPC.SetCurrentAction(NPCActions.PATROL);
+                AudioManager.Instance.PlayOneShot(SoundName.NPCWALK);
                 return;
             }
         }
