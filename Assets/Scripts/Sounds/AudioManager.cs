@@ -2,7 +2,6 @@ using Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using Utilities;
@@ -14,7 +13,8 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
     private Dictionary<string, GameObject> activeIdentificableAudios = new Dictionary<string, GameObject>();
 
     private bool _paused = false;
-
+    private float _volume = 0.5f;
+    private const string VOLUME_KEY = "MasterVolume";
     public UnityEvent PlayOnStart;
     protected override void Awake()
     {
@@ -29,6 +29,8 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
             s.Source.maxDistance = s.MaxDistance;
             s.Source.spatialBlend = s.SpatialBlend;
         }
+
+       
     }
 
 
@@ -36,6 +38,8 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
     {
         base.Start();
         PlayOnStart.Invoke();
+        _volume = PlayerPrefs.GetFloat(VOLUME_KEY, 0.5f);
+        UpdateAllActiveSoundsVolume(_volume);
     }
 
     private void FixedUpdate()
@@ -61,9 +65,26 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
         
     }
 
-    public void UpdateAllActiveSoundsVolume()
+    public void UpdateAllActiveSoundsVolume(float value)
     {
+        _volume = value;
+        foreach (GameObject audio in activeAudios)
+        {
+            audio.GetComponent<AudioSource>().volume = _volume;
+        }
 
+        foreach (Sound s in sounds)
+        {
+            s.Volume = _volume;
+        }
+
+        PlayerPrefs.SetFloat(VOLUME_KEY, _volume);
+        PlayerPrefs.Save();
+    }
+
+    public float GetVolume()
+    {
+        return _volume;
     }
 
     public void PlayOneShot(SoundName sound)

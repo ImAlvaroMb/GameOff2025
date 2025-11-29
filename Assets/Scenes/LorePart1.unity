@@ -326,7 +326,11 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3506735146225256891, guid: c62bb71a5f2d9e549a13c5c1f4a44eed, type: 3}
     - {fileID: 4129666745034097149, guid: c62bb71a5f2d9e549a13c5c1f4a44eed, type: 3}
-    m_AddedGameObjects: []
+    - {fileID: 7319495025251901108, guid: c62bb71a5f2d9e549a13c5c1f4a44eed, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4632125882326802673, guid: c62bb71a5f2d9e549a13c5c1f4a44eed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3071051448547864728}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c62bb71a5f2d9e549a13c5c1f4a44eed, type: 3}
 --- !u!114 &420030877 stripped
@@ -340,6 +344,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9bda316ad362d41adf8d6787002059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &420030878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4632125882326802673, guid: c62bb71a5f2d9e549a13c5c1f4a44eed, type: 3}
+  m_PrefabInstance: {fileID: 420030876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1019,168 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037691825}
   m_CullTransparentMesh: 1
+--- !u!4 &3071051448547864728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114922530745853040}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 420030878}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6843491265860501889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114922530745853040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a4a55ea55476440a73c82d0e3e305d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _autoConstructOnAwake: 1
+  _autoInitializeOnStart: 1
+  sounds:
+  - Name: CONTROLON
+    Clip: {fileID: 8300000, guid: 59194e75a9cb272499339db53f16e5c1, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: CONTROLOFF
+    Clip: {fileID: 8300000, guid: a2447c9aceedcf546944f6b745cc9ff1, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCDOOR
+    Clip: {fileID: 8300000, guid: fcaae742ae6bdc44497212b44f0d3ee1, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCFROG
+    Clip: {fileID: 8300000, guid: 25d19e5c8ba736249a54170a9362a989, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCCANT
+    Clip: {fileID: 8300000, guid: 2da762dbf87f7a846833bfa2c3a8fc88, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCRADIO
+    Clip: {fileID: 8300000, guid: 2ea49aca1e06249468119952b4ee4bd6, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCSELECT
+    Clip: {fileID: 8300000, guid: 0b00b3148c8e5f1419c435d0b4ad9a4d, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCTALK
+    Clip: {fileID: 8300000, guid: e2e13036ae45d7041b20f50e66b4280f, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCWALK
+    Clip: {fileID: 8300000, guid: 40aeb50e534c26d40b9d76741521eb4e, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: NPCWAVE
+    Clip: {fileID: 8300000, guid: 26256411368e5fe4aa56672cca549ab3, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: UICLICK
+    Clip: {fileID: 8300000, guid: d4e9520b61b6ece42a5dd69315631b67, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: UIHOVER
+    Clip: {fileID: 8300000, guid: fe1534e3608a37d4e8196a8a899cb6a7, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: LORENEXT
+    Clip: {fileID: 8300000, guid: ae6475bc320aa2f469893e05cff42f6a, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 0
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  - Name: LORESCROLL
+    Clip: {fileID: 8300000, guid: 77d4ee054cf50214ab8f60aaa1df7b9a, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 1
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
+  PlayOnStart:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &8114922530745853040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3071051448547864728}
+  - component: {fileID: 6843491265860501889}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
