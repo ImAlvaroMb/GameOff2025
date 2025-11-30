@@ -151,10 +151,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1617061176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 1114.0155, y: 173}
-  m_SizeDelta: {x: 902.7791, y: 695.2509}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 42.654236, y: 136.80457}
+  m_SizeDelta: {x: 1755.8652, y: 761.6419}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170449937
 MonoBehaviour:
@@ -176,10 +176,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Once I have full domination over this backwater planet, I will terraform
-    it into a suitable habitat. Kwaak\u2026THEN I will be hailed as a hero by my
-    fellow Thalassians! Perhaps they\u2019ll stop underestimating me\u2026sending
-    me on fool\u2019s errands\u2026they will finally see what I am capable of! "
+  m_text: "Though I was never a prime intellect back home at the Academy\u2026my
+    Progenitor-Consciousness would surely be proud if zhey could perceive me now!
+    Kwaak\u2026what I wouldn\u2019t give to taste zheir homemade deviled egg clusters
+    once more\u2026\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
   m_sharedMaterial: {fileID: 4137884345181277227, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
@@ -662,7 +662,6 @@ GameObject:
   - component: {fileID: 1617061174}
   - component: {fileID: 1617061173}
   - component: {fileID: 1617061177}
-  - component: {fileID: 1617061178}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -769,33 +768,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoreTextRef: {fileID: 170449937}
   LoreText:
-  - "Hah! Wretched Humoids! As mere Class C sentient beings, their inferior intellect
-    will easily succumb to the overwhelming pressure of my psychic domination. Kwaak\u2026No
-    one will expect the \u201Cclass pet\u201D\u2026 "
-  - "Once I have full domination over this backwater planet, I will terraform it
-    into a suitable habitat. Kwaak\u2026THEN I will be hailed as a hero by my fellow
-    Thalassians! Perhaps they\u2019ll stop underestimating me\u2026sending me on
-    fool\u2019s errands\u2026they will finally see what I am capable of! "
-  - "Kwaak\u2026enough brooding\u2026I must find out who is in charge of this class
-    and make them my thrall..."
+  - "Yes\u2026yes! Now that the leader of this educational institution is but a pawn
+    in my game, nothing can stop me! Kwaak\u2026I feel more powerful than a Naiadian
+    leechwurm after it\u2019s deposited its final egg cluster during orbital conjunction\u2026"
+  - "Though I was never a prime intellect back home at the Academy\u2026my Progenitor-Consciousness
+    would surely be proud if zhey could perceive me now! Kwaak\u2026what I wouldn\u2019t
+    give to taste zheir homemade deviled egg clusters once more\u2026"
+  - "Kwaak\u2026no more nostalgia! Though my army of bloodthirsty Humoid hatchlings
+    will surely be feared\u2026I need to expand my supremacy beyond this building.
+    Hmm\u2026who is that self-important fellow? He looks like the key to my ascendancy\u2026"
   TypingSpeed: 0.035
   BlinkInterval: 1.2
   ContinueText: {fileID: 1716408551}
   OnLoreFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617061178}
-        m_TargetAssemblyTypeName: Persistance, Assembly-CSharp
-        m_MethodName: UnlockLevel
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 420030877}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: GoToScene
@@ -808,18 +795,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1617061178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617061172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a07a71471071d434594e0ed9bbb4d6ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1716408547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1001,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2224688606021835790, guid: a1f0356a5c2284b4b9798cf6dc8aedaa, type: 3}
+  m_Sprite: {fileID: 5050614240084882794, guid: 35a031d20753f234cb648bb0153be430, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

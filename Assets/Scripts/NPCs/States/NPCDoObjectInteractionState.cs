@@ -37,7 +37,7 @@ public class NPCDoObjectInteractionState : NPCBaseState
                 _controller.RemoveCurrentInteractable();
             } else
             {
-                AlertSystemController.Instance.SendAlert(_controller.CurrentInteractable.message, 2f);
+                AlertSystemController.Instance.SendAlert(_controller.CurrentInteractable.cantInteractMessage, 2f);
                 AudioManager.Instance.PlayOneShot(SoundName.NPCCANT);
             }
             FinishState();

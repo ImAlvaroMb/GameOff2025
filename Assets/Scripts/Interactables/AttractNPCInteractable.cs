@@ -55,7 +55,9 @@ public class AttractNPCInteractable : BaseInteractable
                     controller.GetComponent<StateController>().CurrentState.FinishState();
                 }
             }
-        } 
+        }
+
+        AudioManager.Instance.PlayOneShot(SoundName.NPCRADIO);
     }
 
     private void StopVisualEffect()

@@ -8,7 +8,7 @@ public class NPCAwarness : MonoBehaviour
     public List<NPCController> NearbyNPC => nearbyNPC;
     private List<NPCController> nearbyNPC = new List<NPCController>();
     private NPCController _controller;
-
+    [SerializeField] private float newDecayDuration = 3f;
     [SerializeField] private List<InteractableType> interactTypesAvailable;
 
     [Header("Inmunne")]
@@ -33,7 +33,7 @@ public class NPCAwarness : MonoBehaviour
                 {
                     if (_affectedNPCs.Add(npcController))
                     {
-                        npcController.OnImmuneAreaEntered(_controller);
+                        npcController.OnImmuneAreaEntered(_controller, newDecayDuration);
                     }
                 }
                 else

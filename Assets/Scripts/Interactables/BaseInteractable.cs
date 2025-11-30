@@ -8,7 +8,8 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 {
     public List<InteractableType> InteractableType = new List<InteractableType>();
     public UnityEvent OnInteracted;
-    public string message;
+    public string cantInteractMessage;
+    public string interactMessage;
     private SpriteRenderer _sprite;
     private bool _canInteract = false; // this can interact is for the user direct interaction (mouse, not from a controlled NPC)
 
@@ -30,6 +31,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     }
     public virtual void Interact(NPCController interactingNPC)
     {
+        //AlertSystemController.Instance.SendAlert(interactMessage, 3f);
         OnInteracted?.Invoke();
     }
     public virtual void Highlight()

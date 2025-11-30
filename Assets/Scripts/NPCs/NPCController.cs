@@ -52,6 +52,7 @@ public class NPCController : MonoBehaviour
     [Header("Being Controller")]
     [SerializeField] private float decayDuration = 10f; //time in seconds to go from fully controlled to loosing control of the NPC
     [SerializeField] private float recoveryDuration = 10f; //time in seconds to go from fully controlled to loosing control of the NPC
+    private float _originalDecayDuration;
     public bool IsFullyControlled => _isFullyControlled;
     private bool _isFullyControlled = false;
     private ITimer _beingControlledTimer;
@@ -100,6 +101,7 @@ public class NPCController : MonoBehaviour
         _originalPosition = transform.position;
         _visualController = GetComponent<NPCVisualController>();
         _npcAwarness = GetComponent<NPCAwarness>();
+        _originalDecayDuration = decayDuration;
     }
 
     private void OnDestroy()
@@ -150,11 +152,12 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    public void OnImmuneAreaEntered(NPCController immunityCause)
+    public void OnImmuneAreaEntered(NPCController immunityCause, float newDecayDuration)
     {
         bool isNew = _activeImmuneAreas.Add(immunityCause);
         if(isNew && _activeAreas.Count >= 1)
         {
+            ChangeDecayDuration(newDecayDuration);
             _isInImmuneArea = true;
             CleanUpInfluenceAreas();
         }
@@ -166,6 +169,7 @@ public class NPCController : MonoBehaviour
         if(wasRemoved && _activeImmuneAreas.Count == 0)
         {
             _isInImmuneArea = false;
+            ChangeDecayDuration(_originalDecayDuration);
             if(_activeAreas.Count >= 1)
             {
                 _isInInfluenceArea = true;
@@ -251,6 +255,11 @@ public class NPCController : MonoBehaviour
             newDirection: TimerDirection.DECREASE,
             isRunning: true
         );
+    }
+
+    public void ChangeDecayDuration(float newDecayDuration)
+    {
+        decayDuration = newDecayDuration;
     }
 
     private void StopActiveTimer()
