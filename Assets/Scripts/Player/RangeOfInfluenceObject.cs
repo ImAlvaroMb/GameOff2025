@@ -69,9 +69,15 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
             if (Vector2.Distance(transform.position, npcController.transform.position) < influenceAreaRadius)
             {
-                if (_npcInside.Add(npcController))
+                if(!npcController.IsInImmuneArea)
                 {
-                    npcController.OnAreaEntered(this);
+                    if (_npcInside.Add(npcController))
+                    {
+                        npcController.OnAreaEntered(this);
+                    }
+                } else
+                {
+                    _npcInside.Remove(npcController);
                 }
             }
             else

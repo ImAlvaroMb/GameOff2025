@@ -8,7 +8,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 {
     public List<InteractableType> InteractableType = new List<InteractableType>();
     public UnityEvent OnInteracted;
-    
+    public string message;
     private SpriteRenderer _sprite;
     private bool _canInteract = false; // this can interact is for the user direct interaction (mouse, not from a controlled NPC)
 

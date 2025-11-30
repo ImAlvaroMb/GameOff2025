@@ -30,7 +30,7 @@ public class NPCVisualController : MonoBehaviour
 
     [Header("Inmunne")]
     [SerializeField] private GameObject hatObj;
-    [SerializeField] private GameObject inmunneAreaObj;
+    [SerializeField] private GameObject immuneAreaObj;
 
     private NPCController _controller;
 
@@ -52,12 +52,14 @@ public class NPCVisualController : MonoBehaviour
         hoverButtons?.gameObject.SetActive(false);
         PlayAnimation(NPCAnimation.DOWN_IDLE);
 
-        if(_controller != null && _controller.IsInmunne)
+        if(_controller != null && _controller.IsImmune)
         {
             hatObj.SetActive(true);
+            immuneAreaObj.SetActive(true);
         } else
         {
             hatObj.SetActive(false);
+            immuneAreaObj.SetActive(false);
         }
     }
 

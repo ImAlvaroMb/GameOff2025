@@ -13,7 +13,8 @@ namespace Enums
         PATROL,
         DO_OBJECT_INTERACTION,
         TALK_TO_NPC,
-        WAVE
+        WAVE,
+        SAY_SOMETHING
     }
 
     public enum InteractableType

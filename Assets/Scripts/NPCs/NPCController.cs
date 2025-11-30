@@ -2,6 +2,7 @@
 using StateMachine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using Utilities;
 
@@ -16,6 +17,7 @@ public class NPCController : MonoBehaviour
     private NPCAwarness _npcAwarness;
     [Header("Area of Influence")]
     private HashSet<RangeOfInfluenceObject> _activeAreas = new HashSet<RangeOfInfluenceObject>();
+    private HashSet<NPCController> _activeImmuneAreas = new HashSet<NPCController>();
 
     [Header("Interaction Positions")]
     public List<Transform> InteractionPoints = new List<Transform>();
@@ -54,8 +56,10 @@ public class NPCController : MonoBehaviour
     private bool _isFullyControlled = false;
     private ITimer _beingControlledTimer;
     [SerializeField] private bool canBeControlled = true;
-    public bool IsInmunne => isInmunne;
-    [SerializeField] private bool isInmunne = false;
+    public bool IsImmune => isImmune;
+    [SerializeField] private bool isImmune = false;
+    public bool IsInImmuneArea => _isInImmuneArea;
+    private bool _isInImmuneArea = false;
     public bool IsInInfluenceArea => _isInInfluenceArea;
     private bool _isInInfluenceArea = false;
     public bool IsBeingControlled => _isBeingControlled;
@@ -125,10 +129,15 @@ public class NPCController : MonoBehaviour
 
     public void OnAreaEntered(RangeOfInfluenceObject area)
     {
-        bool isNew = _activeAreas.Add(area);
-        if(isNew && _activeAreas.Count == 1)
+        if (!_isInImmuneArea) 
         {
-            _isInInfluenceArea = true;
+            bool isNew = _activeAreas.Add(area);
+            if (isNew && _activeAreas.Count == 1)
+            {
+
+                _isInInfluenceArea = true;
+
+            }
         }
     }
 
@@ -139,6 +148,35 @@ public class NPCController : MonoBehaviour
         {
             _isInInfluenceArea = false;
         }
+    }
+
+    public void OnImmuneAreaEntered(NPCController immunityCause)
+    {
+        bool isNew = _activeImmuneAreas.Add(immunityCause);
+        if(isNew && _activeAreas.Count >= 1)
+        {
+            _isInImmuneArea = true;
+            CleanUpInfluenceAreas();
+        }
+    }
+
+    public void OnImmuneAreaExit(NPCController immunityCause)
+    {
+        bool wasRemoved = _activeImmuneAreas.Remove(immunityCause);
+        if(wasRemoved && _activeImmuneAreas.Count == 0)
+        {
+            _isInImmuneArea = false;
+            if(_activeAreas.Count >= 1)
+            {
+                _isInInfluenceArea = true;
+            }
+        }
+    }
+
+    private void CleanUpInfluenceAreas()
+    {
+        _activeAreas.Clear();
+        _isInInfluenceArea = false;
     }
 
     #endregion
@@ -256,7 +294,7 @@ public class NPCController : MonoBehaviour
     {
         if(canBeControlled)
         {
-            if (!_isBeingControlled && _isInInfluenceArea)
+            if (!_isBeingControlled && _isInInfluenceArea && !isImmune)
             {
                 _isBeingControlled = true;
             }
@@ -457,6 +495,7 @@ public class NPCController : MonoBehaviour
 
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, waveDistance);
+
         }
         
     }

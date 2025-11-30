@@ -1,14 +1,53 @@
-using UnityEngine;
 using Enums;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 public class NPCAwarness : MonoBehaviour
 {
     private List<BaseInteractable> nearbyInteractables = new List<BaseInteractable>();
     public List<NPCController> NearbyNPC => nearbyNPC;
     private List<NPCController> nearbyNPC = new List<NPCController>();
+    private NPCController _controller;
 
     [SerializeField] private List<InteractableType> interactTypesAvailable;
 
+    [Header("Inmunne")]
+    [SerializeField] private List<NPCController> targetNPCs = new List<NPCController>();
+    private HashSet<NPCController> _affectedNPCs = new HashSet<NPCController>();
+    [SerializeField] private float inmunnityRadius;
+
+    private void Start()
+    {
+        _controller = GetComponent<NPCController>();
+    }
+
+    private void Update()
+    {
+        if(_controller.IsImmune)
+        {
+            foreach (NPCController npcController in targetNPCs)
+            {
+                if (npcController == null) continue;
+
+                if (Vector2.Distance(transform.position, npcController.transform.position) < inmunnityRadius)
+                {
+                    if (_affectedNPCs.Add(npcController))
+                    {
+                        npcController.OnImmuneAreaEntered(_controller);
+                    }
+                }
+                else
+                {
+                    if (_affectedNPCs.Remove(npcController))
+                    {
+                        npcController.OnImmuneAreaExit(_controller);
+                    }
+                }
+            }
+        }
+    }
+
+    #region Regular Interactions
 
     public bool CanInteract(BaseInteractable targetObject)
     {
@@ -99,4 +138,25 @@ public class NPCAwarness : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Inmunnity
+
+    [ContextMenu("FindAllNpc")]
+    private void FindAllNPC()
+    {
+        targetNPCs = FindObjectsByType<NPCController>(FindObjectsSortMode.None).ToList();
+        if(targetNPCs.Contains(_controller))
+        {
+            targetNPCs.Remove(_controller);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, inmunnityRadius);
+    }
+
+    #endregion
 }

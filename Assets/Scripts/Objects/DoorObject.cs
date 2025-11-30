@@ -8,11 +8,14 @@ public class DoorObject : MonoBehaviour
     [SerializeField] private float animDuration;
     [SerializeField] private float targetYRotation = 75f;
     [SerializeField] private bool checksForNpc = false;
+    [SerializeField] private bool needsKey = false;
     [SerializeField] private Transform kickPos;
+    [SerializeField] private string message;
 
     public UnityEvent OnOpen;
     private int _NPCLayerID;
     private ITimer _timer;
+    private bool _hasKey = false;
 
     private void Start()
     {
@@ -24,7 +27,18 @@ public class DoorObject : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
-                OpenDoor();
+                if(needsKey && _hasKey)
+                {
+                    OpenDoor();
+                } else if(needsKey && !_hasKey)
+                {
+                    AlertSystemController.Instance.SendAlert(message, 2f);
+                }
+
+                if(!needsKey)
+                {
+                    OpenDoor();
+                }
             }
         } else
         {
@@ -48,6 +62,8 @@ public class DoorObject : MonoBehaviour
         }
         
     }
+
+
 
     public void OpenDoor()
     {
@@ -91,5 +107,10 @@ public class DoorObject : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(startRotation, targetRotation, progress);
             });
         }
+    }
+
+    public void SetHasKey(bool value)
+    {
+        _hasKey = value;
     }
 }
