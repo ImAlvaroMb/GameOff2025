@@ -32,9 +32,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9008568937169383774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.75, y: -0.25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3698812585444890071
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.946, y: -0.4583999}
-  m_SizeDelta: {x: 1, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710156864625700372
 MonoBehaviour:
@@ -351,9 +351,9 @@ RectTransform:
   - {fileID: 4326384169675066634}
   m_Father: {fileID: 9008568937169383774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.25, y: -0.25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2098560379320506052
@@ -476,6 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2abfd136e602a45ba091e32d16e223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newDecayDuration: 3
   interactTypesAvailable: 03000000
   targetNPCs: []
   inmunnityRadius: 0
@@ -596,8 +597,25 @@ MonoBehaviour:
     - {fileID: 329642544575762348, guid: a9f8324ed779a31409af0174bbd9d5bb, type: 3}
     framesPerSecond: 8
   phrases:
-  - Hooo Heee Hiiii
-  - Una Unga this is awesome, we are in the water belowe heaven
+  - Ribbit is looking extra fat, what are they feeding him?
+  - "Those tinfoil hat people\u2026why are they obsessed with aliens!?"
+  - "Ugh this class is so boring\u2026"
+  - "I wish I could play Fortnite instead of being stuck at school\u2026"
+  - "My teacher is acting weird\u2026just staring at the wall."
+  - Why do I keep seeing Ribbit around everywhere?
+  - "I swear Ribbit was staring right at me\u2026"
+  - "My friends were acting strange earlier\u2026"
+  - "The new Mayor is supposed to visit today\u2026BORING!"
+  - What is that ringing sound? Is anyone hearing that?
+  - The Principal seemed nervous today.
+  - 'Ughhh I have so much homework to do. '
+  - "My TikTok has been all about aliens lately\u2026why?"
+  - My dad was watching some video about aliens from Neptune.
+  - "Those radios\u2026why do they make my head fuzzy?"
+  - "I heard the Principal\u2019s ex-wife is with the new Mayor!"
+  - "I heard the Principal\u2019s ex-wife is with the new Mayor!"
+  - "I can\u2019t seem to concentrate today\u2026"
+  - "I didn\u2019t study at all for the quiz\u2026"
   speechBubble: {fileID: 4094643987175060399}
   bubbleText: {fileID: 8484840172278221998}
   bubbleDuration: 3
@@ -991,8 +1009,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1.391, y: -0.218}
-  m_SizeDelta: {x: 1.4022, y: 0.7921}
+  m_AnchoredPosition: {x: -1.391, y: -0.4801}
+  m_SizeDelta: {x: 1.4022, y: 1.3164}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7911581566404660441
 CanvasRenderer:
@@ -1456,7 +1474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8133389861234735368
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1577,7 +1595,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0094, y: 0.0047}
-  m_SizeDelta: {x: 0.9496, y: 0.5474}
+  m_SizeDelta: {x: 0.9496, y: 1.021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7247926222975572627
 CanvasRenderer:
@@ -1610,7 +1628,7 @@ MonoBehaviour:
   m_text: Hey, did you know trump is fatter than a regular pig
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 4137884345181277227, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2113,19 +2131,19 @@ PrefabInstance:
       objectReference: {fileID: 137585977301720577, guid: 2c32942a6b1926d43adff9d114e3a272, type: 3}
     - target: {fileID: 378846328444536061, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 378846328444536061, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 378846328444536061, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.21500003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 378846328444536061, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.285
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 619916013092135900, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_IsActive
@@ -2137,35 +2155,35 @@ PrefabInstance:
       objectReference: {fileID: 8890798500212826181, guid: 78d67be1cbc37c8429b47e9b1f6b6a71, type: 3}
     - target: {fileID: 3358909437939151022, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3358909437939151022, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3358909437939151022, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.6450001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3358909437939151022, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.285
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3766601122736018067, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3766601122736018067, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3766601122736018067, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.5050002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3766601122736018067, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.285
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_Pivot.x
@@ -2193,7 +2211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1.7200003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3951347539742497210, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2257,19 +2275,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5359700262837520949, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5359700262837520949, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5359700262837520949, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.0750002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5359700262837520949, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.285
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6658975043614902000, guid: fd048027e28f89e4ebba1c3e3c4c5b27, type: 3}
       propertyPath: m_ChildAlignment

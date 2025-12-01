@@ -43,23 +43,26 @@ public class DoorObject : MonoBehaviour
     {
         if (_targetNPCs == null) return;
 
-        foreach (NPCController npcController in _targetNPCs)
+        if(!_doorIsOpen)
         {
-            if (npcController == null) continue;
+            foreach (NPCController npcController in _targetNPCs)
+            {
+                if (npcController == null) continue;
 
-            if (Vector2.Distance(npcController.transform.position, doorCentralPoint.position) < influenceAreaRadius)
-            {
-                if (_npcInsideArea.Add(npcController)) 
+                if (Vector2.Distance(npcController.transform.position, doorCentralPoint.position) < influenceAreaRadius)
                 {
-                    OnAreaEntered(npcController);
+                    if (_npcInsideArea.Add(npcController))
+                    {
+                        OnAreaEntered(npcController);
+                    }
+
                 }
-                
-            }
-            else
-            {
-                if (_npcInsideArea.Remove(npcController)) 
+                else
                 {
-                    OnAreaExit(npcController);
+                    if (_npcInsideArea.Remove(npcController))
+                    {
+                        OnAreaExit(npcController);
+                    }
                 }
             }
         }
@@ -78,7 +81,10 @@ public class DoorObject : MonoBehaviour
             }
             else if (needsKey && !_hasKey)
             {
-                AlertSystemController.Instance.SendAlert(message, 2f);
+                AlertSystemController.Instance.SendAlert(message, 2f, npcController);
+                StateController stateController = npcController.GetComponent<StateController>();
+                npcController.OtherCurrentNPC?.GetComponent<StateController>()?.CurrentState.FinishState();
+                stateController?.CurrentState.FinishState();
             }
 
             if (!needsKey && npcAwareness.IsTeacher())
@@ -149,6 +155,17 @@ public class DoorObject : MonoBehaviour
         _doorIsOpen = true;
     }
 
+    public void ToggleDoor()
+    {
+        if(_doorIsOpen)
+        {
+            CloseDoor();
+        } else
+        {
+            OpenDoor();
+        }
+    }
+
     public void CloseDoor()
     {
         Quaternion startRotation = transform.rotation;
@@ -168,6 +185,7 @@ public class DoorObject : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(startRotation, targetRotation, progress);
             });
         }
+        _doorIsOpen = false;
     }
 
     public void SetHasKey(bool value)

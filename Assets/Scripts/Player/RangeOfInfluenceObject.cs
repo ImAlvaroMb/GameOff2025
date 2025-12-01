@@ -17,8 +17,8 @@ public class RangeOfInfluenceObject : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private float pulseDuration;
-    [SerializeField] private float minAlpha;
-    [SerializeField] private float maxAlpha;
+    [SerializeField] private float minAlpha = 0.1f;
+    [SerializeField] private float maxAlpha = 0.3f;
     [SerializeField] private float minScaleFactor = 0.8f;
     [SerializeField] private float maxScaleFactor = 1.2f;
     [SerializeField] private float rotationSpeed = 90f;

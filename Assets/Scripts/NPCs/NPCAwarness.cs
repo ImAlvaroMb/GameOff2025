@@ -35,14 +35,14 @@ public class NPCAwarness : MonoBehaviour
 
                 if (Vector2.Distance(transform.position, npcController.transform.position) < inmunnityRadius)
                 {
-                    if (_affectedNPCs.Add(npcController))
+                    if (_affectedNPCs.Add(npcController) && !npcController.IsImmune)
                     {
                         npcController.OnImmuneAreaEntered(_controller, newDecayDuration);
                     }
                 }
                 else
                 {
-                    if (_affectedNPCs.Remove(npcController))
+                    if (_affectedNPCs.Remove(npcController) && !npcController.IsImmune)
                     {
                         npcController.OnImmuneAreaExit(_controller);
                     }
@@ -122,7 +122,7 @@ public class NPCAwarness : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision) // this takes a hevy performance toll when dealing with a lot of objects, this would usually be handled by a own system
     {
         if (!collision.CompareTag("Interactable"))
         {
@@ -153,6 +153,18 @@ public class NPCAwarness : MonoBehaviour
         if(targetNPCs.Contains(_controller))
         {
             targetNPCs.Remove(_controller);
+        }
+        CleanUpList();
+    }
+
+    private void CleanUpList()
+    {
+        for (int i = targetNPCs.Count - 1; i >= 0; i--)
+        {
+            if (targetNPCs[i].IsImmune)
+            {
+                targetNPCs.RemoveAt(i);
+            }
         }
     }
 

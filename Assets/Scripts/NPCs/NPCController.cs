@@ -155,7 +155,7 @@ public class NPCController : MonoBehaviour
     public void OnImmuneAreaEntered(NPCController immunityCause, float newDecayDuration)
     {
         bool isNew = _activeImmuneAreas.Add(immunityCause);
-        if(isNew && _activeAreas.Count >= 1)
+        if(isNew)
         {
             ChangeDecayDuration(newDecayDuration);
             _isInImmuneArea = true;
@@ -170,7 +170,7 @@ public class NPCController : MonoBehaviour
         {
             _isInImmuneArea = false;
             ChangeDecayDuration(_originalDecayDuration);
-            if(_activeAreas.Count >= 1)
+            if(_activeAreas.Count > 0)
             {
                 _isInInfluenceArea = true;
             }

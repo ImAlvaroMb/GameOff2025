@@ -17,7 +17,21 @@ public class AlertSystemController : AbstractSingleton<AlertSystemController>
         NotificationBox.SetActive(false);
     }
 
-    public void SendAlert(string text, float duration)
+    public void SendAlert(string text, float duration, NPCController sender)
+    {
+        if(sender.IsFullyControlled)
+        {
+            if(!string.IsNullOrWhiteSpace(text))
+            {
+                NotificationBox.SetActive(true);
+                TextToUpdate.alpha = 0f;
+                _currentTimer?.StopTimer();
+                StartTimer(text, duration);
+            }   
+        }
+    }
+
+    public void ForceAlert(string text, float duration)
     {
         NotificationBox.SetActive(true);
         TextToUpdate.alpha = 0f;

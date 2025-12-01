@@ -830,8 +830,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1.391, y: -0.218}
-  m_SizeDelta: {x: 1.4022, y: 0.7921}
+  m_AnchoredPosition: {x: -1.391, y: -0.5362995}
+  m_SizeDelta: {x: 1.4022, y: 1.4287}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5420523633393241424
 CanvasRenderer:
@@ -1851,8 +1851,25 @@ MonoBehaviour:
     - {fileID: -3794889555866196467, guid: d0be0698db5f11944aae4819ebe9494b, type: 3}
     framesPerSecond: 8
   phrases:
-  - Hooo Heee Hiiii
-  - Una Unga this is awesome, we are in the water belowe heaven
+  - Ribbit is looking extra fat, what are they feeding him?
+  - "Those tinfoil hat people\u2026why are they obsessed with aliens!?"
+  - "Ugh this class is so boring\u2026"
+  - "I wish I could play Fortnite instead of being stuck at school\u2026"
+  - "My teacher is acting weird\u2026just staring at the wall."
+  - Why do I keep seeing Ribbit around everywhere?
+  - "I swear Ribbit was staring right at me\u2026"
+  - "My friends were acting strange earlier\u2026"
+  - "The new Mayor is supposed to visit today\u2026BORING!"
+  - What is that ringing sound? Is anyone hearing that?
+  - The Principal seemed nervous today.
+  - 'Ughhh I have so much homework to do. '
+  - "My TikTok has been all about aliens lately\u2026why?"
+  - My dad was watching some video about aliens from Neptune.
+  - "Those radios\u2026why do they make my head fuzzy?"
+  - "I heard the Principal\u2019s ex-wife is with the new Mayor!"
+  - "I heard the Principal\u2019s ex-wife is with the new Mayor!"
+  - "I can\u2019t seem to concentrate today\u2026"
+  - "I didn\u2019t study at all for the quiz\u2026"
   speechBubble: {fileID: 2327754595429668292}
   bubbleText: {fileID: 642394984929371262}
   bubbleDuration: 3
@@ -2991,8 +3008,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0094, y: 0.0047}
-  m_SizeDelta: {x: 0.9496, y: 0.5474}
+  m_AnchoredPosition: {x: -0.0094, y: -0.0105}
+  m_SizeDelta: {x: 0.9496, y: 1.0663}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &929351884288858376
 CanvasRenderer:
@@ -3025,7 +3042,7 @@ MonoBehaviour:
   m_text: Hey, did you know trump is fatter than a regular pig
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 4137884345181277227, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -33,6 +33,7 @@ public class SuspiciousNPC : MonoBehaviour
                         _targetToCheck.gameObject.GetComponent<StateController>().CurrentState.FinishState();
                         _targetToCheck.SetCurrentInteractable(frogInteractable);
                         _targetToCheck.SetCurrentAction(NPCActions.DO_OBJECT_INTERACTION);
+                        AlertSystemController.Instance.ForceAlert("They are suspucious of me carrying a frog...", 2.5f);
                     }, onTimerIncreaseUpdate: (progress) =>
                     {
                         float t = progress / timeToAlert;

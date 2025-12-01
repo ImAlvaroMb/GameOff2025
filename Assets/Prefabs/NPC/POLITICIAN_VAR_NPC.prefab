@@ -660,7 +660,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0094, y: 0.0047}
-  m_SizeDelta: {x: 0.9496, y: 0.5474}
+  m_SizeDelta: {x: 0.9496, y: 0.9838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1833534863482747410
 CanvasRenderer:
@@ -693,7 +693,7 @@ MonoBehaviour:
   m_text: Hey, did you know trump is fatter than a regular pig
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 4137884345181277227, guid: f2cdbfc008d4bb24bb21a05402b1a231, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1083,6 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2abfd136e602a45ba091e32d16e223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newDecayDuration: 3
   interactTypesAvailable: 04000000
   targetNPCs: []
   inmunnityRadius: 0
@@ -1203,8 +1204,25 @@ MonoBehaviour:
     - {fileID: -3020189919819957224, guid: 241398b9f42a42442aaecbc467200b43, type: 3}
     framesPerSecond: 8
   phrases:
-  - Hooo Heee Hiiii
-  - Una Unga this is awesome, we are in the water belowe heaven
+  - Ribbit is looking extra fat, what are they feeding him?
+  - "Those tinfoil hat people\u2026why are they obsessed with aliens!?"
+  - "Ugh this class is so boring\u2026"
+  - "I wish I could play Fortnite instead of being stuck at school\u2026"
+  - "My teacher is acting weird\u2026just staring at the wall."
+  - Why do I keep seeing Ribbit around everywhere?
+  - "I swear Ribbit was staring right at me\u2026"
+  - "My friends were acting strange earlier\u2026"
+  - "The new Mayor is supposed to visit today\u2026BORING!"
+  - What is that ringing sound? Is anyone hearing that?
+  - The Principal seemed nervous today.
+  - 'Ughhh I have so much homework to do. '
+  - "My TikTok has been all about aliens lately\u2026why?"
+  - My dad was watching some video about aliens from Neptune.
+  - "Those radios\u2026why do they make my head fuzzy?"
+  - "I heard the Principal\u2019s ex-wife is with the new Mayor!"
+  - "I heard the Principal\u2019s ex-wife is with the new Mayor!"
+  - "I can\u2019t seem to concentrate today\u2026"
+  - "I didn\u2019t study at all for the quiz\u2026"
   speechBubble: {fileID: 3706332778073482973}
   bubbleText: {fileID: 9188476468661960659}
   bubbleDuration: 3
@@ -1348,7 +1366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8499289326560574177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1366,8 +1384,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1.391, y: -0.218}
-  m_SizeDelta: {x: 1.4022, y: 0.7921}
+  m_AnchoredPosition: {x: -1.391, y: -0.5416}
+  m_SizeDelta: {x: 1.4022, y: 1.4393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5699849864669342320
 CanvasRenderer:

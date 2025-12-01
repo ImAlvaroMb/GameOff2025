@@ -76,6 +76,7 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
         PlayWithIdentifier(SoundName.MENUMUSIC, Vector3.zero, SoundName.MENUMUSIC.ToString());
     }
 
+
     private void FixedUpdate()
     {
         if(!_paused)

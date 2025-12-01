@@ -197,7 +197,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
             return;
         } else if(_currentHoveredNPC != null && !_currentHoveredObject.CanInteract())
         {
-            AlertSystemController.Instance.SendAlert("CAN ONLY INTERACT WITH THIS OBJECT WHEN INSIDE ARE OF INFLUENCE", 2f);
+            AlertSystemController.Instance.SendAlert("CAN ONLY INTERACT WITH THIS OBJECT WHEN INSIDE ARE OF INFLUENCE", 2f, null);
         }
 
         if (_currentSelectedNPC != null && _currentSelectedNPC.IsFullyControlled)
@@ -280,7 +280,7 @@ public class MouseInputController : AbstractSingleton<MouseInputController>
         {
             _currentSelectedNPC.gameObject.GetComponent<NPCVisualController>().OnControlledChanged(false);
             _currentSelectedNPC = null;
-            AlertSystemController.Instance.SendAlert($"Currently no NPC is selected", 2f);
+            AlertSystemController.Instance.SendAlert($"Currently no NPC is selected", 2f, null);
         }
     }
 

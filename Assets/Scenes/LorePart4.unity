@@ -1158,10 +1158,18 @@ MonoBehaviour:
     Pitch: 1
     MaxDistance: 0
     SpatialBlend: 0
+  - Name: GAMEMUSIC
+    Clip: {fileID: 8300000, guid: a7199b9021b087d4ab06043c6c8118c7, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 1
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
   PlayOnStart:
     m_PersistentCalls:
       m_Calls: []
-  songToPlay: 0
+  songToPlay: 14
 --- !u!1 &8114922530745853040
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class FrogInteractable : BaseInteractable
 
         if (!CheckIfCanCarryFrog(interactingNPC))
         {
-            AlertSystemController.Instance.SendAlert("THIS NPC IS NOT WORTHY OF CARRYING THE FROG", 2.5f);
+            AlertSystemController.Instance.SendAlert("THIS NPC IS NOT WORTHY OF CARRYING THE FROG", 2.5f, interactingNPC);
             AudioManager.Instance.PlayOneShot(SoundName.NPCCANT);
             return;
         }

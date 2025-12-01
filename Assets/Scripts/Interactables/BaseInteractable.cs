@@ -31,7 +31,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     }
     public virtual void Interact(NPCController interactingNPC)
     {
-        //AlertSystemController.Instance.SendAlert(interactMessage, 3f);
+        AlertSystemController.Instance.SendAlert(interactMessage, 3f, interactingNPC);
         OnInteracted?.Invoke();
     }
     public virtual void Highlight()
