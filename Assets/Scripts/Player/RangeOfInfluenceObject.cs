@@ -22,7 +22,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
     [SerializeField] private float minScaleFactor = 0.8f;
     [SerializeField] private float maxScaleFactor = 1.2f;
     [SerializeField] private float rotationSpeed = 90f;
-
+     
     private Vector3 _originalScale;
     private Vector3 _minScale;
     private Vector3 _maxScale;
@@ -41,6 +41,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
             InitializeCollider();
             StartCoroutine(PulseAlpha());
         }
+        FindAllNPC();
     }
     [ContextMenu("FindAllNpc")]
     private void FindAllNPC()
@@ -185,7 +186,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
     {
         if (collision.gameObject.layer == _interactableLayerID)
         {
-            collision.GetComponent<BaseInteractable>().SetCanInteract(true);
+            collision.gameObject.GetComponent<BaseInteractable>().SetCanInteract(true);
         }
 
     }
@@ -194,7 +195,7 @@ public class RangeOfInfluenceObject : MonoBehaviour
     {
         if(collision.gameObject.layer == _interactableLayerID)
         {
-            collision.GetComponent<BaseInteractable>().SetCanInteract(false);
+            collision.gameObject.GetComponent<BaseInteractable>().SetCanInteract(false);
         }
     }
 

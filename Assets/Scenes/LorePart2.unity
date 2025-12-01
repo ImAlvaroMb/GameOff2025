@@ -778,6 +778,7 @@ MonoBehaviour:
     to fuse into Hive Mind with me!"
   - "Kwaak\u2026I can\u2019t get ahead of myself\u2026 I\u2019m one step closer to
     the reins of power, but I require MORE influence!"
+  - 'GOAL: Escape this area as the PRINCIPAL while holding the FROG.'
   TypingSpeed: 0.035
   BlinkInterval: 1.2
   ContinueText: {fileID: 1716408551}

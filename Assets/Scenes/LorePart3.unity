@@ -769,15 +769,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoreTextRef: {fileID: 170449937}
   LoreText:
-  - "Yes\u2026yes! Now that the leader of this educational institution is but a pawn
-    in my game, nothing can stop me! Kwaak\u2026I feel more powerful than a Naiadian
-    leechwurm after it\u2019s deposited its final egg cluster during orbital conjunction\u2026"
-  - "Though I was never a prime intellect back home at the Academy\u2026my Progenitor-Consciousness
+  - "Yes\u2026YES! The leader of this institution is now my pawn\u2026Kwaak\u2026I
+    feel more powerful than a Naiadian leechwurm after it\u2019s deposited its egg
+    clusters during orbital conjunction\u2026"
+  - "I was never a prime intellect back home at the Academy\u2026but my Progenitor-Consciousness
     would surely be proud if zhey could perceive me now! Kwaak\u2026what I wouldn\u2019t
     give to taste zheir homemade deviled egg clusters once more\u2026"
-  - "Kwaak\u2026no more nostalgia! Though my army of bloodthirsty Humoid hatchlings
-    will surely be feared\u2026I need to expand my supremacy beyond this building.
-    Hmm\u2026who is that self-important fellow? He looks like the key to my ascendancy\u2026"
+  - "Kwaak\u2026no more nostalgia! Although my army of bloodthirsty Humoid hatchlings
+    will surely be feared\u2026I need to expand my supremacy. Hmm\u2026who is that
+    self-important fellow? He looks like the key to my ascendancy\u2026"
+  - 'GOAL: Escape this area as the MAYOR while holding the FROG.'
   TypingSpeed: 0.035
   BlinkInterval: 1.2
   ContinueText: {fileID: 1716408551}

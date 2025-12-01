@@ -1,5 +1,7 @@
 using Enums;
 using StateMachine;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using Utilities;
@@ -12,58 +14,116 @@ public class DoorObject : MonoBehaviour
     [SerializeField] private Transform kickPos;
     [SerializeField] private string message;
 
+    [Header("New detection")]
+    [SerializeField] private Transform doorCentralPoint;
+    [SerializeField] private float influenceAreaRadius = 3f; 
+    [SerializeField] private List<NPCController> _targetNPCs; 
+    private HashSet<NPCController> _npcInsideArea = new HashSet<NPCController>();
+    
+
     public UnityEvent OnOpen;
     private int _NPCLayerID;
     private ITimer _timer;
     private bool _hasKey = false;
+    private bool _doorIsOpen = false;
 
     private void Start()
     {
         _NPCLayerID = LayerMask.NameToLayer("NPC");
+        FindAllNPC();
     }
-    private void OnTriggerEnter2D(Collider2D collision) // most of this code should be changed but there is no time
+
+    [ContextMenu("FindAllNpc")]
+    private void FindAllNPC()
+    {
+        _targetNPCs = FindObjectsByType<NPCController>(FindObjectsSortMode.None).ToList();
+    }
+
+    private void Update()
+    {
+        if (_targetNPCs == null) return;
+
+        foreach (NPCController npcController in _targetNPCs)
+        {
+            if (npcController == null) continue;
+
+            if (Vector2.Distance(npcController.transform.position, doorCentralPoint.position) < influenceAreaRadius)
+            {
+                if (_npcInsideArea.Add(npcController)) 
+                {
+                    OnAreaEntered(npcController);
+                }
+                
+            }
+            else
+            {
+                if (_npcInsideArea.Remove(npcController)) 
+                {
+                    OnAreaExit(npcController);
+                }
+            }
+        }
+    }
+
+    private void OnAreaEntered(NPCController npcController)
     {
         if (checksForNpc)
         {
-            if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
-            {
-                if(needsKey && _hasKey && !collision.gameObject.GetComponent<NPCAwarness>().IsTeacher())
-                {
-                    OpenDoor();
-                } else if(needsKey && !_hasKey)
-                {
-                    AlertSystemController.Instance.SendAlert(message, 2f);
-                }
 
-                if(!needsKey)
-                {
-                    OpenDoor();
-                }
-            }
-        } else
-        {
-            if (collision.gameObject.layer == _NPCLayerID && collision.gameObject.CompareTag("NPC"))
+            NPCAwarness npcAwareness = npcController.GetComponent<NPCAwarness>();
+
+            if (needsKey && _hasKey && npcAwareness != null && !npcAwareness.IsTeacher())
             {
-                collision.gameObject.GetComponentInParent<NPCController>().OtherCurrentNPC?.GetComponent<StateController>().CurrentState.FinishState();
-                collision.gameObject.GetComponentInParent<StateController>().CurrentState.FinishState();
-                
+                OpenDoor();
             }
+            else if (needsKey && !_hasKey)
+            {
+                AlertSystemController.Instance.SendAlert(message, 2f);
+            }
+
+            if (!needsKey && npcAwareness.IsTeacher())
+            {
+                OpenDoor();
+            } else if(!needsKey && !npcAwareness.IsTeacher())
+            {
+                StateController stateController = npcController.GetComponent<StateController>();
+                npcController.OtherCurrentNPC?.GetComponent<StateController>()?.CurrentState.FinishState();
+                stateController?.CurrentState.FinishState();
+            }
+
+        }
+        else
+        {
+            if (!_doorIsOpen)
+            {
+                StateController stateController = npcController.GetComponent<StateController>();
+                npcController.OtherCurrentNPC?.GetComponent<StateController>()?.CurrentState.FinishState();
+                stateController?.CurrentState.FinishState();
+            }            
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnAreaExit(NPCController npcController)
     {
-        if(checksForNpc)
+        if (checksForNpc)
         {
-            if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
-            {
-                //CloseDoor();
-            }
+            // CloseDoor(); 
         }
-        
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(doorCentralPoint.transform.position, influenceAreaRadius);
+    }
 
+    public void CheckCanOpenDoor()
+    {
+        if(needsKey && _hasKey)
+        {
+            OpenDoor();
+        }
+    }
 
     public void OpenDoor()
     {
@@ -86,6 +146,7 @@ public class DoorObject : MonoBehaviour
             });
         }
 
+        _doorIsOpen = true;
     }
 
     public void CloseDoor()

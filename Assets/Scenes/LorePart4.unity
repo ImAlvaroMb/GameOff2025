@@ -765,7 +765,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoreTextRef: {fileID: 170449937}
   LoreText:
-  - THANKS FOR PLAYING!!!
+  - "At last! Such an influential Humoid, yet so easy to manipulate! Kwaak\u2026I
+    will continue ascending the hierarchy of power in this weakling world\u2026it\u2019s
+    only a matter of time before I have complete control of the wretched Humoids! "
+  - "Kwaak\u2026\u201CEarth\u201D, they call it...this place will make for a satisfactory
+    new Thalassian homeworld\u2026once I tidy up a bit."
+  - "Anura, my sweet tadpole\u2026soon we will Mind-Meld into an Overlord-Consciousness
+    and save our species ...Kwaaaaak!"
+  - 'Congratulations, you went on to conquer all of Earth! Thanks for playing - we
+    hope you enjoyed it!  -AlvaroMb -RetroKnight -Jerebee '
   TypingSpeed: 0.035
   BlinkInterval: 1.2
   ContinueText: {fileID: 1716408551}
@@ -1153,6 +1161,7 @@ MonoBehaviour:
   PlayOnStart:
     m_PersistentCalls:
       m_Calls: []
+  songToPlay: 0
 --- !u!1 &8114922530745853040
 GameObject:
   m_ObjectHideFlags: 0

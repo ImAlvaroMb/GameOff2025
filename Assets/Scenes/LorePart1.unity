@@ -774,10 +774,11 @@ MonoBehaviour:
     one will expect the \u201Cclass pet\u201D\u2026 "
   - "Once I have full domination over this backwater planet, I will terraform it
     into a suitable habitat. Kwaak\u2026THEN I will be hailed as a hero by my fellow
-    Thalassians! Perhaps they\u2019ll stop underestimating me\u2026sending me on
-    fool\u2019s errands\u2026they will finally see what I am capable of! "
+    Thalassians! Perhaps they\u2019ll stop underestimating me\u2026they will finally
+    see what I am capable of!"
   - "Kwaak\u2026enough brooding\u2026I must find out who is in charge of this class
-    and make them my thrall..."
+    and make them my thrall\u2026"
+  - 'GOAL: Escape this area as the TEACHER while holding the FROG.'
   TypingSpeed: 0.035
   BlinkInterval: 1.2
   ContinueText: {fileID: 1716408551}

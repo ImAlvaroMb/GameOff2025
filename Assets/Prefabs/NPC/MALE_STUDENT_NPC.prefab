@@ -2387,7 +2387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2abfd136e602a45ba091e32d16e223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactTypesAvailable: 04000000
+  newDecayDuration: 3
+  interactTypesAvailable: 03000000
   targetNPCs: []
   inmunnityRadius: 0
 --- !u!58 &2694591298851409986
@@ -2555,7 +2556,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.946, y: -1.0084}
-  m_SizeDelta: {x: 0, y: 0.5}
+  m_SizeDelta: {x: 1.7200003, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5135055976257906116
 MonoBehaviour:

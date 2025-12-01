@@ -13,6 +13,7 @@ public class TransitionsScreen : MonoBehaviour
     public float BlinkInterval;
 
     public CanvasGroup ContinueText;
+    private Coroutine _typingCoroutine;
     private bool _isTyping = false;
     private bool _isBlinking = false;
 
@@ -43,14 +44,22 @@ public class TransitionsScreen : MonoBehaviour
                     StopBlinking();
                     OnLoreFinished.Invoke();
                 }
+            } else if(_isTyping)
+            {
+                CompleteText();
             }
-        }
+        } 
     }
 
     private void StartTyping()
     {
+        if(_typingCoroutine != null)
+        {
+            StopCoroutine(_typingCoroutine);
+            _typingCoroutine = null;
+        }
         ContinueText.alpha = 0f;
-        StartCoroutine(TypeMessage());
+        _typingCoroutine = StartCoroutine(TypeMessage());
     }
 
     private IEnumerator TypeMessage()
@@ -61,12 +70,17 @@ public class TransitionsScreen : MonoBehaviour
         LoreTextRef.text = "";
         for (int i = 0; i < LoreText[_currentTextIndex].Length; i++)
         {
+            if (!_isTyping) break;
             LoreTextRef.text += LoreText[_currentTextIndex][i];
             yield return new WaitForSeconds(TypingSpeed);
         }
-        StartBlinking();
-        _isTyping = false;
 
+        if(_isTyping)
+        {
+            StartBlinking();
+            _isTyping = false;
+            _typingCoroutine = null;
+        }
     }
 
     private void StartBlinking()
@@ -77,6 +91,18 @@ public class TransitionsScreen : MonoBehaviour
         StartCoroutine(BlinkCoroutine());
     }
 
+    private void CompleteText()
+    {
+        if(_isTyping && _typingCoroutine != null)
+        {
+            StopCoroutine(_typingCoroutine);
+            _typingCoroutine = null;
+            _isTyping = false;
+            LoreTextRef.text = LoreText[_currentTextIndex];
+            StartBlinking();
+        }
+    }
+
     private void StopBlinking()
     {
         if(_isBlinking)
@@ -85,6 +111,7 @@ public class TransitionsScreen : MonoBehaviour
             _isBlinking = false;
         }
         ContinueText.gameObject.SetActive(false);
+        ContinueText.alpha = 0f;
     }
 
     private IEnumerator BlinkCoroutine()

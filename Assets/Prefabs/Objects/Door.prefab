@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6913616755872740645}
   - component: {fileID: 4743065984884796924}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: door_a_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 2394733839716197247}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.448, y: 0.876, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.5013, y: 0.9009, z: 0.0119}
+  m_LocalScale: {x: 1.1072, y: 1.001637, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1649252626572084082}
@@ -87,6 +87,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4074902689035554438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4551094797612619306}
+  m_Layer: 12
+  m_Name: Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4551094797612619306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4074902689035554438}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.42, y: -1.06, z: -0.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1649252626572084082}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5851555089133144391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4458485931163553154}
+  m_Layer: 12
+  m_Name: DoorCentrailPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4458485931163553154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5851555089133144391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55, y: 0.87, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1649252626572084082}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6603927943262703853
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +161,7 @@ GameObject:
   - component: {fileID: 7101836763786533420}
   - component: {fileID: 6500195103747928870}
   - component: {fileID: 8497655264660821979}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +182,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6913616755872740645}
+  - {fileID: 4551094797612619306}
+  - {fileID: 4458485931163553154}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7101836763786533420
@@ -134,8 +198,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49791040a6c02a41be4af28b8db47d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animDuration: 0.75
-  targetYRotation: 75
+  animDuration: 1.5
+  targetYRotation: 79
+  checksForNpc: 0
+  needsKey: 0
+  kickPos: {fileID: 4551094797612619306}
+  message: 
+  doorCentralPoint: {fileID: 4458485931163553154}
+  influenceAreaRadius: 1.15
+  _targetNPCs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  OnOpen:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &6500195103747928870
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,7 +251,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.45614755, y: 0.88142776}
+  m_Offset: {x: 0.48490524, y: 0.96629214}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -180,7 +261,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.4047024, y: 2.268982}
+  m_Size: {x: 1.8073101, y: 2.4003677}
   m_EdgeRadius: 0
 --- !u!50 &8497655264660821979
 Rigidbody2D:

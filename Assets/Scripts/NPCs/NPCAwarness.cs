@@ -19,6 +19,10 @@ public class NPCAwarness : MonoBehaviour
     private void Start()
     {
         _controller = GetComponent<NPCController>();
+        if(_controller.IsImmune)
+        {
+            FindAllNPC();
+        }
     }
 
     private void Update()
