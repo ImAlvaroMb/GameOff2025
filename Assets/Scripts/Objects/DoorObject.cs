@@ -21,13 +21,13 @@ public class DoorObject : MonoBehaviour
     {
         _NPCLayerID = LayerMask.NameToLayer("NPC");
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) // most of this code should be changed but there is no time
     {
         if (checksForNpc)
         {
             if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
-                if(needsKey && _hasKey)
+                if(needsKey && _hasKey && !collision.gameObject.GetComponent<NPCAwarness>().IsTeacher())
                 {
                     OpenDoor();
                 } else if(needsKey && !_hasKey)
@@ -57,7 +57,7 @@ public class DoorObject : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("NPC") && collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
-                CloseDoor();
+                //CloseDoor();
             }
         }
         

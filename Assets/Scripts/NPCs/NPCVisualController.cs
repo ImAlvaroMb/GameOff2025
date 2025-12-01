@@ -58,8 +58,11 @@ public class NPCVisualController : MonoBehaviour
             immuneAreaObj.SetActive(true);
         } else
         {
-            hatObj.SetActive(false);
-            immuneAreaObj.SetActive(false);
+            if(hatObj != null)
+            {
+                hatObj.SetActive(false);
+                immuneAreaObj?.SetActive(false);
+            }
         }
     }
 

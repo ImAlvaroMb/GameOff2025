@@ -1186,9 +1186,18 @@ MonoBehaviour:
     Pitch: 1
     MaxDistance: 0
     SpatialBlend: 0
+  - Name: LOREMUSIC
+    Clip: {fileID: 8300000, guid: 4b8606c817d2bde4480e4edbb8230d8c, type: 3}
+    Volume: 0.5
+    Source: {fileID: 0}
+    Loop: 1
+    Pitch: 1
+    MaxDistance: 0
+    SpatialBlend: 0
   PlayOnStart:
     m_PersistentCalls:
       m_Calls: []
+  songToPlay: 15
 --- !u!1 &8114922530745853040
 GameObject:
   m_ObjectHideFlags: 0

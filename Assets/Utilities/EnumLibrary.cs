@@ -83,7 +83,10 @@ namespace Enums
         UICLICK,
         UIHOVER,
         LORENEXT,
-        LORESCROLL
+        LORESCROLL,
+        GAMEMUSIC,
+        LOREMUSIC,
+        MENUMUSIC
     }
     
 }

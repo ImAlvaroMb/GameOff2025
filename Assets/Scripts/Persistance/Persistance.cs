@@ -18,4 +18,10 @@ public class Persistance : MonoBehaviour
         PlayerPrefs.SetInt(LEVEL_KEY, 7);
         PlayerPrefs.Save();
     }
+
+    public void RemoveProgress()
+    {
+        PlayerPrefs.SetInt(LEVEL_KEY, 0);
+        PlayerPrefs.Save();
+    }
 }

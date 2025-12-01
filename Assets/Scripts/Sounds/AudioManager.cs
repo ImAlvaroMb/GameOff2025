@@ -16,6 +16,9 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
     private float _volume = 0.5f;
     private const string VOLUME_KEY = "MasterVolume";
     public UnityEvent PlayOnStart;
+    public SoundName songToPlay;
+    private GameObject currentSongObj;
+    private float songProgressOnPause = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +43,37 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
         PlayOnStart.Invoke();
         _volume = PlayerPrefs.GetFloat(VOLUME_KEY, 0.5f);
         UpdateAllActiveSoundsVolume(_volume);
+
+        PlayWithIdentifier(songToPlay, Vector3.zero, songToPlay.ToString());
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if(!focus)
+        {  
+
+        } else
+        {
+            if(currentSongObj == null) 
+            {
+                PlayWithIdentifier(songToPlay, Vector3.zero, songToPlay.ToString());
+            }
+        }
+    }
+
+    public void PlayGameMusic()
+    {
+        PlayWithIdentifier(SoundName.GAMEMUSIC, Vector3.zero, SoundName.GAMEMUSIC.ToString());
+    }
+
+    public void PlayLoreMusic()
+    {
+        PlayWithIdentifier(SoundName.LOREMUSIC, Vector3.zero, SoundName.LOREMUSIC.ToString());
+    }
+
+    public void PlayMenuMusic()
+    {
+        PlayWithIdentifier(SoundName.MENUMUSIC, Vector3.zero, SoundName.MENUMUSIC.ToString());
     }
 
     private void FixedUpdate()
@@ -59,9 +93,17 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
                     }
                     activeAudios.RemoveAt(i);
                     Destroy(obj);
+                } else
+                {
+                    GameObject obj = activeAudios[i];
+                    if(obj == currentSongObj)
+                    {
+                        songProgressOnPause = currentSongObj.GetComponent<AudioSource>().time;
+                    }
                 }
             }
         }
+
         
     }
 
@@ -140,7 +182,15 @@ public class AudioManager : AbstractSingleton<AudioManager>, IPausable
             newSource.Play();
             activeIdentificableAudios.Add(id, newObject);
             activeAudios.Add(newObject);
+
+            if (name == songToPlay.ToString())
+            {
+                currentSongObj = newObject;
+                newSource.time = songProgressOnPause;
+            }
         }
+
+       
     }
 
     public void StopSoundByIdentifier(string id)
